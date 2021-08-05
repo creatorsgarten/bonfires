@@ -2,7 +2,7 @@ import {
   IExtensionMeta,
   IEventHandlerMap,
   IExtensionEventType,
-  ExtensionEventHandlers,
+  IExtensionEventHandlers,
 } from '../@types/IExtension'
 
 type IBaseExtensionOptions = IExtensionMeta
@@ -20,7 +20,7 @@ export class Extension {
 
   on<T extends IExtensionEventType>(
     type: T,
-    handler: ExtensionEventHandlers[T]
+    handler: IExtensionEventHandlers[T]
   ) {
     if (!this.handlers[type]) {
       this.handlers[type] = []
