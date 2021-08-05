@@ -8,7 +8,7 @@ import {Event, IEventType} from '@eventkit/core'
 const program = new Command()
 
 program
-  .command('new <event-type>')
+  .command('new [event-type]')
   .description('create a new event')
   .action(createEvent)
 
@@ -29,27 +29,64 @@ interface ICreateEventOptions {
   date: string
   time?: string
   yes: boolean
+  type?: IEventType
 }
 
 async function createEvent(type: IEventType) {
   const options = program.opts<ICreateEventOptions>()
 
+  let result: Partial<ICreateEventOptions> = {}
+
   if (!options.yes) {
-    const ans = await inquirer.prompt({
+    const answer = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'title',
+        when: !options.title,
+        message: 'What is the name of the event?',
+      },
+
+      {
+        type: 'list',
+        name: 'type',
+        when: !type,
+        message: 'What kind of event is this?',
+        choices: ['conference', 'meetup', 'hackathon', 'bootcamp', 'event'],
+      },
+
+      {
+        type: 'input',
+        name: 'date',
+        when: !options.date,
+        message: 'When is the event date?',
+      },
+
+      {
+        type: 'confirm',
+        default: true,
+        name: 'online',
+        when: typeof options.online !== 'boolean',
+        message: 'Will this event be hosted online?',
+      },
+    ])
+
+    result = answer
+
+    const verify = await inquirer.prompt({
       type: 'confirm',
       name: 'confirmCreate',
-      default: false,
+      default: true,
       message: 'Would you like to do create the draft event now?',
     })
 
-    if (!ans.confirmCreate) return
+    if (!verify.confirmCreate) return
   }
 
   const event = new Event({
-    title: options.title,
-    type,
-    when: options.date,
-    online: options.online ?? false,
+    title: result.title ?? options.title,
+    type: result.type ?? type,
+    when: result.date ?? options.date,
+    online: result.online ?? options.online ?? false,
   })
 
   console.log(event)
