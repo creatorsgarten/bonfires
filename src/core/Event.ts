@@ -22,6 +22,15 @@ export class Event {
   async use(extension: IExtension) {
     await this.extension.use(extension)
   }
+
+  setStatus(status: EventStatus) {
+    this.data.status = status
+    this.extension.emit(status)
+  }
+
+  publish() {
+    this.setStatus(EventStatus.Published)
+  }
 }
 
 export const createEvent = (data: ICreateEventInput): Event => new Event(data)

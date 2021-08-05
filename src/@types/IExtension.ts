@@ -1,4 +1,5 @@
 import {Event} from '@eventkit/core'
+import {EventStatus} from './IEvent'
 
 type IEventHandler = (event: Event) => Promise<void> | void
 
@@ -7,16 +8,16 @@ interface EventHandlers {
   setup: IEventHandler
 
   /** Run after the event is created or changed back to draft mode. */
-  draft: IEventHandler
+  [EventStatus.Draft]: IEventHandler
 
   /** Run after the event is published to all social channels. */
-  published: IEventHandler
+  [EventStatus.Published]: IEventHandler
 
   /** Run after the event is live, i.e. happening right now. */
-  live: IEventHandler
+  [EventStatus.Live]: IEventHandler
 
   /** Run after the event is archived. */
-  archived: IEventHandler
+  [EventStatus.Archived]: IEventHandler
 }
 
 type EventHandlerMap = {

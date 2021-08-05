@@ -1,5 +1,10 @@
-import {Event, IExtension, IExtensionEventType} from '@eventkit/core'
-import {DuplicateExtensionError} from '@eventkit/core'
+import {
+  Event,
+  IExtension,
+  EventStatus,
+  IExtensionEventType,
+  DuplicateExtensionError,
+} from '@eventkit/core'
 
 export class ExtensionManager {
   event: Event
@@ -21,11 +26,11 @@ export class ExtensionManager {
 
     this.extensions.push({...extension, enabled: true})
 
-    await this.emit('setup', extension)
-    await this.emit('draft', extension)
+    await this.emitTo('setup', extension)
+    await this.emitTo(EventStatus.Draft, extension)
   }
 
-  async emit<T extends IExtensionEventType, U>(
+  async emitTo<T extends IExtensionEventType, U>(
     type: T,
     extension: IExtension,
     data?: U
@@ -37,6 +42,12 @@ export class ExtensionManager {
 
     for (const handler of handlers) {
       await handler(this.event, data)
+    }
+  }
+
+  async emit<T extends IExtensionEventType, U>(type: T, data?: U) {
+    for (let extension of this.extensions) {
+      await this.emitTo(type, extension, data)
     }
   }
 }
