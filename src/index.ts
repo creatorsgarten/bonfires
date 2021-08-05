@@ -1,4 +1,4 @@
-export {Event} from './core/Event'
+export {Event, createEvent} from './core/Event'
 export {ExtensionManager} from './core/ExtensionManager'
 
 export {DuplicateExtensionError} from './errors/DuplicateExtensionError'

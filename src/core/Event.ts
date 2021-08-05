@@ -23,3 +23,5 @@ export class Event {
     await this.extension.use(extension)
   }
 }
+
+export const createEvent = (data: ICreateEventInput): Event => new Event(data)
