@@ -26,7 +26,8 @@ type EventHandlerMap = {
 export type IExtensionEventType = keyof EventHandlers
 
 export interface IExtension {
-  name: string
-  enabled: boolean
+  id: string
+  title: string
+  enabled?: boolean
   on?: EventHandlerMap
 }

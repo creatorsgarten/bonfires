@@ -2,8 +2,8 @@ import {IExtension} from '@eventkit/core'
 
 export function Notion(): IExtension {
   return {
-    name: 'Notion',
-    enabled: true,
+    id: 'com.heypoom.notion-template',
+    title: 'Notion Template',
     on: {
       setup() {},
 

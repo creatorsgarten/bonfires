@@ -4,11 +4,11 @@ export class ExtensionManager {
   extensions: IExtension[] = []
 
   has(name: string) {
-    return this.extensions.some((extension) => extension.name.includes(name))
+    return this.extensions.some((extension) => extension.id === name)
   }
 
   async use(extension: IExtension) {
-    this.extensions.push(extension)
+    this.extensions.push({...extension, enabled: true})
 
     await this.emit('setup', extension)
     await this.emit('draft', extension)
