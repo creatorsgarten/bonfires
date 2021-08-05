@@ -1,5 +1,5 @@
 import {v4} from 'uuid'
-import {IExtension} from '@eventkit/core'
+import {Extension} from '@eventkit/core'
 
 import {ExtensionManager} from './ExtensionManager'
 
@@ -19,7 +19,7 @@ export class Event {
     }
   }
 
-  async use(extension: IExtension) {
+  async use(extension: Extension) {
     await this.extension.use(extension)
   }
 

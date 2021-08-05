@@ -1,5 +1,5 @@
 import {Event} from '@eventkit/core'
-import {Notion} from '@eventkit/extensions'
+import {NotionExtension} from '@eventkit/extensions'
 
 require('dotenv').config()
 
@@ -10,7 +10,7 @@ const event = new Event({
   online: true,
 })
 
-event.use(Notion())
+event.use(new NotionExtension())
 
 const ext = event.extension.get('com.heypoom.notion')
-console.log(ext?.title)
+console.log(ext?.meta.title)

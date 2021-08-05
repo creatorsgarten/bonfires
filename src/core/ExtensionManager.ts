@@ -1,6 +1,6 @@
 import {
   Event,
-  IExtension,
+  Extension,
   EventStatus,
   IExtensionEventType,
   DuplicateExtensionError,
@@ -8,27 +8,27 @@ import {
 
 export class ExtensionManager {
   event: Event
-  extensions: IExtension[] = []
+  extensions: Extension[] = []
 
   constructor(event: Event) {
     this.event = event
   }
 
   has(id: string): boolean {
-    return this.extensions.some((ext) => ext.id === id)
+    return this.extensions.some((ext) => ext.meta.id === id)
   }
 
-  get(id: string): IExtension | null {
-    return this.extensions.find((ext) => ext.id === id) ?? null
+  get(id: string): Extension | null {
+    return this.extensions.find((ext) => ext.meta.id === id) ?? null
   }
 
-  async use(extension: IExtension) {
+  async use(extension: Extension) {
     // Prevent adding duplicate extensions.
-    if (this.has(extension.id)) {
+    if (this.has(extension.meta.id)) {
       throw new DuplicateExtensionError(extension)
     }
 
-    this.extensions.push({...extension, enabled: true})
+    this.extensions.push(extension)
 
     await this.emitTo('setup', extension)
     await this.emitTo(EventStatus.Draft, extension)
@@ -36,10 +36,10 @@ export class ExtensionManager {
 
   async emitTo<T extends IExtensionEventType, U>(
     type: T,
-    extension: IExtension,
+    extension: Extension,
     data?: U
   ) {
-    const handler = extension.on?.[type]
+    const handler = extension.handlers?.[type]
     if (!handler) return
 
     const handlers = Array.isArray(handler) ? handler : [handler]

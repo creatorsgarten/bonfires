@@ -3,7 +3,7 @@ import {EventStatus} from './IEvent'
 
 type IEventHandler = (event: Event) => Promise<void> | void
 
-interface EventHandlers {
+export interface ExtensionEventHandlers {
   /** Run after the extension is registered with the event. */
   setup: IEventHandler
 
@@ -20,15 +20,13 @@ interface EventHandlers {
   [EventStatus.Archived]: IEventHandler
 }
 
-type EventHandlerMap = {
-  [K in keyof EventHandlers]?: EventHandlers[K] | EventHandlers[K][]
-}
-
-export type IExtensionEventType = keyof EventHandlers
-
-export interface IExtension {
+export interface IExtensionMeta {
   id: string
   title: string
-  enabled?: boolean
-  on?: EventHandlerMap
 }
+
+export type IEventHandlerMap = {
+  [K in keyof ExtensionEventHandlers]?: ExtensionEventHandlers[K][]
+}
+
+export type IExtensionEventType = keyof ExtensionEventHandlers
