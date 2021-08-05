@@ -14,8 +14,12 @@ export class ExtensionManager {
     this.event = event
   }
 
-  has(name: string) {
-    return this.extensions.some((extension) => extension.id === name)
+  has(id: string): boolean {
+    return this.extensions.some((ext) => ext.id === id)
+  }
+
+  get(id: string): IExtension | null {
+    return this.extensions.find((ext) => ext.id === id) ?? null
   }
 
   async use(extension: IExtension) {

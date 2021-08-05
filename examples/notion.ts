@@ -11,3 +11,6 @@ const event = new Event({
 })
 
 event.use(Notion())
+
+const ext = event.extension.get('com.heypoom.notion')
+console.log(ext?.title)

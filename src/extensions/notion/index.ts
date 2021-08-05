@@ -11,12 +11,11 @@ export function Notion(
   ctx = createNotionContext(options.token)
 ): IExtension {
   return {
-    id: 'com.heypoom.notion-template',
+    id: 'com.heypoom.notion',
     title: 'Notion Template',
     on: {
       async setup() {
         const users = await ctx.getUsers()
-
         console.log(users)
       },
     },
