@@ -1,7 +1,7 @@
-import {Event} from '@eventkit/core'
-import {Notion} from '@eventkit/extensions'
-
 import {Client} from '@notionhq/client'
+
+import {Event, IExtension} from '@eventkit/core'
+import {INotionContext, Notion} from '@eventkit/extensions'
 
 export const mockEvent = () =>
   new Event({
@@ -11,5 +11,11 @@ export const mockEvent = () =>
     online: true,
   })
 
-export const mockNotionPlugin = () =>
-  Notion({}, {client: new Client(), getUsers: async () => ['Poom', 'Tim']})
+export function mockNotionPlugin(): IExtension {
+  const context: INotionContext = {
+    client: new Client({baseUrl: 'mock'}),
+    getUsers: async () => ['Poom', 'Tim'],
+  }
+
+  return Notion({}, context)
+}

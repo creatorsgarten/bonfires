@@ -5,12 +5,12 @@ interface IOptions {
   token?: string
 }
 
-interface IContext {
+export interface INotionContext {
   client: Client
   getUsers(): Promise<string[]>
 }
 
-const createContext = (notionToken?: string): IContext => ({
+const createContext = (notionToken?: string): INotionContext => ({
   client: new Client({auth: notionToken ?? process.env['NOTION_TOKEN']}),
 
   async getUsers() {
