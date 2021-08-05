@@ -23,6 +23,8 @@
   },
   "scripts": {
     "test": "jest",
-    "examples:notion": "ts-node -r tsconfig-paths/register examples/notion.ts"
+    "run-ts": "ts-node -r tsconfig-paths/register",
+    "examples:notion": "yarn run-ts examples/notion",
+    "examples:congratulate": "yarn run-ts examples/congratulate"
   }
 }
