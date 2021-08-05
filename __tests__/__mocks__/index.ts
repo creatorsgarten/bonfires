@@ -14,7 +14,7 @@ export const mockEvent = () =>
 export function mockNotionPlugin(): IExtension {
   const context: INotionContext = {
     client: new Client({baseUrl: 'mock'}),
-    getUsers: async () => ['Poom', 'Tim'],
+    getUsers: async () => [{id: 'ok', type: 'person', object: 'user', name: 'Phoomparin Mano', person: {email: 'poom@hey.com'}],
   }
 
   return Notion({}, context)

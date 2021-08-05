@@ -1,13 +1,17 @@
 import {IExtension} from '@eventkit/core'
 import {Client} from '@notionhq/client'
 
+import type {User} from '@notionhq/client/build/src/api-types'
+
+export type NotionUser = User
+
 interface IOptions {
   token?: string
 }
 
 export interface INotionContext {
   client: Client
-  getUsers(): Promise<string[]>
+  getUsers(): Promise<User[]>
 }
 
 const createContext = (notionToken?: string): INotionContext => ({
@@ -16,7 +20,7 @@ const createContext = (notionToken?: string): INotionContext => ({
   async getUsers() {
     const query = await this.client.users.list()
 
-    return query.results.map((u) => u.name ?? u.id)
+    return query.results
   },
 })
 
@@ -30,7 +34,8 @@ export function Notion(
     on: {
       async setup() {
         const users = await ctx.getUsers()
-        users //?
+
+        console.log(users)
       },
     },
   }

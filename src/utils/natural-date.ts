@@ -1,5 +1,5 @@
 import {IEventDateTimeInput} from '../@types/IEvent'
 
 export const parseNaturalDate = (
-  input: IEventDateTimeInput
+  _input: IEventDateTimeInput
 ): Date | [Date, Date] => new Date()
