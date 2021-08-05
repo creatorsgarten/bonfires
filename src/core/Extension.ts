@@ -26,6 +26,6 @@ export class Extension {
       this.handlers[type] = []
     }
 
-    this.handlers[type]?.push(handler)
+    this.handlers[type]?.push(handler.bind(this))
   }
 }
