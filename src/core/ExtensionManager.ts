@@ -1,13 +1,24 @@
-import {IExtension, IExtensionEventType} from '@eventkit/core'
+import {Event, IExtension, IExtensionEventType} from '@eventkit/core'
+import {DuplicateExtensionError} from '@eventkit/core'
 
 export class ExtensionManager {
+  event: Event
   extensions: IExtension[] = []
+
+  constructor(event: Event) {
+    this.event = event
+  }
 
   has(name: string) {
     return this.extensions.some((extension) => extension.id === name)
   }
 
   async use(extension: IExtension) {
+    // Prevent adding duplicate extensions.
+    if (this.has(extension.id)) {
+      throw new DuplicateExtensionError(extension)
+    }
+
     this.extensions.push({...extension, enabled: true})
 
     await this.emit('setup', extension)
@@ -25,7 +36,7 @@ export class ExtensionManager {
     let handlers = Array.isArray(handler) ? handler : [handler]
 
     for (const handler of handlers) {
-      await handler(this, data)
+      await handler(this.event, data)
     }
   }
 }

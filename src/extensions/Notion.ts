@@ -7,9 +7,7 @@ export function Notion(): IExtension {
     on: {
       setup() {},
 
-      draft: async (event) => {
-        console.log(event.extension)
-      },
+      draft: async (event) => {},
     },
   }
 }

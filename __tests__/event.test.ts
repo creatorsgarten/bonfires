@@ -11,5 +11,8 @@ describe('Event', () => {
     })
 
     event.use(Notion())
+    event.use(Notion()).catch((error) => {
+      error.message //?
+    })
   })
 })

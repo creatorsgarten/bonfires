@@ -8,7 +8,7 @@ import {IEvent, EventStatus, ICreateEventInput} from '../@types/IEvent'
 
 export class Event {
   data: IEvent
-  extension = new ExtensionManager()
+  extension = new ExtensionManager(this)
 
   constructor(input: ICreateEventInput) {
     this.data = {
@@ -20,6 +20,6 @@ export class Event {
   }
 
   async use(extension: IExtension) {
-    this.extension.use(extension)
+    await this.extension.use(extension)
   }
 }
