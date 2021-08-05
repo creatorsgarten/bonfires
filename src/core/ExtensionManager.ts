@@ -38,7 +38,7 @@ export class ExtensionManager {
     const handler = extension.on?.[type]
     if (!handler) return
 
-    let handlers = Array.isArray(handler) ? handler : [handler]
+    const handlers = Array.isArray(handler) ? handler : [handler]
 
     for (const handler of handlers) {
       await handler(this.event, data)

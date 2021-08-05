@@ -1,18 +1,11 @@
-import {Event, EventStatus} from '@eventkit/core'
-import {Notion} from '@eventkit/extensions'
+import {EventStatus} from '@eventkit/core'
 
-const mockEvent = () =>
-  new Event({
-    title: 'GraphQL Meetup 10.0',
-    type: 'meetup',
-    when: ['19 August', '20 August'],
-    online: true,
-  })
+import {mockEvent, mockNotionPlugin} from './__mocks__'
 
 describe('Event', () => {
   it('should be able to publish the event', () => {
     const event = mockEvent()
-    event.use(Notion())
+    event.use(mockNotionPlugin())
 
     expect(event.data.status).toBe(EventStatus.Draft)
 

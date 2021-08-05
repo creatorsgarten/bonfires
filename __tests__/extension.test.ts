@@ -1,17 +1,13 @@
-import {DuplicateExtensionError, Event} from '@eventkit/core'
-import {Notion} from '@eventkit/extensions'
+import {DuplicateExtensionError} from '@eventkit/core'
+
+import {mockEvent, mockNotionPlugin} from './__mocks__'
 
 describe('Extension Manager', () => {
   it('should throw an error on duplicate extension', async () => {
-    const event = new Event({
-      title: 'GraphQL Meetup 10.0',
-      type: 'meetup',
-      when: new Date(),
-    })
+    const event = mockEvent()
+    event.use(mockNotionPlugin())
 
-    event.use(Notion())
-
-    const promise = event.use(Notion())
+    const promise = event.use(mockNotionPlugin())
     await expect(promise).rejects.toBeInstanceOf(DuplicateExtensionError)
   })
 })
