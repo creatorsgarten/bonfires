@@ -7,7 +7,7 @@ export {createExtension} from './utils/create-extension'
 
 export {DuplicateExtensionError} from './errors/DuplicateExtensionError'
 
-export {EventStatus, IEvent} from './@types/IEvent'
+export {EventStatus, IEvent, IEventType} from './@types/IEvent'
 
 export type {
   IExtensionEventType,

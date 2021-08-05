@@ -8,6 +8,7 @@
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-typescript": "^7.15.0",
     "@notionhq/client": "^0.2.4",
+    "@types/inquirer": "^7.3.3",
     "@types/jest": "^26.0.24",
     "@types/uuid": "^8.3.1",
     "babel-jest": "^27.0.6",
@@ -25,6 +26,12 @@
     "test": "jest",
     "run-ts": "ts-node -r tsconfig-paths/register",
     "examples:notion": "yarn run-ts examples/notion",
-    "examples:congratulate": "yarn run-ts examples/congratulate"
+    "examples:congratulate": "yarn run-ts examples/congratulate",
+    "cli": "yarn run-ts packages/cli"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^8.1.0",
+    "inquirer": "^8.1.2"
   }
 }

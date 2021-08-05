@@ -2,10 +2,10 @@
 
 Event logistics is boring. Let's automate all of them.
 
-## Usage
+## CLI Usage
 
 ```bash
-event new meetup --title "GraphQL Meetup 10.0" --online --stream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
+eventkit new meetup --title "GraphQL Meetup 10.0" --online --livestream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
 ```
 
 ### Extension and Integration Ideas
