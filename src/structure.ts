@@ -71,37 +71,43 @@ interface IAction {
 
 interface SysEvents {
   '@init': undefined
+  '@run': []
+  '@changed': []
 }
 
 type IMap = Record<string, any>
 type MaybeAsync<T> = T | Promise<T>
-type Reducer<S, P> = (state: S, payload: P) => MaybeAsync<S | void>
+type Reducer<S, P> = (state: S, data: P) => MaybeAsync<S | void>
 
-export const createStore = <S, EV extends IMap>(initialState: S) => {
-  type E = SysEvents & EV
-  type EventMap = {[T in keyof E]?: Reducer<S, E[T]>[]}
-  type OnFn = <T extends keyof E>(type: T, event: Reducer<S, E[T]>) => void
-  type RunFn = <T extends keyof E>(type: T, payload: E[T]) => void
+export const createStore = <State, Event extends IMap>(initialState: State) => {
+  type A = keyof Events
+  type Events = SysEvents & Event
+
+  type Handler<T extends A> = Reducer<State, Events[T]>
+  type EventMap = {[T in A]?: Handler<T>[]}
+
+  type OnFn = <T extends A>(type: T, handler: Handler<T>) => void
+  type RunFn = <T extends A>(event: T, data: Events[T]) => void
 
   let state = initialState
-  let eventMap: EventMap = {}
+  let events: EventMap = {}
 
-  function set(nextState: S) {
+  function set(nextState: State) {
     state = nextState
   }
 
-  const on: OnFn = (type, event) => {
-    const events = eventMap[type] ?? []
+  const on: OnFn = (event, handler) => {
+    const handlers = events[event] ?? []
 
-    eventMap = {...eventMap, [type]: [...events, event]}
+    events = {...events, [event]: [...handlers, handler]}
   }
 
-  const run: RunFn = async (type, payload) => {
-    const events = eventMap[type] ?? []
-    if (events.length === 0) return
+  const run: RunFn = async (event, data) => {
+    const handlers = events[event] ?? []
+    if (handlers.length === 0) return
 
-    for (const event of events) {
-      const nextState = await event(state, payload)
+    for (const handler of handlers) {
+      const nextState = await handler(state, data)
       if (nextState === undefined) return
 
       state = nextState
