@@ -1,6 +1,7 @@
 import {isPromise} from '../utils/promise'
 
-import {HandlersMap, IModule, IStore} from '../@types/IStore'
+import {IStore, IModule} from '../@types'
+import {HandlersMap} from '../@types/IStore'
 
 export const createStore = <S, E>(modules: IModule<S, E>[]): IStore<S, E> => {
   let state: S = {} as S

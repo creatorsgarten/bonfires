@@ -1,6 +1,3 @@
-import {PrefixEvents} from '.'
-import {RootEvents} from './RootStore'
-
 export type MaybeAsync<T> = T | Promise<T>
 
 export interface SysEvents {
@@ -34,10 +31,4 @@ export interface IStore<S, E, E2 = E & SysEvents> {
 
   run: RunFn<E2>
   on: OnFn<S, E2>
-}
-
-export interface IModule<S, E> {
-  id: string
-
-  setup(store: IStore<S, E>): void
 }

@@ -1,7 +1,6 @@
 import {EventStatus} from '@eventkit/core'
-import {RootEvents, RootState} from 'src/@types/RootStore'
 
-import {IModule, PrefixEvents} from '../@types'
+import {IModule} from '../@types'
 
 export interface EventState {
   status: EventStatus
@@ -12,9 +11,7 @@ export interface EventEvents {
   [EventStatus.Live]: void
 }
 
-type IEventModule = IModule<RootState, PrefixEvents<RootEvents>>
-
-export const EventModule: IEventModule = {
+export const EventModule: IModule = {
   id: 'event',
 
   setup(store) {
@@ -24,5 +21,3 @@ export const EventModule: IEventModule = {
     on('event/live', () => ({event: {status: EventStatus.Live}}))
   },
 }
-
-EventModule.id
