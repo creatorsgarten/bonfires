@@ -1,3 +1,5 @@
+import {PrefixEvents} from './@types/utils/PrefixEvents'
+
 // Data-Driven
 interface IDateRange {
   from: Date | string
@@ -70,116 +72,36 @@ interface IAction {
   'agenda/remove': string
 }
 
-interface SysEvents {
-  '@init': any
-  '@run': any
-  '@changed': []
-}
+// const store = createStore<IAgenda, IAction>({slots: []})
+// store.on('@run', (state, data) => {
+//   data //?
+// })
 
-type IMap = Record<string, any>
-type MaybeAsync<T> = T | Promise<T>
-type Reducer<S, P> = (state: S, data: P) => MaybeAsync<S | void>
+// store.on('agenda/add', (state, slot) => ({slots: [...state.slots, slot]}))
+// store.run('agenda/add', {title: 'OK', time: timeslot('19:00', '19:10')})
 
-type HandlerMap<S, E, E2 = E & SysEvents> = {
-  [T in keyof E2]?: Reducer<S, E2[T]>
-}
+// store.state //?
 
-type HandlersMap<S, E, E2 = E & SysEvents> = {
-  [T in keyof E2]?: Reducer<S, E2[T]>[]
-}
+// interface Module<State, Events extends IMap> {
+//   state: State
+//   on: HandlerMap<State, Events>
+// }
 
-type OnFn<S, E> = <T extends keyof E>(
-  event: T,
-  handler: Reducer<S, E[T]>
-) => void
-
-type RunFn<E> = <T extends keyof E>(event: T, data: E[T]) => void
-
-interface Store<S, E, E2 = E & SysEvents> {
-  readonly state: S
-
-  get: () => S
-  set: (state: S) => void
-
-  run: RunFn<E2>
-  on: OnFn<S, E2>
-}
-
-const isPromise = <T>(data: MaybeAsync<T>): data is Promise<T> =>
-  data && 'then' in data && typeof data.then === 'function'
-
-export const createStore = <S, E extends IMap>(initialState: S) => {
-  let state = initialState
-  let events: HandlersMap<S, E> = {}
-
-  const store: Store<S, E> = {
-    set(nextState) {
-      state = nextState
-    },
-
-    on(event, handler) {
-      const handlers = events[event] ?? []
-
-      events = {...events, [event]: [...handlers, handler]}
-    },
-
-    run(event, data) {
-      const handlers = events[event] ?? []
-      if (handlers.length === 0) return
-
-      for (const handler of handlers) {
-        const nextState = handler(state, data)
-        if (nextState === undefined) continue
-        if (isPromise(nextState)) continue
-
-        store.set(nextState)
-      }
-
-      if (event !== '@run') {
-        store.run('@run', [event, data])
-      }
-    },
-
-    get: () => state,
-
-    get state() {
-      return state
-    },
-  }
-
-  return store
-}
-
-const store = createStore<IAgenda, IAction>({slots: []})
-store.on('@run', (state, data) => {
-  data //?
-})
-
-store.on('agenda/add', (state, slot) => ({slots: [...state.slots, slot]}))
-store.run('agenda/add', {title: 'OK', time: timeslot('19:00', '19:10')})
-
-store.state //?
-
-interface Module<State, Events extends IMap> {
-  state: State
-  on: HandlerMap<State, Events>
-}
-
-const module: Module<IAgenda, IAction> = {
-  state: {slots: []},
-  on: {
-    'agenda/add': (state, data) => state,
-  },
-}
+// const module: Module<IAgenda, IAction> = {
+//   state: {slots: []},
+//   on: {
+//     'agenda/add': (state, data) => state,
+//   },
+// }
 
 interface BookEvents {
-  borrow: string
+  borrow: number
   return: string
-  donate: string
+  donate: boolean
 }
 
 interface UserEvents {
-  login: string
+  login: '42'
 }
 
 interface IRootEvents {
@@ -187,22 +109,9 @@ interface IRootEvents {
   user: UserEvents
 }
 
-type PrefixWithKey<T, K extends string> = {
-  [P in keyof T as `${K}/${P extends string ? P : never}`]: T[P]
-}
-
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
-  k: infer I
-) => void
-  ? I
-  : never
-
-type Result = {[K in keyof IRootEvents]: PrefixWithKey<IRootEvents[K], K>}
-type Result2 = UnionToIntersection<Result[keyof Result]>
-
-const flattened: Result2 = {
-  'book/borrow': '',
-  'book/donate': '',
-  'book/return': '',
-  'user/login': '',
+const flattened: PrefixEvents<IRootEvents> = {
+  'book/borrow': 50,
+  'book/donate': true,
+  'book/return': 'hhhhhhhh',
+  'user/login': '42',
 }
