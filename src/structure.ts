@@ -1,3 +1,5 @@
+import {isCallSignatureDeclaration} from 'typescript'
+
 // Data-Driven
 interface IDateRange {
   from: Date | string
@@ -79,6 +81,14 @@ type IMap = Record<string, any>
 type MaybeAsync<T> = T | Promise<T>
 type Reducer<S, P> = (state: S, data: P) => MaybeAsync<S | void>
 
+type HandlerMap<S, E, E2 = E & SysEvents> = {
+  [T in keyof E2]?: Reducer<S, E2[T]>
+}
+
+type HandlersMap<S, E, E2 = E & SysEvents> = {
+  [T in keyof E2]?: Reducer<S, E2[T]>[]
+}
+
 type OnFn<S, E> = <T extends keyof E>(
   event: T,
   handler: Reducer<S, E[T]>
@@ -97,14 +107,8 @@ interface Store<S, E, E2 = E & SysEvents> {
 }
 
 export const createStore = <S, E extends IMap>(initialState: S) => {
-  type Events = E & SysEvents
-  type A = keyof Events
-
-  type EventMap = {[E in A]?: Handler<E>[]}
-  type Handler<E extends A> = Reducer<S, Events[E]>
-
   let state = initialState
-  let events: EventMap = {}
+  let events: HandlersMap<S, E> = {}
 
   const store: Store<S, E> = {
     set(nextState) {
@@ -146,3 +150,15 @@ export const createStore = <S, E extends IMap>(initialState: S) => {
 const store = createStore<IAgenda, IAction>({slots: []})
 
 store.state //?
+
+interface Module<State, Events extends IMap> {
+  state: State
+  on: HandlerMap<State, Events>
+}
+
+const module: Module<IAgenda, IAction> = {
+  state: {slots: []},
+  on: {
+    'agenda/add': (state, data) => state,
+  },
+}
