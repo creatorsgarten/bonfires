@@ -1,5 +1,7 @@
 import {EventStatus} from '@eventkit/core'
 
+import {IStore} from './@types/IStore'
+
 interface EventState {
   status: EventStatus
 }
@@ -9,12 +11,22 @@ interface EventEvents {
   [EventStatus.Live]: string
 }
 
-const EventModule = {
-  name: 'event',
+interface IModule<S, E> {
+  id: string
+
+  setup(store: IStore<S, E>): void
+}
+
+const createModule = <S, E>(module: IModule<S, E>) => module
+
+const EventModule = createModule<EventState, EventEvents>({
+  id: 'event',
 
   setup(store) {
-    store.on('event/live', (state) => {
+    store.on(EventStatus.Live, (state) => {
       // ?
     })
   },
-}
+})
+
+EventModule.id
