@@ -73,45 +73,53 @@ interface SysEvents {
   '@init': undefined
 }
 
+type IMap = Record<string, any>
 type MaybeAsync<T> = T | Promise<T>
+type Reducer<S, P> = (state: S, payload: P) => MaybeAsync<S | void>
 
-type IReducer<S, P> = (state: S, payload: P) => MaybeAsync<S | void>
+export const createStore = <S, EV extends IMap>(initialState: S) => {
+  type E = SysEvents & EV
+  type EventMap = {[T in keyof E]?: Reducer<S, E[T]>[]}
+  type OnFn = <T extends keyof E>(type: T, event: Reducer<S, E[T]>) => void
+  type RunFn = <T extends keyof E>(type: T, payload: E[T]) => void
 
-class Store<S, EV extends Record<string, any>, E = SysEvents & EV> {
-  state: S
-  events: {[T in keyof E]?: IReducer<S, E[T]>[]} = {}
+  let state = initialState
+  let eventMap: EventMap = {}
 
-  constructor(initialState: S) {
-    this.state = initialState
+  function set(nextState: S) {
+    state = nextState
   }
 
-  get = () => this.state
+  const on: OnFn = (type, event) => {
+    const events = eventMap[type] ?? []
 
-  set(state: S) {
-    this.state = state
+    eventMap = {...eventMap, [type]: [...events, event]}
   }
 
-  on<T extends keyof E>(type: T, event: IReducer<S, E[T]>) {
-    const events = this.events[type] ?? []
-
-    this.events = {...this.events, [type]: [...events, event]}
-  }
-
-  async run<T extends keyof E>(type: T, payload: E[T]) {
-    const events = this.events[type] ?? []
+  const run: RunFn = async (type, payload) => {
+    const events = eventMap[type] ?? []
     if (events.length === 0) return
 
     for (const event of events) {
-      const state = await event(this.state, payload)
-      if (state === undefined) return
+      const nextState = await event(state, payload)
+      if (nextState === undefined) return
 
-      this.state = state
+      state = nextState
     }
   }
-}
 
-const createStore = <State, Events>(initialState: State) =>
-  new Store<State, Events>(initialState)
+  return {
+    on,
+    run,
+
+    set,
+    get: () => state,
+
+    get state() {
+      return state
+    },
+  }
+}
 
 const store = createStore<IAgenda, IAction>({slots: []})
 
@@ -121,8 +129,6 @@ store.on('agenda/remove', async (state, id) => {
 
   return
 })
-
-store.state //?
 
 store.run('agenda/add', {
   title: 'Speaker 2',
