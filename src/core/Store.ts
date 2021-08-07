@@ -41,7 +41,7 @@ export const createStore = <S, E>(initialState: S): IStore<S, E> => {
     },
   }
 
-  store.run('@init', undefined)
+  store.run('@setup', undefined)
 
   return store
 }

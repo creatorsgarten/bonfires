@@ -1,7 +1,7 @@
 export type MaybeAsync<T> = T | Promise<T>
 
 export interface SysEvents {
-  '@init': any
+  '@setup': any
   '@run': any
   '@changed': []
 }
