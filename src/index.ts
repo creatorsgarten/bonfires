@@ -14,3 +14,5 @@ export type {
   IExtensionMeta,
   IExtensionEventHandlers,
 } from './@types/IExtension'
+
+export type {RootStateOf} from './@types/utils/RootStateOf'

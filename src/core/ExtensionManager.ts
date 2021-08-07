@@ -7,7 +7,7 @@ import {
 } from '@eventkit/core'
 
 type Constructor<T extends {} = {}> = new (...args: any[]) => T
-type ExtClass<T> = Constructor<Extension<T>>
+type ExtensionClass = Constructor<Extension<any, any>>
 
 export class ExtensionManager {
   event: Event
@@ -18,17 +18,17 @@ export class ExtensionManager {
   }
 
   has(id: string): boolean {
-    return this.extensions.some((ext) => ext.meta.id === id)
+    return this.extensions.some((ext) => ext.id === id)
   }
 
   getById<T extends Extension>(id: string): T | null {
-    const extension = this.extensions.find((ext) => ext.meta.id === id)
+    const extension = this.extensions.find((ext) => ext.id === id)
     if (!extension) return null
 
     return extension as T
   }
 
-  get<K, T extends ExtClass<K>>(extension: T): InstanceType<T> | null {
+  get<T extends ExtensionClass>(extension: T): InstanceType<T> | null {
     const ext = this.extensions.find((ext) => ext instanceof extension)
     if (!ext) return null
 
@@ -37,7 +37,7 @@ export class ExtensionManager {
 
   async use(extension: Extension) {
     // Prevent adding duplicate extensions.
-    if (this.has(extension.meta.id)) {
+    if (this.has(extension.id)) {
       throw new DuplicateExtensionError(extension)
     }
 
