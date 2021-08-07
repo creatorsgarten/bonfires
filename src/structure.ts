@@ -69,8 +69,6 @@ interface IAction {
   'agenda/remove': string
 }
 
-type RunPair<E, T extends keyof E> = [T, E[T]]
-
 interface SysEvents {
   '@init': any
   '@run': any
@@ -81,14 +79,21 @@ type IMap = Record<string, any>
 type MaybeAsync<T> = T | Promise<T>
 type Reducer<S, P> = (state: S, data: P) => MaybeAsync<S | void>
 
-interface Store<S, E, EE = E & SysEvents> {
+type OnFn<S, E> = <T extends keyof E>(
+  event: T,
+  handler: Reducer<S, E[T]>
+) => void
+
+type RunFn<E> = <T extends keyof E>(event: T, data: E[T]) => void
+
+interface Store<S, E, E2 = E & SysEvents> {
   readonly state: S
 
   get: () => S
   set: (state: S) => void
 
-  run: <T extends keyof EE>(event: T, data: EE[T]) => void
-  on: <T extends keyof EE>(event: T, handler: Reducer<S, EE[T]>) => void
+  run: RunFn<E2>
+  on: OnFn<S, E2>
 }
 
 export const createStore = <S, E extends IMap>(initialState: S) => {
