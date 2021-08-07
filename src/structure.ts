@@ -1,5 +1,3 @@
-import {PrefixEvents} from './@types/utils/PrefixEvents'
-
 // Data-Driven
 interface IDateRange {
   from: Date | string
@@ -65,53 +63,4 @@ const event2: IEventState = {
       },
     ],
   },
-}
-
-interface IAction {
-  'agenda/add': IAgendaSlot
-  'agenda/remove': string
-}
-
-// const store = createStore<IAgenda, IAction>({slots: []})
-// store.on('@run', (state, data) => {
-//   data //?
-// })
-
-// store.on('agenda/add', (state, slot) => ({slots: [...state.slots, slot]}))
-// store.run('agenda/add', {title: 'OK', time: timeslot('19:00', '19:10')})
-
-// store.state //?
-
-// interface Module<State, Events extends IMap> {
-//   state: State
-//   on: HandlerMap<State, Events>
-// }
-
-// const module: Module<IAgenda, IAction> = {
-//   state: {slots: []},
-//   on: {
-//     'agenda/add': (state, data) => state,
-//   },
-// }
-
-interface BookEvents {
-  borrow: number
-  return: string
-  donate: boolean
-}
-
-interface UserEvents {
-  login: '42'
-}
-
-interface IRootEvents {
-  book: BookEvents
-  user: UserEvents
-}
-
-const flattened: PrefixEvents<IRootEvents> = {
-  'book/borrow': 50,
-  'book/donate': true,
-  'book/return': 'hhhhhhhh',
-  'user/login': '42',
 }

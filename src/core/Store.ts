@@ -1,9 +1,9 @@
 import {isPromise} from '../utils/promise'
 
-import {HandlersMap, IStore} from '../@types/IStore'
+import {HandlersMap, IModule, IStore} from '../@types/IStore'
 
-export const createStore = <S, E>(initialState: S): IStore<S, E> => {
-  let state = initialState
+export const createStore = <S, E>(modules: IModule<S, E>[]): IStore<S, E> => {
+  let state: S = {} as S
   let events: HandlersMap<S, E> = {}
 
   const store: IStore<S, E> = {
@@ -39,6 +39,10 @@ export const createStore = <S, E>(initialState: S): IStore<S, E> => {
     get state() {
       return state
     },
+  }
+
+  for (const module of modules) {
+    module.setup(store)
   }
 
   store.run('@setup', undefined)

@@ -1,31 +1,20 @@
 import {EventStatus} from '@eventkit/core'
+import {RootEvents} from 'src/@types/RootStore'
 
-import {IStore, PrefixEvents} from '../@types'
+import {IModule, PrefixEvents} from '../@types'
 
-interface RootState {
-  event: EventState
-}
-
-interface RootEvents {
-  event: EventEvents
-}
-
-interface EventState {
+export interface EventState {
   status: EventStatus
 }
 
-interface EventEvents {
+export interface EventEvents {
   [EventStatus.Draft]: string
   [EventStatus.Live]: string
 }
 
-interface IModule<S> {
-  id: string
+type IEventModule = IModule<EventState, PrefixEvents<RootEvents>>
 
-  setup(store: IStore<S, PrefixEvents<RootEvents>>): void
-}
-
-const EventModule: IModule<EventState> = {
+const EventModule: IEventModule = {
   id: 'event',
 
   setup(store) {
