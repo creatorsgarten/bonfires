@@ -69,9 +69,11 @@ interface IAction {
   'agenda/remove': string
 }
 
+type RunPair<E, T extends keyof E> = [T, E[T]]
+
 interface SysEvents {
-  '@init': undefined
-  '@run': []
+  '@init': any
+  '@run': any
   '@changed': []
 }
 
@@ -79,68 +81,63 @@ type IMap = Record<string, any>
 type MaybeAsync<T> = T | Promise<T>
 type Reducer<S, P> = (state: S, data: P) => MaybeAsync<S | void>
 
-export const createStore = <State, Event extends IMap>(initialState: State) => {
+interface Store<S, E, EE = E & SysEvents> {
+  readonly state: S
+
+  get: () => S
+  set: (state: S) => void
+
+  run: <T extends keyof EE>(event: T, data: EE[T]) => void
+  on: <T extends keyof EE>(event: T, handler: Reducer<S, EE[T]>) => void
+}
+
+export const createStore = <S, E extends IMap>(initialState: S) => {
+  type Events = E & SysEvents
   type A = keyof Events
-  type Events = SysEvents & Event
 
-  type Handler<T extends A> = Reducer<State, Events[T]>
-  type EventMap = {[T in A]?: Handler<T>[]}
-
-  type OnFn = <T extends A>(type: T, handler: Handler<T>) => void
-  type RunFn = <T extends A>(event: T, data: Events[T]) => void
+  type EventMap = {[E in A]?: Handler<E>[]}
+  type Handler<E extends A> = Reducer<S, Events[E]>
 
   let state = initialState
   let events: EventMap = {}
 
-  function set(nextState: State) {
-    state = nextState
-  }
-
-  const on: OnFn = (event, handler) => {
-    const handlers = events[event] ?? []
-
-    events = {...events, [event]: [...handlers, handler]}
-  }
-
-  const run: RunFn = async (event, data) => {
-    const handlers = events[event] ?? []
-    if (handlers.length === 0) return
-
-    for (const handler of handlers) {
-      const nextState = await handler(state, data)
-      if (nextState === undefined) return
-
+  const store: Store<S, E> = {
+    set(nextState) {
       state = nextState
-    }
-  }
+    },
 
-  return {
-    on,
-    run,
+    on(event, handler) {
+      const handlers = events[event] ?? []
 
-    set,
+      events = {...events, [event]: [...handlers, handler]}
+    },
+
+    async run(event, data) {
+      const handlers = events[event] ?? []
+      if (handlers.length === 0) return
+
+      for (const handler of handlers) {
+        const nextState = await handler(state, data)
+        if (nextState === undefined) return
+
+        state = nextState
+      }
+
+      if (event !== '@run') {
+        store.run('@run', [event, data])
+      }
+    },
+
     get: () => state,
 
     get state() {
       return state
     },
   }
+
+  return store
 }
 
 const store = createStore<IAgenda, IAction>({slots: []})
-
-store.on('agenda/add', (state, slot) => ({slots: [...state.slots, slot]}))
-store.on('agenda/remove', async (state, id) => {
-  store.set(state)
-
-  return
-})
-
-store.run('agenda/add', {
-  title: 'Speaker 2',
-  time: timeslot('19:50', '20:00'),
-})
-
-store.run('@init', undefined)
 
 store.state //?
