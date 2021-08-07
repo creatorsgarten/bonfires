@@ -1,6 +1,6 @@
 export {Event, createEvent} from './core/Event'
 
-export {Extension} from './core/Extension'
+export {Extension, id, meta} from './core/Extension'
 export {ExtensionManager} from './core/ExtensionManager'
 
 export {createExtension} from './utils/create-extension'

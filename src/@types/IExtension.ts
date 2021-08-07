@@ -21,7 +21,6 @@ export interface IExtensionEventHandlers {
 }
 
 export interface IExtensionMeta {
-  id: string
   title: string
 }
 

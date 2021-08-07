@@ -1,13 +1,14 @@
-import {Extension, IExtensionMeta, EventStatus} from '@eventkit/core'
-
-const manifest: IExtensionMeta = {
-  id: 'com.heypoom.congratulate',
-  title: 'Congratulations!',
-}
+import {Extension, EventStatus, meta, id} from '@eventkit/core'
 
 export class CongratulateExtension extends Extension {
+  id = id('congratulate')
+
+  meta = meta({
+    title: 'Congratulations!',
+  })
+
   constructor() {
-    super(manifest)
+    super()
 
     this.on(EventStatus.Published, () => {
       console.log('Event is now PUBLISHED! Event day is coming soon!')

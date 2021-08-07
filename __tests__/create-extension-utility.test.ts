@@ -7,8 +7,8 @@ describe('createExtension Utility', () => {
     const event = mockEvent()
 
     const PublishExtension = createExtension({
+      id: 'test.autopublish',
       title: 'Auto Publish',
-      id: 'com.heypoom.autopublish',
       on: {setup: (event) => event.publish()},
     })
 

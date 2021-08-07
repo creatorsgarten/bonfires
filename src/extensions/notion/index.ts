@@ -1,4 +1,4 @@
-import {Extension, IExtensionMeta} from '@eventkit/core'
+import {Extension, id, IExtensionMeta, meta} from '@eventkit/core'
 
 import {createNotionContext, INotionContext} from './context'
 
@@ -6,18 +6,15 @@ interface IOptions {
   token?: string
 }
 
-const manifest: IExtensionMeta = {
-  id: 'com.heypoom.notion',
-  title: 'Notion Integration',
-}
-
 export class NotionExtension extends Extension {
+  id = id('notion')
+  meta = meta({title: 'Notion Integration'})
+
   ctx: INotionContext
 
   constructor(options: IOptions = {}) {
-    super(manifest)
+    super()
     this.ctx = createNotionContext(options.token)
-
     this.on('setup', this.onSetup)
   }
 

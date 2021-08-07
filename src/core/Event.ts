@@ -10,6 +10,16 @@ export class Event {
   data: IEvent
   extension = new ExtensionManager(this)
 
+  get state() {
+    const data = {...this.data}
+
+    for (const ext of this.extension.extensions) {
+      ext.id
+    }
+
+    return data
+  }
+
   constructor(input: ICreateEventInput) {
     this.data = {
       ...input,
@@ -19,9 +29,7 @@ export class Event {
     }
   }
 
-  async use(extension: Extension) {
-    await this.extension.use(extension)
-  }
+  use = (extension: Extension) => this.extension.use(extension)
 
   setStatus(status: EventStatus) {
     this.data.status = status

@@ -5,16 +5,17 @@ import {
   IExtensionEventHandlers,
 } from '../@types/IExtension'
 
-type IBaseExtensionOptions = IExtensionMeta
+export const id = <K extends string>(key: K): K => key
+export const meta = (m: IExtensionMeta) => m
 
-export class Extension {
-  meta: IExtensionMeta
+export abstract class Extension<ID extends string = string, T = unknown> {
+  abstract id: ID
+  abstract meta: IExtensionMeta
+
+  data: T | null = {} as T
   handlers: IEventHandlerMap
 
-  constructor(options: IBaseExtensionOptions) {
-    const {id, title} = options
-
-    this.meta = {id, title}
+  constructor() {
     this.handlers = {}
   }
 

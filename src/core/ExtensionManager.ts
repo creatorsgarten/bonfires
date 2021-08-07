@@ -6,6 +6,9 @@ import {
   DuplicateExtensionError,
 } from '@eventkit/core'
 
+type Constructor<T extends {} = {}> = new (...args: any[]) => T
+type ExtClass<T> = Constructor<Extension<T>>
+
 export class ExtensionManager {
   event: Event
   extensions: Extension[] = []
@@ -18,8 +21,18 @@ export class ExtensionManager {
     return this.extensions.some((ext) => ext.meta.id === id)
   }
 
-  get(id: string): Extension | null {
-    return this.extensions.find((ext) => ext.meta.id === id) ?? null
+  getById<T extends Extension>(id: string): T | null {
+    const extension = this.extensions.find((ext) => ext.meta.id === id)
+    if (!extension) return null
+
+    return extension as T
+  }
+
+  get<K, T extends ExtClass<K>>(extension: T): InstanceType<T> | null {
+    const ext = this.extensions.find((ext) => ext instanceof extension)
+    if (!ext) return null
+
+    return ext as InstanceType<T>
   }
 
   async use(extension: Extension) {

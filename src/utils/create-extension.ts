@@ -4,12 +4,20 @@ import {
   IExtensionEventHandlers,
 } from '@eventkit/core'
 
-type IOptions = IExtensionMeta & {on?: Partial<IExtensionEventHandlers>}
+type IOptions<K extends string> = IExtensionMeta & {
+  id: K
+  on?: Partial<IExtensionEventHandlers>
+}
 
-export function createExtension(options: IOptions) {
+export function createExtension<K extends string>(options: IOptions<K>) {
+  const {title} = options
+
   const SimpleExtension = class extends Extension {
+    id = options.id
+    meta = {title}
+
     constructor() {
-      super(options)
+      super()
 
       for (let event in options.on) {
         let type = event as keyof IExtensionEventHandlers
