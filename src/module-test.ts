@@ -1,4 +1,5 @@
 import {ConditionalExcept} from 'type-fest'
+import {PrefixEvents} from './@types'
 
 interface IModule<E, S, ID extends string> {
   id: ID
@@ -62,6 +63,34 @@ type RR = ConditionalExcept<R, never>
 
 type RRR = {
   [K in keyof RR as RR[K]['id']]: RR[K]
+}
+
+type RState = {
+  [K in keyof RRR]: RRR[K] extends IModule<infer S, infer E, infer ID>
+    ? S
+    : never
+}
+
+type REvents = PrefixEvents<
+  {
+    [K in keyof RRR]: RRR[K] extends IModule<infer S, infer E, infer ID>
+      ? E
+      : never
+  }
+>
+
+const rootState: RState = {
+  notion: {
+    token: '',
+  },
+  agenda: {
+    time: '',
+  },
+}
+
+const rootEvents: REvents = {
+  'agenda/add': 1024,
+  'notion/createPage': '42',
 }
 
 type K = MT[0]
