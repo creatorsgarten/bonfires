@@ -60,6 +60,11 @@ type CombineModule<
   }
 > = MD
 
+type RootModuleOf<M extends Record<any, IModule<any, any, any>>> = {
+  state: StateOf<M>
+  events: EventsOf<M>
+}
+
 function combineModules<M extends any[]>(...modules: M): CombineModule<M> {
   return modules as any
 }
@@ -68,8 +73,10 @@ const cz = combineModules(NotionModule, AgendaModule)
 type Rz = typeof cz
 
 type KKK = CombineModule<MT>
+
 type RState = StateOf<KKK>
 type REvents = EventsOf<KKK>
+type RModule = RootModuleOf<CombineModule<MT>>
 
 type StateOf<RRR> = {
   [K in keyof RRR]: RRR[K] extends IModule<infer S, infer E, infer ID>
@@ -98,6 +105,8 @@ const rootEvents: REvents = {
   'agenda/add': 1024,
   'notion/createPage': '42',
 }
+
+const rootModule: RModule = {state: rootState, events: rootEvents}
 
 type K = MT[0]
 
