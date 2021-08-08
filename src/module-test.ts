@@ -51,27 +51,33 @@ type ModuleTuple = MT[number] extends IModule<infer S, infer E, infer ID>
   ? [S, E, ID]
   : never
 
-type R = {
-  [K in keyof MT]: K extends string
-    ? MT[K] extends MT[number]
-      ? MT[K]
-      : never
-    : never
+type NameOf<M> = M extends IModule<any, any, infer ID> ? ID : never
+
+type CombineModule<
+  MA extends any[],
+  MD = {
+    [K in keyof MA as NameOf<MA[K]>]: K extends string ? MA[K] : never
+  }
+> = MD
+
+function combineModules<M extends any[]>(...modules: M): CombineModule<M> {
+  return modules as any
 }
 
-type RR = ConditionalExcept<R, never>
+const cz = combineModules(NotionModule, AgendaModule)
+type Rz = typeof cz
 
-type RRR = {
-  [K in keyof RR as RR[K]['id']]: RR[K]
-}
+type KKK = CombineModule<MT>
+type RState = StateOf<KKK>
+type REvents = EventsOf<KKK>
 
-type RState = {
+type StateOf<RRR> = {
   [K in keyof RRR]: RRR[K] extends IModule<infer S, infer E, infer ID>
     ? S
     : never
 }
 
-type REvents = PrefixEvents<
+type EventsOf<RRR> = PrefixEvents<
   {
     [K in keyof RRR]: RRR[K] extends IModule<infer S, infer E, infer ID>
       ? E
@@ -81,10 +87,10 @@ type REvents = PrefixEvents<
 
 const rootState: RState = {
   notion: {
-    token: 'xoxb-notion-token-helloworld',
+    token: 'xoxb-notion-token-hello',
   },
   agenda: {
-    time: new Date('11/07/2001 18:54'),
+    time: new Date(),
   },
 }
 
