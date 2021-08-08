@@ -1,6 +1,8 @@
 export {Event, createEvent} from './core/Event'
 
 export {createStore} from './core/Store'
+export {createModule} from './core/Module'
+
 export {EventModule} from './modules/event'
 
 export {Extension, id, meta} from './core/Extension'
