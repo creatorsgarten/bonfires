@@ -1,5 +1,5 @@
 import {createModule} from '.'
-import {IModule} from './@types'
+import {IModule, IStore} from './@types'
 import {CombineModule, StateOf, EventsOf, RootModuleOf} from './@types/IModule'
 
 interface INotionState {
@@ -18,84 +18,88 @@ interface IAgendaEvents {
   add: number
 }
 
-const NotionModule = createModule<INotionState, INotionEvents>()('notion', {
-  // deps: [AgendaModule],
+type IAgendaModule = IModule<IAgendaState, IAgendaEvents, 'agenda'>
 
-  setup(store) {
-    store.state.token
+type INotionModule = IModule<INotionState, INotionEvents, 'notion'>
 
-    NotionModule.id //?
+const NotionModuleX = createModule<INotionState, INotionEvents>()('notion')
 
-    store.on('createPage', (state) => {
-      return {token: 'hello'}
-    })
-  },
+const AgendaModuleX = createModule<IAgendaState, IAgendaEvents>()('agenda', {
+  uses: [NotionModuleX] as const,
 })
 
-const AgendaModule = createModule<IAgendaState, IAgendaEvents>()('agenda', {
-  uses: [NotionModule] as const,
+type CombinedStoreOf<
+  M extends IModule<any, any, any>[],
+  C = CombineModule<M>,
+  S = StateOf<C>,
+  E = EventsOf<C>
+> = IStore<S, E>
 
-  setup(store) {
-    store.state.time
+type CombinedModuleFn<M extends IModule<any, any, any>[]> = (
+  store: CombinedStoreOf<M>
+) => void
 
-    AgendaModule.id //?
+type MZ = [IAgendaModule, INotionModule]
+type CMM = CombineModule<MZ>
 
-    store.on('add', (state) => {
-      return {time: new Date()}
-    })
-  },
-})
+const combinedModule: CombinedModuleFn<MZ> = (store) => {
+  store.state.agenda.time
+  store.state.notion.token
 
-type ResultType = typeof AgendaModule
-
-type EventKitBase<E, S> = {}
-
-function event<M extends IModule<any, any, any, any>[]>(...modules: M): M {
-  return modules
+  store.on('agenda/add', (state) => state)
+  store.on('notion/createPage', (state) => state)
 }
 
-const ev = event(NotionModule, AgendaModule)
+// type ResultType = typeof AgendaModuleX
+
+// type EventKitBase<E, S> = {}
+
+// function event<M extends IModule<any, any, any, any>[]>(...modules: M): M {
+//   return modules
+// }
+
+// const ev = event(NotionModule, AgendaModule)
 
 type MT = [
   IModule<INotionState, INotionEvents, 'notion'>,
   IModule<IAgendaState, IAgendaEvents, 'agenda'>
 ]
 
-type ModuleTuple = MT[number] extends IModule<infer S, infer E, infer ID>
-  ? [S, E, ID]
-  : never
+type Combined2 = CombineModule<MT>
 
-function combineModules<M extends any[]>(...modules: M): CombineModule<M> {
-  return modules as any
-}
+// type ModuleTuple = MT[number] extends IModule<infer S, infer E, infer ID>
+//   ? [S, E, ID]
+//   : never
 
-const cz = combineModules(NotionModule, AgendaModule)
-type Rz = typeof cz
+// function combineModules<M extends any[]>(...modules: M): CombineModule<M> {
+//   return modules as any
+// }
 
-type KKK = CombineModule<MT>
+// const cz = combineModules(NotionModule, AgendaModule)
+// type Rz = typeof cz
 
-type RState = StateOf<KKK>
-type REvents = EventsOf<KKK>
-type RModule = RootModuleOf<CombineModule<MT>>
+// type RState = StateOf<KKK>
+// type REvents = EventsOf<KKK>
+// type RModule = RootModuleOf<CombineModule<MT>>
 
-const rootState: RState = {
-  notion: {
-    token: 'xoxb-notion-token-hello',
-  },
-  agenda: {
-    time: new Date(),
-  },
-}
+// const rootState: RState = {
+//   notion: {
+//     token: 'xoxb-notion-token-hello',
+//   },
+//   agenda: {
+//     time: new Date(),
+//   },
+// }
 
-const rootEvents: REvents = {
-  'agenda/add': 1024,
-  'notion/createPage': '42',
-}
+// const rootEvents: REvents = {
+//   'agenda/add': 1024,
+//   'notion/createPage': '42',
+// }
 
-const rootModule: RModule = {state: rootState, events: rootEvents}
+// const rootModule: RModule = {state: rootState, events: rootEvents}
 
-type K = MT[0]
+// type K = MT[0]
 
-type ModuleParse = {
-  [I in keyof MT]: MT['1']
-}
+// type ModuleParse = {
+//   [I in keyof MT]: MT['1']
+// }

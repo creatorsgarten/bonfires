@@ -1,22 +1,14 @@
-import {IStore, PrefixEvents} from '.'
+import {PrefixEvents} from '.'
 
-export interface IModule<
-  S,
-  E,
-  ID extends string,
-  Deps extends readonly IModule<any, any, any, any>[] = any[]
-> {
+export interface IModule<S, E, ID extends string> {
   id: ID
   initialState?: S
-  setup?(store: IStore<S, E>): void
-
-  uses?: Deps
 }
 
 export type NameOf<M> = M extends IModule<any, any, infer ID> ? ID : never
 
 export type CombineModule<
-  MA extends any[],
+  MA extends IModule<any, any, any>[],
   MD = {
     [K in keyof MA as NameOf<MA[K]>]: K extends string ? MA[K] : never
   }
