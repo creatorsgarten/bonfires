@@ -1,4 +1,4 @@
-import {PrefixEvents} from '.'
+import {IStore, PrefixEvents} from '.'
 
 export interface IModule<S, E, ID extends string> {
   id: ID
@@ -30,3 +30,16 @@ export type EventsOf<M> = PrefixEvents<
     [K in keyof M]: M[K] extends IModule<infer S, infer E, infer ID> ? E : never
   }
 >
+
+export type CombinedStoreOf<
+  M extends IModule<any, any, any>[],
+  C = CombineModule<M>,
+  S = StateOf<C>,
+  E = EventsOf<C>
+> = IStore<S, E>
+
+export type CombinedModuleFn<M extends IModule<any, any, any>[]> = (
+  store: CombinedStoreOf<M>
+) => void
+
+export type ExtractModules<F> = F extends CombinedModuleFn<infer P> ? P : never

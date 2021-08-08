@@ -7,6 +7,8 @@ export type {
   StateOf,
   EventsOf,
   RootModuleOf,
+  CombinedStoreOf,
+  CombinedModuleFn,
 } from './IModule'
 
 export type {PrefixEvents} from './utils/PrefixEvents'

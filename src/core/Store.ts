@@ -1,9 +1,17 @@
 import {isPromise} from '../utils/promise'
 
-import {IStore, IModule} from '../@types'
+import {IStore, CombinedModuleFn} from '../@types'
 import {HandlersMap} from '../@types/IStore'
+import {EventsOf, ExtractModules, StateOf} from 'src/@types/IModule'
 
-export const createStore = <S, E>(modules: IModule<S, E>[]): IStore<S, E> => {
+export const createStore = <
+  M extends any[],
+  Modules = ExtractModules<M>,
+  S = StateOf<Modules>,
+  E = EventsOf<Modules>
+>(
+  ...modules: M
+): IStore<S, E> => {
   let state: S = {} as S
   let events: HandlersMap<S, E> = {}
 
@@ -43,7 +51,7 @@ export const createStore = <S, E>(modules: IModule<S, E>[]): IStore<S, E> => {
   }
 
   for (const module of modules) {
-    module.setup(store)
+    module(store)
   }
 
   store.run('@setup', undefined)

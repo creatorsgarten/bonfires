@@ -1,7 +1,4 @@
-import {createModule} from '.'
-import {IModule, IStore} from './@types'
-import {CombineModule, StateOf, EventsOf, RootModuleOf} from './@types/IModule'
-
+import {CombinedModuleFn, IModule} from './@types'
 interface INotionState {
   token: string
 }
@@ -19,30 +16,11 @@ interface IAgendaEvents {
 }
 
 type IAgendaModule = IModule<IAgendaState, IAgendaEvents, 'agenda'>
-
 type INotionModule = IModule<INotionState, INotionEvents, 'notion'>
 
-const NotionModuleX = createModule<INotionState, INotionEvents>()('notion')
+type IAgendaFn = CombinedModuleFn<[IAgendaModule, INotionModule]>
 
-const AgendaModuleX = createModule<IAgendaState, IAgendaEvents>()('agenda', {
-  uses: [NotionModuleX] as const,
-})
-
-type CombinedStoreOf<
-  M extends IModule<any, any, any>[],
-  C = CombineModule<M>,
-  S = StateOf<C>,
-  E = EventsOf<C>
-> = IStore<S, E>
-
-type CombinedModuleFn<M extends IModule<any, any, any>[]> = (
-  store: CombinedStoreOf<M>
-) => void
-
-type MZ = [IAgendaModule, INotionModule]
-type CMM = CombineModule<MZ>
-
-const combinedModule: CombinedModuleFn<MZ> = (store) => {
+const combinedModule: IAgendaFn = (store) => {
   store.state.agenda.time
   store.state.notion.token
 
@@ -50,22 +28,11 @@ const combinedModule: CombinedModuleFn<MZ> = (store) => {
   store.on('notion/createPage', (state) => state)
 }
 
-// type ResultType = typeof AgendaModuleX
-
-// type EventKitBase<E, S> = {}
-
 // function event<M extends IModule<any, any, any, any>[]>(...modules: M): M {
 //   return modules
 // }
 
 // const ev = event(NotionModule, AgendaModule)
-
-type MT = [
-  IModule<INotionState, INotionEvents, 'notion'>,
-  IModule<IAgendaState, IAgendaEvents, 'agenda'>
-]
-
-type Combined2 = CombineModule<MT>
 
 // type ModuleTuple = MT[number] extends IModule<infer S, infer E, infer ID>
 //   ? [S, E, ID]
