@@ -1,7 +1,7 @@
 // Data-Driven
 interface IDateRange {
-  from: Date | string
-  to: Date | string
+  start: Date | string
+  end: Date | string
 }
 
 interface IEventDetail {
@@ -31,14 +31,14 @@ interface IEventState {
 const datetime = (datestr: string) => new Date(datestr)
 const time = (timestr: string) => new Date(timestr)
 
-const daterange = (from: string, to: string): IDateRange => ({
-  from: datetime(from),
-  to: datetime(to),
+const daterange = (start: string, end: string): IDateRange => ({
+  start: datetime(start),
+  end: datetime(end),
 })
 
-const timeslot = (from: string, to: string): IDateRange => ({
-  from: time(from),
-  to: time(to),
+const timeslot = (start: string, end: string): IDateRange => ({
+  start: time(start),
+  end: time(end),
 })
 
 const event2: IEventState = {
