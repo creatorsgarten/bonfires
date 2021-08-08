@@ -12,6 +12,8 @@ export {createExtension} from './utils/create-extension'
 
 export {DuplicateExtensionError} from './errors/DuplicateExtensionError'
 
+export type {IModule, ModuleFn, RootModuleOf, CombineModule} from './@types'
+
 export {EventStatus, IEvent, IEventType} from './@types/IEvent'
 
 export type {

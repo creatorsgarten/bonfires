@@ -1,6 +1,6 @@
 import {isPromise} from '../utils/promise'
 
-import {IStore, CombinedModuleFn} from '../@types'
+import {IStore, ModuleFn} from '../@types'
 import {HandlersMap} from '../@types/IStore'
 
 import {
@@ -11,7 +11,7 @@ import {
 } from '../@types/IModule'
 
 export const createStore = <
-  M extends CombinedModuleFn<any>[],
+  M extends ModuleFn<any>[],
   R = CombineModule<ExtractModules<M>>,
   S = StateOf<R>,
   E = EventsOf<R>
