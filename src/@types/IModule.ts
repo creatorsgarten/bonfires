@@ -38,8 +38,8 @@ export type CombinedStoreOf<
   E = EventsOf<C>
 > = IStore<S, E>
 
-export type CombinedModuleFn<M extends IModule<any, any, any>[]> = (
+export type ModuleFn<M extends IModule<any, any, any>[]> = (
   store: CombinedStoreOf<M>
 ) => void
 
-export type ExtractModules<F> = F extends CombinedModuleFn<infer P> ? P : never
+export type ExtractModules<F> = F extends ModuleFn<infer P>[] ? P : never

@@ -1,4 +1,4 @@
-import {createStore, EventStatus} from '@eventkit/core'
+import {EventStatus} from '@eventkit/core'
 
 import {CombinedModuleFn, IModule} from '../@types'
 
@@ -19,5 +19,3 @@ export const EventModule: CombinedModuleFn<[IEventModule]> = (store) => {
   on('@setup', () => ({event: {status: EventStatus.Draft}}))
   on('event/live', () => ({event: {status: EventStatus.Live}}))
 }
-
-const store = createStore(EventModule)
