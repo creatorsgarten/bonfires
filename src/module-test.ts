@@ -15,7 +15,7 @@ interface INotionEvents {
 }
 
 interface IAgendaState {
-  time: string
+  time: Date
 }
 
 interface IAgendaEvents {
@@ -81,10 +81,10 @@ type REvents = PrefixEvents<
 
 const rootState: RState = {
   notion: {
-    token: '',
+    token: 'xoxb-notion-token-helloworld',
   },
   agenda: {
-    time: '',
+    time: new Date('11/07/2001 18:54'),
   },
 }
 
