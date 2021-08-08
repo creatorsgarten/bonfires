@@ -19,8 +19,12 @@ interface IAgendaEvents {
 }
 
 const NotionModule = createModule<INotionState, INotionEvents>()('notion', {
+  // deps: [AgendaModule],
+
   setup(store) {
     store.state.token
+
+    NotionModule.id //?
 
     store.on('createPage', (state) => {
       return {token: 'hello'}
@@ -28,11 +32,25 @@ const NotionModule = createModule<INotionState, INotionEvents>()('notion', {
   },
 })
 
-const AgendaModule = createModule<IAgendaState, IAgendaEvents>()('agenda')
+const AgendaModule = createModule<IAgendaState, IAgendaEvents>()('agenda', {
+  deps: [NotionModule] as const,
+
+  setup(store) {
+    store.state.time
+
+    AgendaModule.id //?
+
+    store.on('add', (state) => {
+      return {time: new Date()}
+    })
+  },
+})
+
+type ResultType = typeof AgendaModule
 
 type EventKitBase<E, S> = {}
 
-function event<M extends IModule<any, any, any>[]>(...modules: M): M {
+function event<M extends IModule<any, any, any, any>[]>(...modules: M): M {
   return modules
 }
 

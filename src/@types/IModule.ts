@@ -1,9 +1,16 @@
 import {IStore, PrefixEvents} from '.'
 
-export interface IModule<S, E, ID extends string> {
+export interface IModule<
+  S,
+  E,
+  ID extends string,
+  Deps extends readonly IModule<any, any, any, any>[] = any[]
+> {
   id: ID
   initialState?: S
   setup?(store: IStore<S, E>): void
+
+  deps?: Deps
 }
 
 export type NameOf<M> = M extends IModule<any, any, infer ID> ? ID : never
