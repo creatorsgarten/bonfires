@@ -33,7 +33,7 @@ const NotionModule = createModule<INotionState, INotionEvents>()('notion', {
 })
 
 const AgendaModule = createModule<IAgendaState, IAgendaEvents>()('agenda', {
-  deps: [NotionModule] as const,
+  uses: [NotionModule] as const,
 
   setup(store) {
     store.state.time

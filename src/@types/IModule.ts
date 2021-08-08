@@ -10,7 +10,7 @@ export interface IModule<
   initialState?: S
   setup?(store: IStore<S, E>): void
 
-  deps?: Deps
+  uses?: Deps
 }
 
 export type NameOf<M> = M extends IModule<any, any, infer ID> ? ID : never
