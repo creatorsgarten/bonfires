@@ -18,7 +18,7 @@ describe('State Store', () => {
   })
 
   it('should be able to create combined state store', () => {
-    const s = createStore(NotionModule)
+    const s = createStore(NotionModule, EventModule)
 
     s.run('event/live', undefined)
     s.run('notion/createPage', '42')
