@@ -19,7 +19,7 @@
     "baseUrl": "./",
     "paths": {
       "@eventkit/core": ["./src"],
-      "@eventkit/extensions": ["./src/extensions"]
+      "@eventkit/modules": ["./src/modules"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

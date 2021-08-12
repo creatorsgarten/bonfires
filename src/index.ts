@@ -1,25 +1,5 @@
-export {Event, createEvent} from './core/Event'
+export {Module} from './core/module/Module'
+export {ModuleMeta, meta} from './core/module/ModuleMeta'
+export {ModuleRegistry} from './core/module/ModuleRegistry'
 
-export {createStore} from './core/Store'
-export {createModule} from './core/Module'
-
-export {EventModule} from './modules/event'
-
-export {Extension, id, meta} from './core/Extension'
-export {ExtensionManager} from './core/ExtensionManager'
-
-export {createExtension} from './utils/create-extension'
-
-export {DuplicateExtensionError} from './errors/DuplicateExtensionError'
-
-export type {IModule, ModuleFn, RootModuleOf, CombineModule} from './@types'
-
-export {EventStatus, IEvent, IEventType} from './@types/IEvent'
-
-export type {
-  IExtensionEventType,
-  IExtensionMeta,
-  IExtensionEventHandlers,
-} from './@types/IExtension'
-
-export type {RootStateOf} from './@types/utils/RootStateOf'
+export {DuplicateModuleError} from './errors/DuplicateExtensionError'

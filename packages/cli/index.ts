@@ -1,7 +1,7 @@
 import {Command} from 'commander'
 import inquirer from 'inquirer'
 
-import {Event, IEventType} from '@eventkit/core'
+import {IEventType} from '../../src/@types/IEvent'
 
 // eventkit new meetup --title "GraphQL Meetup 10.0" --online --stream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
 
@@ -82,12 +82,5 @@ async function createEvent(type: IEventType) {
     if (!verify.confirmCreate) return
   }
 
-  const event = new Event({
-    title: result.title ?? options.title,
-    type: result.type ?? type,
-    when: result.date ?? options.date,
-    online: result.online ?? options.online ?? false,
-  })
-
-  console.log(event)
+  console.log(result)
 }

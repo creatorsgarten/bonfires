@@ -1,11 +1,11 @@
 import {CustomError} from 'ts-custom-error'
 
-import {Extension} from '@eventkit/core'
+import {Module} from '@eventkit/core'
 
-export class DuplicateExtensionError extends CustomError {
-  constructor(extension: Extension) {
-    const {title} = extension.meta
-    const message = `Extension "${title}" (${extension.id}) is already loaded.`
+export class DuplicateModuleError extends CustomError {
+  constructor(module: Module) {
+    const {id, title} = module.meta
+    const message = `Module "${title}" (${id}) is already loaded.`
 
     super(message)
   }
