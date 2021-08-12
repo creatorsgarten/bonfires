@@ -1,4 +1,4 @@
-import {Module} from '@eventkit/core'
+import {Module, EventStatus} from '@eventkit/core'
 
 import {Agenda} from './agenda'
 
@@ -8,6 +8,8 @@ export class Notion extends Module {
   context = {token: 'default-notion-token'}
 
   async onSetup() {
-    this.context.token = this.registry?.get(Agenda).data.slots[0] ?? ''
+    this.bus?.on(EventStatus.Live, () => {
+      this.context.token = this.registry?.get(Agenda).data.slots[0] ?? ''
+    })
   }
 }

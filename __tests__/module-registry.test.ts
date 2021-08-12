@@ -1,4 +1,4 @@
-import {ModuleRegistry, DuplicateModuleError} from '@eventkit/core'
+import {ModuleRegistry, DuplicateModuleError, EventStatus} from '@eventkit/core'
 import {Agenda, Notion} from '@eventkit/modules'
 
 describe('Module Registry', () => {
@@ -33,6 +33,7 @@ describe('Module Registry', () => {
 
     r.get(Agenda).data.slots = ['agenda-slot-token']
     r.ready()
+    r.bus.emit(EventStatus.Live)
     expect(r.get(Notion).context.token).toBe('agenda-slot-token')
   })
 })

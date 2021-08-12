@@ -1,9 +1,12 @@
 import {DuplicateModuleError, Module} from '@eventkit/core'
 
+import {EventBus} from './EventBus'
+
 type ModuleConstructor = {new (...args: any[]): Module}
 
 export class ModuleRegistry {
   modules: Module[] = []
+  bus = new EventBus()
 
   getById(id: string) {
     return this.modules.find((m) => m.meta.id === id) ?? null
@@ -13,6 +16,7 @@ export class ModuleRegistry {
     if (this.getById(module.meta.id)) throw new DuplicateModuleError(module)
 
     module.registry = this
+    module.bus = this.bus
 
     this.modules.push(module)
   }
