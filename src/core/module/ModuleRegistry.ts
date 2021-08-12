@@ -41,4 +41,14 @@ export class ModuleRegistry {
       module.onSetup()
     }
   }
+
+  get data() {
+    const data: Record<string, any> = {}
+
+    this.modules.forEach((module) => {
+      data[module.meta.id] = module.data
+    })
+
+    return data
+  }
 }

@@ -32,6 +32,8 @@ describe('Module Registry', () => {
     expect(r.get(Notion).context.token).toBe('default-notion-token')
 
     r.get(Agenda).data.slots = ['agenda-slot-token']
+    expect(r.data['eventkit/agenda'].slots[0]).toBe('agenda-slot-token')
+
     r.ready()
     r.bus.emit(EventStatus.Live)
     expect(r.get(Notion).context.token).toBe('agenda-slot-token')
