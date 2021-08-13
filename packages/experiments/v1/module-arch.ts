@@ -21,7 +21,7 @@ export class EventKit {
   >(this: S, ...nextModules: T) {
     const currentModules = this.modules
 
-    const NewEvent = class extends this {
+    class NewEvent extends this {
       static modules = [
         ...currentModules,
         ...nextModules.filter((module) => !currentModules.includes(module)),

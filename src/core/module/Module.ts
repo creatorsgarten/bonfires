@@ -2,8 +2,8 @@ import {EventBus} from './EventBus'
 import {ModuleMeta, meta} from './ModuleMeta'
 import {ModuleRegistry} from './ModuleRegistry'
 
-export abstract class Module {
-  abstract meta: ModuleMeta
+export abstract class Module<T extends string = any> {
+  abstract meta: ModuleMeta<T>
 
   data = {}
   context = {}
@@ -13,5 +13,5 @@ export abstract class Module {
 
   async onSetup(): Promise<void> {}
 
-  static meta = meta
+  static Meta = meta
 }
