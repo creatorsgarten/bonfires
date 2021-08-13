@@ -1,9 +1,9 @@
-import {createRegistry, EventStatus} from '@eventkit/core'
+import {Registry, EventStatus} from '@eventkit/core'
 import {Agenda, Notion} from '@eventkit/modules'
 
 describe('Typed Module Registry', () => {
   it('can attach the module to the registry', () => {
-    const r = createRegistry().use(Notion).use(Agenda)
+    const r = Registry.create().use(Notion).use(Agenda)
 
     expect(r.data).toHaveProperty('eventkit/agenda')
     expect(r.data).toHaveProperty('eventkit/notion')

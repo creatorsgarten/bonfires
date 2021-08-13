@@ -1,5 +1,7 @@
 # EventKit: Host events programmatically.
 
+> It's like CDK or Pulumi, but for organising events.
+
 Event logistics is boring. Let's automate all of them.
 
 ## CLI Usage
