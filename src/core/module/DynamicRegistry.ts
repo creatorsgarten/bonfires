@@ -1,36 +1,35 @@
-import {Constructor} from 'type-fest'
 import {DuplicateModuleError, Module} from '@eventkit/core'
 
 import {EventBus} from './EventBus'
 
-type ModuleA = Constructor<Module<any>>
+import {IRegistry, ModuleC} from '../../@types/registry/IRegistry'
 
-export class DynamicRegistry {
+export class DynamicRegistry implements IRegistry<Module[]> {
   modules: Module[] = []
   bus = new EventBus()
 
-  getById(id: string) {
+  get(id: string) {
     return this.modules.find((m) => m.meta.id === id) ?? null
   }
 
   register<T extends Module<any>>(module: T) {
-    if (this.getById(module.meta.id)) throw new DuplicateModuleError(module)
+    if (this.get(module.meta.id)) throw new DuplicateModuleError(module)
 
-    // module.registry = this
+    module.registry = this
     module.bus = this.bus
 
     this.modules.push(module)
   }
 
-  use<T extends ModuleA>(module: T, ...args: ConstructorParameters<T>) {
+  use<T extends ModuleC>(module: T, ...args: ConstructorParameters<T>) {
     this.register(new module(...args))
   }
 
-  get<T extends ModuleA>(module: T) {
+  of<T extends ModuleC>(module: T) {
     return this.modules.find((m) => m instanceof module) as InstanceType<T>
   }
 
-  has<T extends ModuleA>(module: T) {
+  has<T extends ModuleC>(module: T) {
     return this.modules.some((m) => m instanceof module)
   }
 

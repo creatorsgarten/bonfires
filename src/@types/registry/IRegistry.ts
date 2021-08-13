@@ -18,8 +18,9 @@ export interface IRegistry<T extends Module[]> {
   modules: T
   bus: EventBus
 
-  get data(): StateMapping<T>
   of<M extends ModuleC>(Module: M): InstanceType<M> | null
-  get<K extends keyof ModuleMapping<T>>(id: K): ModuleMapping<T>[K]
   ready(): void
+
+  get data(): StateMapping<T>
+  // get<K extends keyof ModuleMapping<T>>(id: K): ModuleMapping<T>[K]
 }
