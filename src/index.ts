@@ -1,7 +1,7 @@
 export {Module} from './core/module/Module'
 export {ModuleMeta, meta} from './core/module/ModuleMeta'
 
-export {BaseRegistry, createRegistry} from './core/module/BaseRegistry'
+export {Registry, createRegistry} from './core/module/Registry'
 export {DynamicRegistry} from './core/module/DynamicRegistry'
 
 export {EventBus} from './core/module/EventBus'

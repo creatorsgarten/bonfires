@@ -10,7 +10,7 @@ import {
   ModuleMapping,
 } from '../../@types/registry/IRegistry'
 
-export class BaseRegistry<T extends Module[]> implements IRegistry<T> {
+export class Registry<T extends Module[]> implements IRegistry<T> {
   modules: T
   bus = new EventBus()
 
@@ -24,7 +24,7 @@ export class BaseRegistry<T extends Module[]> implements IRegistry<T> {
   }
 
   static create<K extends Module[]>(...modules: K) {
-    return new BaseRegistry(...modules)
+    return new Registry(...modules)
   }
 
   private checkDuplicates<K extends Module[]>(...modules: K) {
@@ -38,7 +38,7 @@ export class BaseRegistry<T extends Module[]> implements IRegistry<T> {
 
     const combinedModules: [...T, ...K] = [...this.modules, ...modules]
 
-    return new BaseRegistry(...combinedModules)
+    return new Registry(...combinedModules)
   }
 
   use<K extends ModuleC>(Module: K, ...args: ConstructorParameters<K>) {
@@ -71,4 +71,4 @@ export class BaseRegistry<T extends Module[]> implements IRegistry<T> {
 }
 
 export const createRegistry = <K extends Module[]>(...modules: K) =>
-  BaseRegistry.create(...modules)
+  Registry.create(...modules)
