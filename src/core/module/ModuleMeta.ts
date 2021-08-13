@@ -1,6 +1,6 @@
-export type ModuleMeta<T extends string> = {id: T; title: string}
+export type IModuleMeta<T extends string> = {id: T; title: string}
 
-export const meta = <T extends string>(
+export const Meta = <T extends string>(
   id: T,
-  options: Omit<ModuleMeta<T>, 'id'>
-): ModuleMeta<T> => ({...options, id})
+  options: Omit<IModuleMeta<T>, 'id'>
+): IModuleMeta<T> => ({...options, id})

@@ -1,5 +1,5 @@
 export {Module} from './core/module/Module'
-export {ModuleMeta, meta} from './core/module/ModuleMeta'
+export {IModuleMeta, Meta} from './core/module/ModuleMeta'
 
 export {Registry, createRegistry} from './core/module/Registry'
 export {DynamicRegistry} from './core/module/DynamicRegistry'
