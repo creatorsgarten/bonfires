@@ -3,18 +3,18 @@ import {Agenda, Notion} from '@eventkit/modules'
 
 describe('Typed Module Registry', () => {
   it('can attach the module to the registry', () => {
-    const r = createRegistry().use(Notion).use(Agenda)
+    const reg = createRegistry().use(Notion).use(Agenda)
 
-    expect(r.state).toHaveProperty('eventkit/agenda')
-    expect(r.state).toHaveProperty('eventkit/notion')
+    expect(reg.data).toHaveProperty('eventkit/agenda')
+    expect(reg.data).toHaveProperty('eventkit/notion')
 
-    const notion = r.get('eventkit/notion')
+    const notion = reg.get('eventkit/notion')
     expect(notion.context.token).toBe('default-notion-token')
 
-    const agenda = r.get('eventkit/agenda')
+    const agenda = reg.get('eventkit/agenda')
     agenda.data.slots.push({start: new Date(), title: 'Slot 2'})
 
-    const state = r.state['eventkit/agenda']
+    const state = reg.data['eventkit/agenda']
     expect(state.slots[0]?.title).toBe('Slot 2')
   })
 })

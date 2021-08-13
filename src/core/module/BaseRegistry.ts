@@ -52,7 +52,7 @@ export class BaseRegistry<T extends Module[]> {
     return this.modules.find((m) => m.meta.id === id) as ModuleMapping<T>[K]
   }
 
-  get state() {
+  get data() {
     return Object.fromEntries(
       this.modules.map((m) => [m.meta.id, m.data])
     ) as StateMapping<T>
