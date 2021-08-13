@@ -3,7 +3,7 @@
     "resolveJsonModule": true,
     "target": "es5",
     "module": "commonjs",
-    "lib": ["ES2015"],
+    "lib": ["ES2015", "ESNext"],
     "removeComments": true,
     "noEmit": true,
     "strict": true,

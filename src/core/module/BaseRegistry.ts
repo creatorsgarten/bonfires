@@ -2,14 +2,15 @@ import {Agenda, Notion} from '@eventkit/modules'
 
 import {Module} from './Module'
 
-type Name<T> = T extends Module ? T['meta']['id'] : never
+type NameOf<T> = T extends Module ? T['meta']['id'] : never
+type DataOf<T> = T extends Module ? T['data'] : never
 
 type ModuleMapping<T extends Module[]> = {
-  [K in keyof T as Name<T[K]>]: T[Exclude<K, number>]
+  [K in keyof T as NameOf<T[K]>]: T[Exclude<K, number>]
 }
 
 type StateMapping<T extends Module[], M = ModuleMapping<T>> = {
-  [K in keyof M]: M[K] extends Module ? M[K]['data'] : never
+  [K in keyof M]: DataOf<M[K]>
 }
 
 class BaseRegistry<T extends Module[]> {
@@ -24,19 +25,19 @@ class BaseRegistry<T extends Module[]> {
   }
 
   get state() {
-    return {} as StateMapping<T>
+    return Object.fromEntries(
+      this.modules.map((m) => [m.meta.id, m.data])
+    ) as StateMapping<T>
   }
 }
 
 const reg = new BaseRegistry(new Agenda(), new Notion())
 
 const notion = reg.get('eventkit/notion')
-notion.context.token
-
-reg.state['eventkit/notion']
+notion.context.token //?
 
 const agenda = reg.get('eventkit/agenda')
-agenda.data.slots
+agenda.data.slots.push({start: new Date(), title: 'Slot 2'})
 
 const state = reg.state['eventkit/agenda']
-state.slots
+state.slots //?
