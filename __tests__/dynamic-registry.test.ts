@@ -1,9 +1,14 @@
-import {ModuleRegistry, DuplicateModuleError, EventStatus} from '@eventkit/core'
+import {
+  EventStatus,
+  DynamicRegistry,
+  DuplicateModuleError,
+} from '@eventkit/core'
+
 import {Agenda, Notion} from '@eventkit/modules'
 
-describe('Module Registry', () => {
+describe('Dynamic Module Registry', () => {
   it('should be able to register modules', () => {
-    const r = new ModuleRegistry()
+    const r = new DynamicRegistry()
     r.use(Notion)
 
     expect(r.has(Agenda)).toBe(false)
@@ -11,7 +16,7 @@ describe('Module Registry', () => {
   })
 
   it('should be able to register module instances', () => {
-    const r = new ModuleRegistry()
+    const r = new DynamicRegistry()
     r.register(new Notion())
 
     expect(r.has(Agenda)).toBe(false)
@@ -19,14 +24,14 @@ describe('Module Registry', () => {
   })
 
   it('should throw an error when registering duplicate modules', () => {
-    const r = new ModuleRegistry()
+    const r = new DynamicRegistry()
     r.use(Notion)
 
     expect(() => r.use(Notion)).toThrow(DuplicateModuleError)
   })
 
   it('should be able to call module event listeners', () => {
-    const r = new ModuleRegistry()
+    const r = new DynamicRegistry()
     r.use(Notion)
     r.use(Agenda)
     expect(r.get(Notion).context.token).toBe('default-notion-token')

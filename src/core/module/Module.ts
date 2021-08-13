@@ -1,6 +1,6 @@
 import {EventBus} from './EventBus'
 import {ModuleMeta, meta} from './ModuleMeta'
-import {ModuleRegistry} from './ModuleRegistry'
+import {DynamicRegistry} from './DynamicRegistry'
 
 export abstract class Module<T extends string = any> {
   abstract meta: ModuleMeta<T>
@@ -9,7 +9,7 @@ export abstract class Module<T extends string = any> {
   context = {}
 
   bus: EventBus | null = null
-  registry: ModuleRegistry | null = null
+  registry: DynamicRegistry | null = null
 
   async onSetup(): Promise<void> {}
 

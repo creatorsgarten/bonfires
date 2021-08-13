@@ -1,6 +1,8 @@
 export {Module} from './core/module/Module'
 export {ModuleMeta, meta} from './core/module/ModuleMeta'
-export {ModuleRegistry} from './core/module/ModuleRegistry'
+
+export {BaseRegistry, createRegistry} from './core/module/BaseRegistry'
+export {DynamicRegistry} from './core/module/DynamicRegistry'
 
 export {DuplicateModuleError} from './errors/DuplicateExtensionError'
 

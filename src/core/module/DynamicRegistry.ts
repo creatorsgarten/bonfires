@@ -5,7 +5,7 @@ import {EventBus} from './EventBus'
 
 type ModuleA = Constructor<Module<any>>
 
-export class ModuleRegistry {
+export class DynamicRegistry {
   modules: Module[] = []
   bus = new EventBus()
 

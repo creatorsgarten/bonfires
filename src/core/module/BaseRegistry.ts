@@ -1,7 +1,6 @@
 import {Constructor} from 'type-fest'
 
 import {DuplicateModuleError} from '@eventkit/core'
-import {Agenda, Notion} from '@eventkit/modules'
 
 import {Module} from './Module'
 
@@ -18,14 +17,14 @@ type StateMapping<T extends Module[], M = ModuleMapping<T>> = {
 
 type ModuleA = Constructor<Module<any>>
 
-class BaseRegistry<T extends Module[]> {
+export class BaseRegistry<T extends Module[]> {
   modules: T
 
   constructor(...modules: T) {
     this.modules = modules
   }
 
-  static new<K extends Module[]>(...modules: K) {
+  static create<K extends Module[]>(...modules: K) {
     return new BaseRegistry(...modules)
   }
 
@@ -60,14 +59,5 @@ class BaseRegistry<T extends Module[]> {
   }
 }
 
-const reg = BaseRegistry.new().use(Notion).use(Agenda)
-reg.state //?
-
-const notion = reg.get('eventkit/notion')
-notion.context.token //?
-
-const agenda = reg.get('eventkit/agenda')
-agenda.data.slots.push({start: new Date(), title: 'Slot 2'})
-
-const state = reg.state['eventkit/agenda']
-state.slots //?
+export const createRegistry = <K extends Module[]>(...modules: K) =>
+  BaseRegistry.create(...modules)
