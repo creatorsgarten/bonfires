@@ -1,3 +1,6 @@
+import {Constructor} from 'type-fest'
+
+import {DuplicateModuleError} from '@eventkit/core'
 import {Agenda, Notion} from '@eventkit/modules'
 
 import {Module} from './Module'
@@ -13,6 +16,8 @@ type StateMapping<T extends Module[], M = ModuleMapping<T>> = {
   [K in keyof M]: DataOf<M[K]>
 }
 
+type ModuleA = Constructor<Module<any>>
+
 class BaseRegistry<T extends Module[]> {
   modules: T
 
@@ -20,10 +25,24 @@ class BaseRegistry<T extends Module[]> {
     this.modules = modules
   }
 
+  private checkDuplicates<K extends Module[]>(...modules: K) {
+    for (const m of modules) {
+      if (this.get(m.meta.id)) throw new DuplicateModuleError(m)
+    }
+  }
+
   with<K extends Module[]>(...modules: K) {
+    this.checkDuplicates(...modules)
+
     const combinedModules: [...T, ...K] = [...this.modules, ...modules]
 
     return new BaseRegistry(...combinedModules)
+  }
+
+  use<K extends ModuleA>(Module: K, ...args: ConstructorParameters<K>) {
+    const moduleInstance = new Module(...args) as InstanceType<K>
+
+    return this.with(moduleInstance)
   }
 
   get<K extends keyof ModuleMapping<T>>(id: K) {
@@ -37,10 +56,10 @@ class BaseRegistry<T extends Module[]> {
   }
 }
 
-const regBase = new BaseRegistry(new Agenda())
+const regBase = new BaseRegistry()
 regBase.state //?
 
-const reg = regBase.with(new Notion())
+const reg = regBase.use(Notion).use(Agenda)
 reg.state //?
 
 const notion = reg.get('eventkit/notion')
