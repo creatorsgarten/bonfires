@@ -12,7 +12,7 @@ describe('Dynamic Module Registry', () => {
     r.use(Notion)
 
     expect(r.has(Agenda)).toBe(false)
-    expect(r.of(Notion).context.token).toBe('default-notion-token')
+    expect(r.of(Notion)?.context.token).toBe('default-notion-token')
   })
 
   it('should be able to register module instances', () => {
@@ -34,13 +34,15 @@ describe('Dynamic Module Registry', () => {
     const r = new DynamicRegistry()
     r.use(Notion)
     r.use(Agenda)
-    expect(r.of(Notion).context.token).toBe('default-notion-token')
+    expect(r.of(Notion)?.context.token).toBe('default-notion-token')
 
-    r.of(Agenda).data.slots = [{title: 'Slot 1', start: new Date()}]
+    const agenda = r.of(Agenda)
+    if (agenda) agenda.data.slots = [{title: 'Slot 1', start: new Date()}]
+
     expect(r.data['eventkit/agenda'].slots[0].title).toBe('Slot 1')
 
     r.ready()
     r.bus.emit(EventStatus.Live)
-    expect(r.of(Notion).context.token).toBe('Slot 1')
+    expect(r.of(Notion)?.context.token).toBe('Slot 1')
   })
 })

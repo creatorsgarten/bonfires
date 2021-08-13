@@ -25,8 +25,10 @@ export class DynamicRegistry implements IRegistry<Module[]> {
     this.register(new module(...args))
   }
 
-  of<T extends ModuleC>(module: T) {
-    return this.modules.find((m) => m instanceof module) as InstanceType<T>
+  of<T extends ModuleC>(Module: T) {
+    const modules = this.modules.find((m) => m instanceof Module) ?? null
+
+    return modules as InstanceType<T> | null
   }
 
   has<T extends ModuleC>(module: T) {
