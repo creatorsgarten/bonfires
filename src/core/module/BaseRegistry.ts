@@ -20,6 +20,12 @@ class BaseRegistry<T extends Module[]> {
     this.modules = modules
   }
 
+  with<K extends Module[]>(...modules: K) {
+    const combinedModules: [...T, ...K] = [...this.modules, ...modules]
+
+    return new BaseRegistry(...combinedModules)
+  }
+
   get<K extends keyof ModuleMapping<T>>(id: K) {
     return this.modules.find((m) => m.meta.id === id) as ModuleMapping<T>[K]
   }
@@ -31,7 +37,11 @@ class BaseRegistry<T extends Module[]> {
   }
 }
 
-const reg = new BaseRegistry(new Agenda(), new Notion())
+const regBase = new BaseRegistry(new Agenda())
+regBase.state //?
+
+const reg = regBase.with(new Notion())
+reg.state //?
 
 const notion = reg.get('eventkit/notion')
 notion.context.token //?
