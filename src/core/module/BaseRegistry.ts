@@ -1,24 +1,16 @@
-import {Constructor} from 'type-fest'
-
 import {DuplicateModuleError} from '@eventkit/core'
 
 import {Module} from './Module'
 import {EventBus} from './EventBus'
 
-type NameOf<T> = T extends Module ? T['meta']['id'] : never
-type DataOf<T> = T extends Module ? T['data'] : never
+import {
+  ModuleC,
+  IRegistry,
+  StateMapping,
+  ModuleMapping,
+} from '../../@types/registry/IRegistry'
 
-type ModuleMapping<T extends Module[]> = {
-  [K in keyof T as NameOf<T[K]>]: T[Exclude<K, number>]
-}
-
-type StateMapping<T extends Module[], M = ModuleMapping<T>> = {
-  [K in keyof M]: DataOf<M[K]>
-}
-
-type ModuleA = Constructor<Module<any>>
-
-export class BaseRegistry<T extends Module[]> {
+export class BaseRegistry<T extends Module[]> implements IRegistry<T> {
   modules: T
   bus = new EventBus()
 
@@ -49,7 +41,7 @@ export class BaseRegistry<T extends Module[]> {
     return new BaseRegistry(...combinedModules)
   }
 
-  use<K extends ModuleA>(Module: K, ...args: ConstructorParameters<K>) {
+  use<K extends ModuleC>(Module: K, ...args: ConstructorParameters<K>) {
     const moduleInstance = new Module(...args) as InstanceType<K>
 
     return this.with(moduleInstance)
@@ -59,7 +51,7 @@ export class BaseRegistry<T extends Module[]> {
     return this.modules.find((m) => m.meta.id === id) as ModuleMapping<T>[K]
   }
 
-  of<M extends ModuleA>(Module: M) {
+  of<M extends ModuleC>(Module: M) {
     const instance = this.modules.find((m) => m instanceof Module) ?? null
 
     return instance as InstanceType<M> | null
