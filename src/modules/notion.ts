@@ -9,7 +9,7 @@ export class Notion extends Module {
 
   async onSetup() {
     this.bus?.on(EventStatus.Live, () => {
-      this.context.token = this.registry?.get(Agenda).data.slots[0]?.title ?? ''
+      this.context.token = this.registry?.of(Agenda)?.data.slots[0]?.title ?? ''
     })
   }
 }

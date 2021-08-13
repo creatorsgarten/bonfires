@@ -16,7 +16,7 @@ export class DynamicRegistry {
   register<T extends Module<any>>(module: T) {
     if (this.getById(module.meta.id)) throw new DuplicateModuleError(module)
 
-    module.registry = this
+    // module.registry = this
     module.bus = this.bus
 
     this.modules.push(module)
