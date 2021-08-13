@@ -25,6 +25,10 @@ class BaseRegistry<T extends Module[]> {
     this.modules = modules
   }
 
+  static new<K extends Module[]>(...modules: K) {
+    return new BaseRegistry(...modules)
+  }
+
   private checkDuplicates<K extends Module[]>(...modules: K) {
     for (const m of modules) {
       if (this.get(m.meta.id)) throw new DuplicateModuleError(m)
@@ -56,10 +60,7 @@ class BaseRegistry<T extends Module[]> {
   }
 }
 
-const regBase = new BaseRegistry()
-regBase.state //?
-
-const reg = regBase.use(Notion).use(Agenda)
+const reg = BaseRegistry.new().use(Notion).use(Agenda)
 reg.state //?
 
 const notion = reg.get('eventkit/notion')
