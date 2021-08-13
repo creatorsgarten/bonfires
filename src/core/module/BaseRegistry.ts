@@ -1,37 +1,26 @@
-import {Constructor, UnionToIntersection} from 'type-fest'
-
 import {Agenda, Notion} from '@eventkit/modules'
+
 import {Module} from './Module'
 
-export type ReturnTypeOf<T extends Module | Module[]> = T extends Module
-  ? T
-  : T extends Module[]
-  ? Exclude<T[number], void>
-  : never
+type Name<T> = T extends Module ? T['meta']['id'] : never
 
-class BaseRegistry {
-  static modules: Module[] = []
-
-  static module<
-    S extends Constructor<any> & {modules: any[]},
-    T extends Module[]
-  >(this: S, ...nextModules: T) {
-    const currentModules = this.modules
-
-    type K = T
-
-    class Registry extends this {
-      static modules = [...currentModules, ...nextModules] as K
-    }
-
-    return Registry
-  }
-
-  get() {}
+type ModuleMapping<T extends Module[]> = {
+  [K in keyof T as Name<T[K]>]: T[Exclude<K, number>]
 }
 
-const Reg = BaseRegistry.module(new Notion(), new Agenda())
-Reg.modules
+class BaseRegistry<T extends Module[]> {
+  modules: T
 
-const m0 = Reg.modules[0].meta.id
-const m1 = Reg.modules[1].meta.id
+  constructor(...modules: T) {
+    this.modules = modules
+  }
+
+  get<K extends keyof ModuleMapping<T>>(id: K) {
+    return this.modules.find((m) => m.meta.id === id) as ModuleMapping<T>[K]
+  }
+}
+
+const reg = new BaseRegistry(new Agenda(), new Notion())
+
+const agenda = reg.get('eventkit/agenda')
+const notion = reg.get('eventkit/notion')
