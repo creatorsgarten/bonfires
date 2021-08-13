@@ -31,11 +31,11 @@ describe('Module Registry', () => {
     r.use(Agenda)
     expect(r.get(Notion).context.token).toBe('default-notion-token')
 
-    r.get(Agenda).data.slots = ['agenda-slot-token']
-    expect(r.data['eventkit/agenda'].slots[0]).toBe('agenda-slot-token')
+    r.get(Agenda).data.slots = [{title: 'Slot 1', start: new Date()}]
+    expect(r.data['eventkit/agenda'].slots[0].title).toBe('Slot 1')
 
     r.ready()
     r.bus.emit(EventStatus.Live)
-    expect(r.get(Notion).context.token).toBe('agenda-slot-token')
+    expect(r.get(Notion).context.token).toBe('Slot 1')
   })
 })
