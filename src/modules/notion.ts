@@ -3,8 +3,8 @@ import {User} from '@notionhq/client/build/src/api-types'
 
 import {Module} from '@eventkit/core'
 
-interface INotionContext {
-  client: Client
+export interface INotionContext {
+  client?: Client
   listUsers(): Promise<User[]>
 }
 
