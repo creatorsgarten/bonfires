@@ -5,7 +5,7 @@ import {IModuleMeta, Meta} from './ModuleMeta'
 
 import {IRegistry} from '../../@types/registry/IRegistry'
 
-export abstract class Module<E = Record<any, any>, S = any> {
+export abstract class Module<E = unknown, S = any> {
   abstract meta: IModuleMeta<any>
 
   data: S = {} as S

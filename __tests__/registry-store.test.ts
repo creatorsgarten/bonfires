@@ -1,9 +1,9 @@
 import {Registry} from '@eventkit/core'
-import {Agenda} from '@eventkit/modules'
+import {Agenda, Notion} from '@eventkit/modules'
 
 describe('Registry Store', () => {
   it('can dispatch events using the registry', () => {
-    const r = Registry.create().use(Agenda)
+    const r = Registry.create().use(Agenda).use(Notion)
 
     const agenda = r.get('eventkit/agenda')
     expect(agenda.store.handlers).toHaveProperty('agenda/add')

@@ -16,6 +16,10 @@ export interface Store<S = any, E = Record<any, any>> {
 
 export type CombinedEvents<M extends Module[]> = UnionToIntersection<
   {
-    [K in keyof M]: M[K] extends Module<infer E> ? E : never
+    [K in keyof M]: M[K] extends Module<infer E>
+      ? E extends Record<string, any>
+        ? E
+        : never
+      : never
   }[number]
 >
