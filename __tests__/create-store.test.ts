@@ -8,8 +8,8 @@ interface Events {
   'agenda/add': string
 }
 
-describe('State Store', () => {
-  it('should be able to dispatch events', () => {
+describe('Create Standalone Store', () => {
+  it('can dispatch events', () => {
     let state: IAgenda = {slots: []}
 
     const store = createStore<IAgenda, Events>()
@@ -24,7 +24,7 @@ describe('State Store', () => {
     store.run('agenda/add', 'Opening Session')
     store.run('agenda/add', 'First Talk')
 
-    expect(state).toEqual(store.get())
+    expect(state).toBe(store.get())
     expect(state.slots[0]).toBe('Opening Session')
     expect(state.slots[1]).toBe('First Talk')
   })

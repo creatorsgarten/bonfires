@@ -15,16 +15,21 @@ export class Registry<T extends Module[]> implements IRegistry<T> {
   bus = new EventBus()
 
   constructor(...modules: T) {
-    for (const module of modules) {
-      module.registry = this
-      module.bus = this.bus
-    }
-
     this.modules = modules
+    this.setupModules()
   }
 
   static create<K extends Module[]>(...modules: K) {
     return new Registry(...modules)
+  }
+
+  private async setupModules() {
+    for (const module of this.modules) {
+      module.registry = this
+      module.bus = this.bus
+
+      await module.onSetup?.()
+    }
   }
 
   private checkDuplicates<K extends Module[]>(...modules: K) {

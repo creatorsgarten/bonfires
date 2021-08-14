@@ -9,8 +9,16 @@ interface IAgenda {
   slots: ISlot[]
 }
 
-export class Agenda extends Module {
+interface Events {
+  'agenda/add': ISlot
+}
+
+export class Agenda extends Module<Events> {
   meta = Module.Meta('eventkit/agenda', {title: 'Agenda Manager'})
 
   data: IAgenda = {slots: []}
+
+  async onSetup() {
+    this.store.on('agenda/add', (s, e) => ({...s, slots: [...s.slots, e]}))
+  }
 }
