@@ -3,8 +3,8 @@ import {IModuleMeta, Meta} from './ModuleMeta'
 
 import {IRegistry} from '../../@types/registry/IRegistry'
 
-export abstract class Module<T extends string = any> {
-  abstract meta: IModuleMeta<T>
+export abstract class Module {
+  abstract meta: IModuleMeta<any>
 
   data = {}
   context = {}

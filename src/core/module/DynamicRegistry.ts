@@ -12,7 +12,7 @@ export class DynamicRegistry implements IRegistry<Module[]> {
     return this.modules.find((m) => m.meta.id === id) ?? null
   }
 
-  register<T extends Module<any>>(module: T) {
+  register<T extends Module>(module: T) {
     if (this.get(module.meta.id)) throw new DuplicateModuleError(module)
 
     module.registry = this

@@ -12,6 +12,7 @@ describe('Event Core', () => {
     const event = Event.create(data).use(Notion).use(Agenda)
 
     const notion = event.registry.get('eventkit/notion')
+
     expect(notion.context).toHaveProperty('token')
 
     const agenda = event.registry.of(Agenda)!

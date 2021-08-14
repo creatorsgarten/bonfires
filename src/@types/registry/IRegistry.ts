@@ -12,7 +12,7 @@ export type StateMapping<T extends Module[], M = ModuleMapping<T>> = {
   [K in keyof M]: DataOf<M[K]>
 }
 
-export type ModuleC = Constructor<Module<any>>
+export type ModuleC = Constructor<Module>
 
 export interface IRegistry<T extends Module[]> {
   modules: T
