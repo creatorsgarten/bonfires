@@ -7,7 +7,7 @@ import {
 import {Agenda, Notion} from '@eventkit/modules'
 
 describe('Dynamic Module Registry', () => {
-  it('should be able to register modules', () => {
+  it('can register modules', () => {
     const r = new DynamicRegistry()
     r.use(Notion)
 
@@ -15,7 +15,7 @@ describe('Dynamic Module Registry', () => {
     expect(r.of(Notion)?.context.token).toBe('default-notion-token')
   })
 
-  it('should be able to register module instances', () => {
+  it('can register module instances', () => {
     const r = new DynamicRegistry()
     r.register(new Notion())
 
@@ -30,7 +30,7 @@ describe('Dynamic Module Registry', () => {
     expect(() => r.use(Notion)).toThrow(DuplicateModuleError)
   })
 
-  it('should be able to call module event listeners', () => {
+  it('can call module event listeners', () => {
     const r = new DynamicRegistry()
     r.use(Notion)
     r.use(Agenda)
