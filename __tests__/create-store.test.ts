@@ -5,7 +5,7 @@ interface IAgenda {
 }
 
 interface Events {
-  'agenda/add': string
+  add: string
 }
 
 describe('Create Standalone Store', () => {
@@ -16,13 +16,13 @@ describe('Create Standalone Store', () => {
     store.get = () => state
     store.set = (s) => (state = s)
 
-    store.on('agenda/add', (s, slot) => ({
+    store.on('add', (s, slot) => ({
       ...s,
       slots: [...s.slots, slot],
     }))
 
-    store.run('agenda/add', 'Opening Session')
-    store.run('agenda/add', 'First Talk')
+    store.run('add', 'Opening Session')
+    store.run('add', 'First Talk')
 
     expect(state).toBe(store.get())
     expect(state.slots[0]).toBe('Opening Session')
