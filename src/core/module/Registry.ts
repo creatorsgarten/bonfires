@@ -9,8 +9,11 @@ import {
   StateMapping,
   ModuleMapping,
 } from '../../@types/registry/IRegistry'
+import {CombinedEvents} from 'src/@types/store/Store'
 
-export class Registry<T extends Module[]> implements IRegistry<T> {
+export class Registry<T extends Module[], Events = CombinedEvents<T>>
+  implements IRegistry<T>
+{
   modules: T
   bus = new EventBus()
 
@@ -68,7 +71,9 @@ export class Registry<T extends Module[]> implements IRegistry<T> {
     ) as StateMapping<T>
   }
 
-  run() {}
+  run<E extends keyof Events>(type: E, payload: Events[E]) {
+    this.modules.forEach((m) => m.store.run(type, payload))
+  }
 }
 
 export const createRegistry = <K extends Module[]>(...modules: K) =>
