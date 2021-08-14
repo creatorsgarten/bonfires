@@ -9,7 +9,8 @@ import {
   StateMapping,
   ModuleMapping,
 } from '../../@types/registry/IRegistry'
-import {CombinedEvents} from 'src/@types/store/Store'
+
+import {CombinedEvents, Store} from '../../@types/store/Store'
 
 export class Registry<T extends Module[], Events = CombinedEvents<T>>
   implements IRegistry<T>
@@ -72,7 +73,12 @@ export class Registry<T extends Module[], Events = CombinedEvents<T>>
   }
 
   run<E extends keyof Events>(type: E, payload: Events[E]) {
-    this.modules.forEach((m) => m.store.run(type, payload))
+    this.modules.forEach((m) => {
+      // Assume the event could be handled by the store.
+      const store = m.store as Store<Events>
+
+      store.run(type, payload)
+    })
   }
 }
 
