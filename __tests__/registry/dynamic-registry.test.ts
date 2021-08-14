@@ -4,9 +4,9 @@ import {
   DuplicateModuleError,
 } from '@eventkit/core'
 
-import {Agenda, Notion} from '@eventkit/modules'
+import {Agenda} from '@eventkit/modules'
 
-import {MockModule} from './fixtures/mock-module'
+import {MockModule} from '../fixtures/mock-module'
 
 describe('Dynamic Module Registry', () => {
   it('can register modules', () => {

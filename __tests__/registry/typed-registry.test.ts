@@ -1,7 +1,7 @@
 import {Registry, EventStatus} from '@eventkit/core'
 import {Agenda} from '@eventkit/modules'
 
-import {MockModule} from './fixtures/mock-module'
+import {MockModule} from '../fixtures/mock-module'
 
 describe('Typed Module Registry', () => {
   it('can attach the module to the registry', () => {

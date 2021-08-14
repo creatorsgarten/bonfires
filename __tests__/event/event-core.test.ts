@@ -1,7 +1,7 @@
 import {Event, CreateEventInput} from '@eventkit/core'
 import {Agenda} from '@eventkit/modules'
 
-import {MockModule} from './fixtures/mock-module'
+import {MockModule} from '../fixtures/mock-module'
 
 describe('Event Core', () => {
   it('can attach modules', () => {
