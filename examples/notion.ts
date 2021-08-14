@@ -6,7 +6,7 @@ require('dotenv').config()
 const r = Registry.create().use(Notion)
 
 async function main() {
-  const users = await r.get('eventkit/notion').users()
+  const users = await r.get('notion').users()
 
   for (const user of users) {
     if (user.type === 'person') {

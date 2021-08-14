@@ -7,16 +7,16 @@ describe('Typed Module Registry', () => {
   it('can attach the module to the registry', () => {
     const r = Registry.create().use(MockModule).use(Agenda)
 
-    expect(r.data).toHaveProperty('eventkit/agenda')
+    expect(r.data).toHaveProperty('agenda')
     expect(r.data).toHaveProperty('eventkit/mock')
 
     const notion = r.get('eventkit/mock')
     expect(notion.data.summary.firstTalk).toBe('N/A')
 
-    const agenda = r.get('eventkit/agenda')
+    const agenda = r.get('agenda')
     agenda.data.slots.push({start: new Date(), title: 'Talk A'})
 
-    const state = r.data['eventkit/agenda']
+    const state = r.data.agenda
     expect(state.slots[0]?.title).toBe('Talk A')
 
     r.bus.emit(EventStatus.Live)

@@ -5,7 +5,7 @@ describe('Registry Store', () => {
   it('can dispatch events using the registry', () => {
     const r = Registry.create().use(Agenda).use(Notion)
 
-    const agenda = r.get('eventkit/agenda')
+    const agenda = r.get('agenda')
     expect(agenda.store.handlers).toHaveProperty('agenda/add')
 
     r.run('agenda/add', {title: 'Third Talk', start: new Date()})

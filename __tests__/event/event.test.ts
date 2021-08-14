@@ -23,7 +23,7 @@ describe('Event', () => {
     const agenda = event.module.of(Agenda)!
     expect(agenda.data).toHaveProperty('slots')
 
-    const notion = event.module.get('eventkit/notion')
+    const notion = event.module.get('notion')
     await expect(notion.users()).resolves.toHaveLength(2)
   })
 })

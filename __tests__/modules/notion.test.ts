@@ -6,7 +6,7 @@ import {mockNotionContext} from '../fixtures/notion-context'
 describe('Notion', () => {
   it('can get list of users', async () => {
     const r = Registry.create().use(Notion, mockNotionContext)
-    const notion = r.get('eventkit/notion')
+    const notion = r.get('notion')
 
     const users = await notion.users()
 

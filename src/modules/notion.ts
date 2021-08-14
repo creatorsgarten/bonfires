@@ -18,7 +18,7 @@ const createContext = (): INotionContext => {
 }
 
 export class Notion extends Module {
-  meta = Module.Meta('eventkit/notion', {title: 'Notion Integration'})
+  meta = Module.Meta('notion', {title: 'Notion Integration'})
   context: INotionContext
 
   constructor(context = createContext()) {

@@ -14,7 +14,7 @@ interface Events {
 }
 
 export class Agenda extends Module<Events> {
-  meta = Module.Meta('eventkit/agenda', {title: 'Agenda Manager'})
+  meta = Module.Meta('agenda', {title: 'Agenda Manager'})
 
   data: IAgenda = {slots: []}
 

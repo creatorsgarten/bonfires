@@ -41,7 +41,7 @@ describe('Dynamic Module Registry', () => {
     const agenda = r.of(Agenda)
     if (agenda) agenda.data.slots = [{title: 'Talk 1', start: new Date()}]
 
-    expect(r.data['eventkit/agenda'].slots[0].title).toBe('Talk 1')
+    expect(r.data['agenda'].slots[0].title).toBe('Talk 1')
 
     r.ready()
     r.bus.emit(EventStatus.Live)
