@@ -1,7 +1,7 @@
 import {Command} from 'commander'
 import inquirer from 'inquirer'
 
-import {IEventType} from '../../src/@types/IEvent'
+import {Event, EventType} from '@eventkit/core'
 
 // eventkit new meetup --title "GraphQL Meetup 10.0" --online --stream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
 
@@ -10,7 +10,7 @@ const program = new Command()
 program
   .command('new [event-type]')
   .description('create a new event')
-  .action(createEvent)
+  .action(onCreateEvent)
 
 program
   .option('--title <title>', 'title of the event')
@@ -22,23 +22,26 @@ program
 
 program.parse(process.argv)
 
-interface ICreateEventOptions {
+interface ICreateEventFlags {
   title: string
   online: boolean
   livestream: string
   date: string
   time?: string
   yes: boolean
-  type?: IEventType
+  type?: EventType
 }
 
-async function createEvent(type: IEventType) {
-  const options = program.opts<ICreateEventOptions>()
+type IProgramOptions = Omit<ICreateEventFlags, 'type'>
+type ICreateEventAnswer = Omit<ICreateEventFlags, 'yes'>
 
-  let result: Partial<ICreateEventOptions> = {}
+async function onCreateEvent(type: EventType) {
+  const options = program.opts<IProgramOptions>()
+
+  let answer: Partial<ICreateEventAnswer> = {}
 
   if (!options.yes) {
-    const answer = await inquirer.prompt([
+    answer = await inquirer.prompt([
       {
         type: 'input',
         name: 'title',
@@ -69,18 +72,14 @@ async function createEvent(type: IEventType) {
         message: 'Will this event be hosted online?',
       },
     ])
-
-    result = answer
-
-    const verify = await inquirer.prompt({
-      type: 'confirm',
-      name: 'confirmCreate',
-      default: true,
-      message: 'Would you like to do create the draft event now?',
-    })
-
-    if (!verify.confirmCreate) return
   }
 
-  console.log(result)
+  const event = Event.create({
+    title: answer.title ?? options.title,
+    type: answer.type ?? type ?? 'event',
+    isOnline: answer.online ?? options.online ?? false,
+    datetime: {start: new Date(), end: new Date()},
+  })
+
+  console.log(event)
 }

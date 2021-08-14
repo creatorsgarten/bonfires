@@ -1,23 +1,27 @@
-import {Registry} from '@eventkit/core'
+import {Registry, RegistryOf, ModuleC} from '@eventkit/core'
 
-import type {RegistryOf, ModuleC} from '@eventkit/core'
+import {createEvent} from '../../utils/createEvent'
+
+import {CreateEventInput, IEvent} from '../../@types/event/IEvent'
 
 export class Event<R extends Registry<any>> {
+  data: IEvent
   registry: R
 
-  constructor(registry: R) {
+  constructor(data: CreateEventInput, registry: R) {
+    this.data = createEvent(data)
     this.registry = registry
   }
 
-  static create() {
+  static create(data: CreateEventInput) {
     const r = Registry.create()
 
-    return new Event(r)
+    return new Event(data, r)
   }
 
   use<K extends ModuleC>(Module: K, ...args: ConstructorParameters<K>) {
     const r = this.registry.use(Module, ...args) as RegistryOf<R, K>
 
-    return new Event(r)
+    return new Event(this.data, r)
   }
 }
