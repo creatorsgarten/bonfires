@@ -1,9 +1,7 @@
 import {Client} from '@notionhq/client'
 import {User} from '@notionhq/client/build/src/api-types'
 
-import {Module, EventStatus} from '@eventkit/core'
-
-import {Agenda} from './agenda'
+import {Module} from '@eventkit/core'
 
 interface INotionContext {
   client: Client
@@ -21,8 +19,16 @@ const createContext = (): INotionContext => {
 
 export class Notion extends Module {
   meta = Module.Meta('eventkit/notion', {title: 'Notion Integration'})
+  context: INotionContext
 
-  context = createContext()
+  constructor(context = createContext()) {
+    super()
+    this.context = context
+  }
 
   async onSetup() {}
+
+  async users() {
+    return this.context.listUsers()
+  }
 }
