@@ -3,10 +3,10 @@ import {IModuleMeta, Meta} from './ModuleMeta'
 
 import {IRegistry} from '../../@types/registry/IRegistry'
 
-export abstract class Module {
+export abstract class Module<D = any> {
   abstract meta: IModuleMeta<any>
 
-  data = {}
+  data: D = {} as D
   context = {}
 
   bus: EventBus | null = null

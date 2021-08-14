@@ -1,3 +1,5 @@
+export {Event} from './core/event/Event'
+
 export {Module} from './core/module/Module'
 export {IModuleMeta, Meta} from './core/module/ModuleMeta'
 
@@ -5,7 +7,7 @@ export {EventBus} from './core/module/EventBus'
 export {DynamicRegistry} from './core/module/DynamicRegistry'
 export {Registry, createRegistry} from './core/module/Registry'
 
-export {Event} from './core/event/Event'
+export {createStore, Store} from './core/store/Store'
 
 export {createEvent} from './utils/createEvent'
 
