@@ -1,6 +1,6 @@
 import {createEvent, EventStatus} from '@eventkit/core'
 
-describe('Create Event', () => {
+describe('Event Defaults', () => {
   it('should create an event in draft state', () => {
     const event = createEvent({
       title: 'EventKit Meetup',

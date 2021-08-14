@@ -6,11 +6,11 @@ import {CreateEventInput, IEvent} from '../../@types/event/IEvent'
 
 export class Event<R extends Registry<any>> {
   data: IEvent
-  registry: R
+  module: R
 
   constructor(data: CreateEventInput, registry: R) {
     this.data = createEvent(data)
-    this.registry = registry
+    this.module = registry
   }
 
   static create(data: CreateEventInput) {
@@ -20,7 +20,7 @@ export class Event<R extends Registry<any>> {
   }
 
   use<K extends ModuleC>(Module: K, ...args: ConstructorParameters<K>) {
-    const r = this.registry.use(Module, ...args) as RegistryOf<R, K>
+    const r = this.module.use(Module, ...args) as RegistryOf<R, K>
 
     return new Event(this.data, r)
   }
