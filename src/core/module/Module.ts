@@ -6,6 +6,7 @@ import {IModuleMeta, Meta} from './ModuleMeta'
 import {IRegistry} from '../../@types/registry/IRegistry'
 
 export abstract class Module<E = unknown, S = any> {
+  static Meta = Meta
   abstract meta: IModuleMeta<any>
 
   data: S = {} as S
@@ -15,8 +16,6 @@ export abstract class Module<E = unknown, S = any> {
   registry: IRegistry<any> | null = null
 
   onSetup?(): void | Promise<void>
-
-  static Meta = Meta
 
   store: Store<this['data'], E> = createStore({
     get: () => this.data,
