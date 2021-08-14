@@ -1,6 +1,6 @@
 import {createStore, Store} from '@eventkit/core'
 
-import {EventBus} from './EventBus'
+import {EventBus} from '../registry/EventBus'
 import {IModuleMeta, Meta} from './ModuleMeta'
 
 import {IRegistry} from '../../@types/registry/IRegistry'

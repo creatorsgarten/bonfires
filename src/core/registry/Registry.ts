@@ -1,6 +1,6 @@
 import {DuplicateModuleError} from '@eventkit/core'
 
-import {Module} from './Module'
+import {Module} from '../module/Module'
 import {EventBus} from './EventBus'
 
 import {
