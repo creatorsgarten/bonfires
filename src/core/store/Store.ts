@@ -1,21 +1,11 @@
-export interface Store<S = any, E = Record<any, any>> {
-  handlers: {
-    [T in keyof E]?: ((s: S, p: E[T]) => S)[]
-  }
+import {Store} from '@eventkit/core'
 
-  set(data: S): void
-  get(): S
-
-  run<T extends keyof E>(type: T, payload: E[T]): void
-  on<T extends keyof E>(type: T, handler: (state: S, payload: E[T]) => S): void
-}
-
-interface IOptions<S, E> {
+interface IOptions<S> {
   get?(): S
   set?(data: S): void
 }
 
-export const createStore = <S, E>(options?: IOptions<S, E>): Store<S, E> => {
+export const createStore = <S, E>(options?: IOptions<S>): Store<S, E> => {
   const store: Store<S, E> = {
     handlers: {},
 

@@ -7,16 +7,17 @@ export {EventBus} from './core/module/EventBus'
 export {DynamicRegistry} from './core/module/DynamicRegistry'
 export {Registry, createRegistry} from './core/module/Registry'
 
-export {createStore, Store} from './core/store/Store'
+export {createStore} from './core/store/Store'
 
 export {createEvent} from './utils/createEvent'
 
 export {DuplicateModuleError} from './errors/DuplicateExtensionError'
 
 export {EventStatus} from './@types/event/EventStatus'
-
 export type {EventType} from './@types/event/EventType'
 export type {IEvent, CreateEventInput} from './@types/event/IEvent'
+
+export type {Store} from './@types/store/Store'
 
 export type {RegistryOf} from './@types/registry/RegistryOf'
 export type {IRegistry, ModuleC} from './@types/registry/IRegistry'
