@@ -67,12 +67,6 @@ export class Registry<T extends Module[]> implements IRegistry<T> {
       this.modules.map((m) => [m.meta.id, m.data])
     ) as StateMapping<T>
   }
-
-  ready() {
-    for (const module of this.modules) {
-      module.onSetup()
-    }
-  }
 }
 
 export const createRegistry = <K extends Module[]>(...modules: K) =>

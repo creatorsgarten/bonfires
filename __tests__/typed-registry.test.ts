@@ -17,7 +17,6 @@ describe('Typed Module Registry', () => {
     const state = r.data['eventkit/agenda']
     expect(state.slots[0]?.title).toBe('Slot 2')
 
-    r.ready()
     r.bus.emit(EventStatus.Live)
     expect(r.of(Notion)?.context.token).toBe('Slot 2')
   })

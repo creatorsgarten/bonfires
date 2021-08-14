@@ -35,12 +35,6 @@ export class DynamicRegistry implements IRegistry<Module[]> {
     return this.modules.some((m) => m instanceof module)
   }
 
-  ready() {
-    for (const module of this.modules) {
-      module.onSetup()
-    }
-  }
-
   get data() {
     const data: Record<string, any> = {}
 
@@ -49,5 +43,9 @@ export class DynamicRegistry implements IRegistry<Module[]> {
     })
 
     return data
+  }
+
+  ready() {
+    this.modules.forEach((m) => m.onSetup?.())
   }
 }
