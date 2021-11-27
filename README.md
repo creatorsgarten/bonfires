@@ -20,6 +20,51 @@ Have an event idea you want to get started right away? You can use the `eventkit
 eventkit new meetup --title "GraphQL Meetup 10.0" --online --livestream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
 ```
 
+## GraphQL API
+
+EventKit exposes a GraphQL API to interact with your workspaces and events.
+
+Our schema has a lot of relations, so a graph representation such as GraphQL makes a lot of sense.
+
+Here's an example query to list all events in your workspaces.
+
+```gql
+query a {
+  currentUser {
+    workspaces {
+      events(first: 10) {
+        staffs {
+          roles {
+            title
+            type
+          }
+
+          tasks {
+            title
+          }
+
+          user {
+            email
+          }
+        }
+
+        days {
+          duties {
+            title
+          }
+
+          directors {
+            user {
+              email
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Running EventKit on your servers
 
 EventKit can be self-hosted within a few minutes. Follow this self-hosting guide to configure the EventKit platform on your servers or cloud instances.
@@ -30,27 +75,59 @@ TBD
 
 Here is the non-exhaustive list of technologies we are using for EventKit.
 
-Frontend:
+### Frontend
+
+View Layer
 
 - [React](https://reactjs.org)
-- [TypeScript](https://www.typescriptlang.org)
 - [Next.js](https://nextjs.org)
+- [TypeScript](https://www.typescriptlang.org)
+
+State Management
+
 - [Jotai](https://jotai.org)
+
+Styling
+
 - [Tailwind](https://tailwindcss.com)
 - [Emotion](https://emotion.sh)
 - [Twin Macro](https://twin.macro)
+
+Data Layer
+
+- [GraphQL](https://graphql.org)
 - [React Query](https://react-query.tanstack.com)
+- [Apollo](https://apollographql.com)
+
+Deployment
+
 - [Vercel](https://vercel.com)
 
-Backend:
+### Backend
+
+Runtime
 
 - [Node.js](https://nodejs.org)
 - [TypeScript](https://www.typescriptlang.org)
+
+Framework
+
 - [Nest.js](https://nestjs.com)
 - [Express](https://expressjs.com)
+
+Data Layer
+
 - [Prisma](https://www.prisma.io)
 - [Postgres](https://www.postgresql.org)
 - [Redis](https://redis.io)
+
+Query Layer
+
+- [GraphQL](https://graphql.org)
+- [Apollo Server](https://apollographql.com)
+
+Deployment
+
 - [Cloud Run](https://cloud.google.com/run)
 - [Docker](https://docker.io)
 
