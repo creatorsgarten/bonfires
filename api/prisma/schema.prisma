@@ -230,7 +230,7 @@ model Day {
   // For example: "Day 0", "Preparation Day", "Workshop Day"
   title String
 
-  // There must be one or more staffs to be an ODs (One-Day Directors) for a day.
+  // There must be one or more staffs to be ODs (One-Day Directors) for a day.
   // The director has to supervise and make decisions for that day.
   directors Staff[] @relation("dayDirector")
 
