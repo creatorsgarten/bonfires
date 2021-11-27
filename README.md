@@ -77,59 +77,19 @@ Here is the non-exhaustive list of technologies we are using for EventKit.
 
 ### Frontend
 
-View Layer
-
-- [React](https://reactjs.org)
-- [Next.js](https://nextjs.org)
-- [TypeScript](https://www.typescriptlang.org)
-
-State Management
-
-- [Jotai](https://jotai.org)
-
-Styling
-
-- [Tailwind](https://tailwindcss.com)
-- [Emotion](https://emotion.sh)
-- [Twin Macro](https://twin.macro)
-
-Data Layer
-
-- [GraphQL](https://graphql.org)
-- [React Query](https://react-query.tanstack.com)
-- [Apollo](https://apollographql.com)
-
-Deployment
-
-- [Vercel](https://vercel.com)
+- Foundation: [React](https://reactjs.org), [Next.js](https://nextjs.org), [TypeScript](https://www.typescriptlang.org)
+- State Management: [Jotai](https://jotai.org)
+- Styling: [Tailwind](https://tailwindcss.com), [Emotion](https://emotion.sh), [Twin Macro](https://twin.macro)
+- Data Layer: [GraphQL](https://graphql.org), [React Query](https://react-query.tanstack.com), [Apollo](https://apollographql.com)
+- Deployment: [Vercel](https://vercel.com)
 
 ### Backend
 
-Runtime
-
-- [Node.js](https://nodejs.org)
-- [TypeScript](https://www.typescriptlang.org)
-
-Framework
-
-- [Nest.js](https://nestjs.com)
-- [Express](https://expressjs.com)
-
-Data Layer
-
-- [Prisma](https://www.prisma.io)
-- [Postgres](https://www.postgresql.org)
-- [Redis](https://redis.io)
-
-Query Layer
-
-- [GraphQL](https://graphql.org)
-- [Apollo Server](https://apollographql.com)
-
-Deployment
-
-- [Cloud Run](https://cloud.google.com/run)
-- [Docker](https://docker.io)
+- Runtime: [Node.js](https://nodejs.org), [TypeScript](https://www.typescriptlang.org)
+- Framework: [Nest.js](https://nestjs.com), [Express](https://expressjs.com)
+- Data Layer: [Prisma](https://www.prisma.io), [Postgres](https://www.postgresql.org), [Redis](https://redis.io)
+- Query Layer: [GraphQL](https://graphql.org), [Apollo Server](https://apollographql.com)
+- Deployment: [Cloud Run](https://cloud.google.com/run), [Docker](https://docker.io)
 
 ### Extension and Integration Ideas
 
