@@ -1,8 +1,38 @@
 # EventKit: Host events programmatically.
 
-> It's like CDK or Pulumi, but for organising events.
+> Event logistics is boring. Let's automate all of them!
 
-Event logistics is boring. Let's automate all of them.
+EventKit is an event organisation platform. It's a collection of tools and applications that help your team run events, from early planning to the chaotic event days.
+
+EventKit ships with an intuitive webapp for staffs to plan, communicate and improvise in all stages. It's based on the MC/OD philosophy which gives full ownership and autonomy to every staff, which allows the event to be experimental, creative and fun.
+
+EventKit is designed to be API-first and support integrations and programmatic usage in mind, so you can write JS/TS code to automate and manage your events. Repetitive logistics can be fully automated so you can focus on the creative and fun parts. Think of it like Pulumi/CDK but for organising events.
+
+## Technologies
+
+Frontend:
+
+- [React](https://reactjs.org)
+- [TypeScript](https://www.typescriptlang.org)
+- [Next.js](https://nextjs.org)
+- [Jotai](https://jotai.org)
+- [Tailwind](https://tailwindcss.com)
+- [Emotion](https://emotion.sh)
+- [Twin Macro](https://twin.macro)
+- [React Query](https://react-query.tanstack.com)
+- [Vercel](https://vercel.com)
+
+Backend:
+
+- [Node.js](https://nodejs.org)
+- [TypeScript](https://www.typescriptlang.org)
+- [Nest.js](https://nestjs.com)
+- [Express](https://expressjs.com)
+- [Prisma](https://www.prisma.io)
+- [Postgres](https://www.postgresql.org)
+- [Redis](https://redis.io)
+- [Cloud Run](https://cloud.google.com/run)
+- [Docker](https://docker.io)
 
 ## CLI Usage
 

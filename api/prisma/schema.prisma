@@ -49,6 +49,7 @@ model Squad {
 
   // A squad can contain multiple roles.
   // For example, "Food" squad can have "MC Food" and "Food Delivery" roles.
+  // Note that the same staff can be in as many squad as they wish, as this is tied to the role.
   roles Role[]
 
   // A squad can contain multiple duties spanning multiple days.
