@@ -18,6 +18,10 @@ model User {
   username    String @unique
   displayName String
 
+  // A user can be in multiple workspaces.
+  // A workspace belongs to an organization that organizes the events.
+  workspaces Workspace[]
+
   // A user can become a staff in multiple events.
   // This field stores the event-specific staff records for each events.
   staffs Staff[]
@@ -133,12 +137,36 @@ model Staff {
   assignedTasks TaskAssignees[]
 }
 
+// Workspace is used to manage multiple events.
+model Workspace {
+  id Int @id @default(autoincrement())
+
+  // Name of the workspace, displayed internally.
+  name String
+
+  // Events that are created within a workspace.
+  events Event[]
+
+  // Users that belong to a workspace.
+  // The staff record is event-specific, so it can't be used here.
+  users User[]
+}
+
 model Event {
-  id    Int    @id @default(autoincrement())
-  title String
+  id Int @id @default(autoincrement())
+
+  // Internal name of the event.
+  name String
+
+  // The staffs that participated in this event.
+  staffs Staff[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  staffs Staff[]
+  // An event can be assigned to a workspace for easier grouping.
+  // This is useful when an organization regularly organizes multiple events,
+  // so we can share information at workspace level, e.g. venue locations or staffs.
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+  workspaceId Int?
 }
