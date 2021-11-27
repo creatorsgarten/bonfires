@@ -46,14 +46,19 @@
 
   - **Integrate with Slack.** Discord is used for communication in organizing teams. EventKit provides a Slack bot to plan and run the events.
 
-- Dropbox Message Box
+- Dropbox Letter Box
 
   - **Write short messages to others.** Write personal and kind words to staffs and attendees to thank them and preserve the memories in both online and offline events. This is especially useful in boot-camps or events that takes time to organize.
 
     - EventKit can generate a permalink to the message box, so you can keep it until the end of time. Generate customized slugs like `https://dropbox.ycc.in.th/ycc2/thank-you-joe` to keep it personal.
 
   - **Print thank you cards with QR codes.** If you wish to have a physical keepsake for your friends, EventKit can generate printable QR codes that you can give to others.
+
     - You can pre-generate a couple of cards and print them ahead of time, then take some time to write the messages once you're back home. EventKit can show in-progress messages and notify them once you're done writing.
+
+  - **Public message boards for events.** Instead of writing to a person, you can post your notes or letter to the event's board. You can keep adding new notes or letters after the event has ended.
+
+  - **Keep the conversation flowing.** Once you have received a dropbox letter from someone, you can reply to the letter or keep writing new letter to them. Reminds me of the [Kind words](https://store.steampowered.com/app/1070710/Kind_Words_lo_fi_chill_beats_to_write_to) game.
 
 - TODO: Move these feature ideas to my Linear board.
 
