@@ -53,10 +53,11 @@ model Squad {
 
   // A squad can contain multiple duties spanning multiple days.
   // For example, "Food" squad can have a "Prepare Lunch Room" duty item at slot 18 - slot 22.
-  Duty Duty[]
+  duties Duty[]
 
   // A squad can contain multiple tasks.
-  // For example, "Food" squad can have "Order Food" and "Serve Food" tasks.
+  // Tasks are usually used for pre-event tasks as well as checklists for the day.
+  // For example, "Food" squad can have "Plan Food Catering" and "Serve Food" tasks.
   tasks Task[]
 }
 
