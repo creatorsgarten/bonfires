@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User defines the staff/organizer that are using the EventKit platform.
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
@@ -17,16 +18,127 @@ model User {
   username    String @unique
   displayName String
 
-  createdEvents Event[]
+  // A user can become a staff in multiple events.
+  // This field stores the event-specific staff records for each events.
+  staffs Staff[]
+}
+
+enum RoleType {
+  // Master of Ceremony. Manages and delegates the task for that squad.
+  MC
+
+  // One-Day Director. Directs the event and makes decisions for that particular day.
+  OD
+
+  // Head. Supervises the event or a particular department in that event.
+  HEAD
+
+  // Staff. Supports the event.
+  STAFF
+}
+
+// Squad defines the unit that a staff can belong to.
+model Squad {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  // A squad can contain multiple roles.
+  // For example, "Food" squad can have "MC Food" and "Food Delivery" roles.
+  roles Role[]
+
+  // A squad can contain multiple tasks.
+  // For example, "Food" squad can have "Order Food" and "Serve Food" tasks.
+  tasks Task[]
+}
+
+// Role defines the roles that a staff can take on.
+// Example: [MC Food, OD Day 1]
+model Role {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  // Type of the role, such as MC, OD, Head, or staff.
+  type RoleType
+
+  // Multiple staffs can have the same role.
+  // For example, there can be multiple ODs at once.
+  staffs Staff[]
+
+  // A role can be assigned to a squad.
+  // For example, MC Food belongs to the "Food" squad.
+  squad   Squad @relation(fields: [squadId], references: [id])
+  squadId Int
+}
+
+// The task can be linked to a schedule.
+// This allows for integration with task management systems, such as Airtable, Linear, Trello, etc.
+model Task {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  // The task may be assigned to a squad.
+  // Logic: we can pre-assign the task's squad from the supervisor's squad.
+  squad   Squad? @relation(fields: [squadId], references: [id])
+  squadId Int?
+
+  // The task should have a single manager.
+  // The manager is usually the MC, in charge of ensuring that the tasks get done.
+  // We ensure each task have only one manager so that the responsibility is clear.
+  // Logic: we can pre-assign the task's supervisor to the MC of the squad.
+  manager   Staff? @relation("ManagedTasks", fields: [managerId], references: [id])
+  managerId Int?
+
+  // The task can have multiple staffs assigned to it.
+  // A difficult task might need more than one people handling it.
+  assignees TaskAssignees[]
+}
+
+model TaskAssignees {
+  task   Task @relation(fields: [taskId], references: [id])
+  taskId Int
+
+  staff   Staff @relation(fields: [staffId], references: [id])
+  staffId Int
+
+  @@id([taskId, staffId])
+}
+
+// The staff record defines the staff's information specifically for the particular event.
+model Staff {
+  id Int @id @default(autoincrement())
+
+  // An event-specific staff name that may change depending on the event.
+  // Use this to personalize your staff title and add meme nicknames :)
+  // For example, "Poom YWC17"
+  displayName String?
+
+  // A staff can be assigned multiple roles within the event.
+  roles Role[]
+
+  // The staff record must be tied to an EventKit user.
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  // The staff record must be tied to an event.
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int
+
+  // The staff can manage multiple tasks.
+  managedTasks Task[] @relation("ManagedTasks")
+
+  //The staff can have multiple tasks.
+  assignedTasks TaskAssignees[]
 }
 
 model Event {
   id    Int    @id @default(autoincrement())
   title String
 
-  createdBy User @relation(fields: [userId], references: [id])
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    Int
+
+  staffs Staff[]
 }
