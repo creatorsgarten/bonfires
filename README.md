@@ -29,7 +29,7 @@ Our schema has a lot of relations, so a graph representation such as GraphQL mak
 Here's an example query to list all events in your workspaces.
 
 ```gql
-query a {
+query Events {
   currentUser {
     workspaces {
       events(first: 10) {
