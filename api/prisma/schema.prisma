@@ -54,6 +54,7 @@ model Squad {
   // A squad can contain multiple tasks.
   // For example, "Food" squad can have "Order Food" and "Serve Food" tasks.
   tasks Task[]
+  Duty  Duty[]
 }
 
 // Role defines the roles that a staff can take on.
@@ -81,6 +82,8 @@ model Role {
 model Task {
   id Int @id @default(autoincrement())
 
+  // Title of the task.
+  // Example: Prepare Social Media Post, Clean Up the Venue
   title String
 
   // The task may be assigned to a squad.
@@ -88,16 +91,26 @@ model Task {
   squad   Squad? @relation(fields: [squadId], references: [id])
   squadId Int?
 
-  // The task should have a single manager.
-  // The manager is usually the MC, in charge of ensuring that the tasks get done.
+  // The task should have a single MC (Master of Ceremony) in charge.
+  // The MC ensures that the tasks must be done.
   // We ensure each task have only one manager so that the responsibility is clear.
   // Logic: we can pre-assign the task's supervisor to the MC of the squad.
   manager   Staff? @relation("ManagedTasks", fields: [managerId], references: [id])
   managerId Int?
 
+  // The due date or "deadline" of the task.
+  dueDate DateTime?
+
   // The task can have multiple staffs assigned to it.
-  // A difficult task might need more than one people handling it.
+  // A difficult task will need more than one people handling it.
   assignees TaskAssignees[]
+
+  // The task can be assigned to one of the duties, as a checklist for the MC.
+  duty   Duty? @relation(fields: [dutyId], references: [id])
+  dutyId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model TaskAssignees {
@@ -133,8 +146,13 @@ model Staff {
   // The staff can manage multiple tasks.
   managedTasks Task[] @relation("ManagedTasks")
 
-  //The staff can have multiple tasks.
+  // The staff can have multiple tasks assigned to them.
   assignedTasks TaskAssignees[]
+
+  // The days that the staff are assigned as OD (One-Day Director)
+  // We only allow one day for a staff to be OD, so everyone gets a chance to be the OD.
+  directorDay   Day? @relation("dayDirector", fields: [directorDayId], references: [id])
+  directorDayId Int?
 }
 
 // Workspace is used to manage multiple events.
@@ -152,21 +170,102 @@ model Workspace {
   users User[]
 }
 
+model Agenda {
+  id Int @id @default(autoincrement())
+
+  // Title of the current agenda.
+  // Example: Last Brief, Ice Breaking, Lecture 1.
+  title String
+
+  // An agenda may span multiple time slots.
+  // Start and ending slot used to determine the time range of this duty.
+  // Example: [14, 15] may mean that the agenda begins at 8:10 through 8:20
+  startSlot Int
+  endSlot   Int
+
+  // What day is this agenda located in.
+  day   Day? @relation(fields: [dayId], references: [id])
+  dayId Int?
+}
+
+// Duties are the action items or checklist of things to do on the event day.
+model Duty {
+  id Int @id @default(autoincrement())
+
+  // What you're supposed to be doing right now.
+  title String
+
+  // The day this duty was created in.
+  // This is used to look up the OD responsible for this day.
+  day   Day @relation(fields: [dayId], references: [id])
+  dayId Int
+
+  // A duty may span multiple time slots.
+  // Start and ending slot used to determine the time range of this duty.
+  // Example: [7, 15] may mean that the duty begins at 7:00 through 8:20.
+  startSlot Int
+  endSlot   Int
+
+  // The duty must be assigned to a squad.
+  // For example: Registration, Food, Venue, Lecture
+  // This is used to look up the MC responsible for this duty.
+  squad   Squad @relation(fields: [squadId], references: [id])
+  squadId Int
+
+  // There will be tasks that the MC has to delegate and ensure that it is done
+  // for this duty. This can be small things like checking the sound equipment systems.
+  tasks Task[]
+}
+
+// An event may span multiple days.
+model Day {
+  id Int @id @default(autoincrement())
+
+  // The title of the day.
+  // For example: "Day 0", "Preparation Day", "Workshop Day"
+  title String
+
+  // There must be one or more staffs to be an ODs (One-Day Directors) for a day.
+  // The director has to supervise and make decisions for that day.
+  directors Staff[] @relation("dayDirector")
+
+  // When does the day start?
+  // The time is used to mark "Slot 1" of the day,
+  // which is used to track the duties and agendas.
+  startsAt DateTime
+
+  // The duties that has to be verified for that day.
+  // The OD is in charge of supervising and communicating with the MCs on these duties.
+  duties Duty[]
+
+  // The agenda items or schedule of things that will happen that day.
+  agendas Agenda[]
+
+  // The event tied to this day.
+  event   Event? @relation(fields: [eventId], references: [id])
+  eventId Int?
+}
+
+// The event.
 model Event {
   id Int @id @default(autoincrement())
 
   // Internal name of the event.
   name String
 
+  // An event may have multiple days, such as a conference or bootcamp.
+  // A day may contain the duties, agendas and directors for that particular day.
+  days Day[]
+
   // The staffs that participated in this event.
   staffs Staff[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   // An event can be assigned to a workspace for easier grouping.
   // This is useful when an organization regularly organizes multiple events,
   // so we can share information at workspace level, e.g. venue locations or staffs.
   workspace   Workspace? @relation(fields: [workspaceId], references: [id])
   workspaceId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
