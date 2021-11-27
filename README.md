@@ -8,13 +8,23 @@ EventKit ships with an intuitive webapp for staffs to plan, communicate and impr
 
 EventKit is designed to be API-first and support integrations and programmatic usage in mind, so you can write JS/TS code to automate and manage your events. Repetitive logistics can be fully automated so you can focus on the creative and fun parts. Think of it like Pulumi/CDK but for organising events.
 
-## CLI Usage
+## Get started with the CLI
 
 Have an event idea you want to get started right away? You can use the `eventkit-cli` and create a new event with a single command. You don't even have to open the browser :D
 
 ```bash
 eventkit new meetup --title "GraphQL Meetup 10.0" --online --livestream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
 ```
+
+## Getting Started in the browser
+
+You can get started with EventKit at [eventkit.sh](https://eventkit.sh), and create a workspace there.
+
+## Running EventKit on your servers
+
+EventKit can be self-hosted within a few minutes. Follow this self-hosting guide to configure the EventKit platform on your servers or cloud instances.
+
+TBD
 
 ## Technologies
 
