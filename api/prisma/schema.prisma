@@ -288,8 +288,8 @@ model Day {
   agendas Agenda[]
 
   // The event tied to this day.
-  event   Event? @relation(fields: [eventId], references: [id])
-  eventId Int?
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int
 }
 
 // The event.

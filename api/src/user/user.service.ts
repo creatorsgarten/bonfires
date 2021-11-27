@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
-import { PrismaClient, User, Prisma } from '@prisma/client'
+import { PrismaClient, User, Prisma, Event } from '@prisma/client'
 
 @Injectable()
 export class UserService {
@@ -16,5 +16,14 @@ export class UserService {
 
   async create(data: Prisma.UserCreateInput) {
     return this.db.user.create({ data })
+  }
+
+  async findStaffedEvents(userId: number): Promise<Event[]> {
+    const user = await this.db.user.findUnique({
+      where: { id: userId },
+      include: { staffs: { include: { event: true } } },
+    })
+
+    return user.staffs.flatMap((s) => s.event)
   }
 }
