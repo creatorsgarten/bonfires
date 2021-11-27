@@ -12,11 +12,20 @@ datasource db {
 
 // User defines the staff/organizer that are using the EventKit platform.
 model User {
-  id    Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  // The user's email. Used for authentication and notification.
   email String @unique
 
-  username    String @unique
+  // The user's username. Must be unique.
+  username String @unique
+
+  // The user's display name. Can be a pseudonym or full name.
   displayName String
+
+  // URL of the staff's profile photo. Recommended to be set for every staffs,
+  // so it's easy for the organizing team to recognize them.
+  photo String?
 
   // A user can be in multiple workspaces.
   // A workspace belongs to an organization that organizes the events.
@@ -25,6 +34,36 @@ model User {
   // A user can become a staff in multiple events.
   // This field stores the event-specific staff records for each events.
   staffs Staff[]
+
+  // The staff's personal information. Optional.
+  // This can help the team to find contact information and use them for logistics.
+  // For example, a venue might need a list of names and phone numbers.
+  // This must be shared with clear consent for privacy.
+  profile   Profile?
+  profileId Int?
+}
+
+// The profile contains the personal information for either a staff or an attendee.
+model Profile {
+  id Int @id @default(autoincrement())
+
+  // A profile may be tied to a staff/organizer user.
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @unique
+
+  // Their full name.
+  firstName String?
+  lastName  String?
+
+  // Their phone number. Used for contact information when discussing with third parties.
+  phone String?
+
+  // Their home address. Used for sending parcels.
+  homeAddress String?
+
+  // The LINE ID for a user. LINE is one of the commonly-used chat apps in Thailand.
+  // Can be useful when discussing with third-parties such as venue or catering providers.
+  lineId String?
 }
 
 enum RoleType {
