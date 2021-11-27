@@ -32,6 +32,20 @@
 
   - Give points to staffs for accepting a MC/OD role and taking on tasks. Can be used to encourage new staffs to participate and take up new things.
 
+- Integrations with Data Platforms
+
+  - **Integrate with Airtable.** Airtable is used as databases for organizing events. EventKit allows you to provision Airtable bases and sync data with Airtable.
+
+  - **Integrate with Notion.** Notion is used for planning and note-taking tool, as well as databases for organizing events. EventKit allows you to sync data with Notion databases and pages.
+
+  - **Integrate with Linear.** Linear is used as a task management tool. EventKit allows you to sync task data with Linear projects and issues.
+
+- Integrations with Chat Platforms
+
+  - **Integrate with Discord.** Discord is used for communication in organizing teams and attendees. EventKit provides a Discord bot to plan and run the events, as well as engaging with the attendees (e.g. with points system)
+
+  - **Integrate with Slack.** Discord is used for communication in organizing teams. EventKit provides a Slack bot to plan and run the events.
+
 - TODO: Move these feature ideas to my Linear board.
 
 ### Things I want to try later.
