@@ -116,6 +116,8 @@ model Task {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
+// Many-to-many relation mapping to map tasks to staffs.
+// A staff can have multiple tasks, and a task can have multiple tasks.
 model TaskAssignees {
   task   Task @relation(fields: [taskId], references: [id])
   taskId Int
