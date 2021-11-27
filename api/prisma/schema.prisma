@@ -51,10 +51,13 @@ model Squad {
   // For example, "Food" squad can have "MC Food" and "Food Delivery" roles.
   roles Role[]
 
+  // A squad can contain multiple duties spanning multiple days.
+  // For example, "Food" squad can have a "Prepare Lunch Room" duty item at slot 18 - slot 22.
+  Duty Duty[]
+
   // A squad can contain multiple tasks.
   // For example, "Food" squad can have "Order Food" and "Serve Food" tasks.
   tasks Task[]
-  Duty  Duty[]
 }
 
 // Role defines the roles that a staff can take on.
