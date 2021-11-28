@@ -205,8 +205,13 @@ model Staff {
 model Workspace {
   id Int @id @default(autoincrement())
 
-  // Name of the workspace, displayed internally.
+  // Display name of the workspace, shown internally.
   name String
+
+  // URL slug of the workspace. Must be unique.
+  // For example, "polaris" will show up as https://eventkit.sh/polaris
+  // In the future, we may support domain-level workspaces e.g. https://polaris.eventkit.sh
+  slug String @unique
 
   // Events that are created within a workspace.
   events Event[]
@@ -214,6 +219,8 @@ model Workspace {
   // Users that belong to a workspace.
   // The staff record is event-specific, so it can't be used here.
   users User[]
+
+  @@index([id, slug, name])
 }
 
 model Agenda {
@@ -290,6 +297,8 @@ model Day {
   // The event tied to this day.
   event   Event @relation(fields: [eventId], references: [id])
   eventId Int
+
+  @@index([id, title])
 }
 
 // The event.
@@ -298,6 +307,9 @@ model Event {
 
   // Internal name of the event.
   name String
+
+  // An event may have a unique slug.
+  slug String? @unique
 
   // An event may have multiple days, such as a conference or bootcamp.
   // A day may contain the duties, agendas and directors for that particular day.
@@ -314,4 +326,6 @@ model Event {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([id, name, slug])
 }
