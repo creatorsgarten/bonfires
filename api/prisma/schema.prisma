@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator nestgraphql {
+  provider           = "node node_modules/prisma-nestjs-graphql"
+  output             = "../src/generated"
+  noAtomicOperations = true
+  reExport           = Directories
+}
+
 // User defines the staff/organizer that are using the EventKit platform.
 model User {
   id Int @id @default(autoincrement())
