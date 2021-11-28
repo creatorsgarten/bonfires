@@ -14,7 +14,7 @@ generator nestgraphql {
   provider           = "node node_modules/prisma-nestjs-graphql"
   output             = "../src/generated"
   noAtomicOperations = true
-  reExport           = Directories
+  reExport           = All
 }
 
 // User defines the staff/organizer that are using the EventKit platform.

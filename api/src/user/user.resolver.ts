@@ -2,10 +2,9 @@ import { Args, Int, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
 import { UserService } from './user.service'
 
-import { User } from '../generated/user'
-import { Workspace } from '../generated/workspace'
-
 const ID = { type: () => Int }
+
+import { User, Workspace } from '../generated'
 
 @Resolver(() => User)
 export class UserResolver {
@@ -19,5 +18,10 @@ export class UserResolver {
   @ResolveField()
   workspaces(): Workspace[] {
     return [{ id: 1, name: 'YCC 2', slug: 'ycc-2' }]
+  }
+
+  @ResolveField(() => [String])
+  colors(): string[] {
+    return ['green', 'red']
   }
 }
