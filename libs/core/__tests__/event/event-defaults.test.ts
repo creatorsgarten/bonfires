@@ -1,11 +1,11 @@
-import {createEvent, EventStatus} from '@eventkit/core'
+import { EventStatus, createEvent } from '../../src'
 
 describe('Event Defaults', () => {
   it('should create an event in draft state', () => {
     const event = createEvent({
       title: 'EventKit Meetup',
       type: 'meetup',
-      datetime: {start: new Date(), end: new Date()},
+      datetime: { start: new Date(), end: new Date() },
     })
 
     expect(event).toHaveProperty('id')

@@ -75,17 +75,21 @@ TBD
 
 Here is the non-exhaustive list of technologies we are using for EventKit.
 
+- Language: [TypeScript](https://www.typescriptlang.org)
+- Runtime: [Node](https://nodejs.org)
+- Monorepo Framework: [Nx](https://nx.dev)
+- Package Manager: [PNPM](https://pnpm.io)
+
 ### Frontend
 
-- Foundation: [React](https://reactjs.org), [Next.js](https://nextjs.org), [TypeScript](https://www.typescriptlang.org)
+- Foundation: [React](https://reactjs.org), [Next.js](https://nextjs.org)
 - State Management: [Jotai](https://jotai.org)
 - Styling: [Tailwind](https://tailwindcss.com), [Emotion](https://emotion.sh), [Twin Macro](https://twin.macro)
-- Data Layer: [GraphQL](https://graphql.org), [React Query](https://react-query.tanstack.com), [Apollo](https://apollographql.com)
+- Data Layer: [GraphQL](https://graphql.org), [Apollo](https://apollographql.com), [React Query](https://react-query.tanstack.com),
 - Deployment: [Vercel](https://vercel.com)
 
 ### Backend
 
-- Runtime: [Node.js](https://nodejs.org), [TypeScript](https://www.typescriptlang.org)
 - Framework: [Nest.js](https://nestjs.com), [Fastify](https://www.fastify.io)
 - Data Layer: [Prisma](https://www.prisma.io), [Postgres](https://www.postgresql.org), [Redis](https://redis.io)
 - Query Layer: [GraphQL](https://graphql.org), [Apollo Server](https://apollographql.com)

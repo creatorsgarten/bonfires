@@ -16,8 +16,11 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
+
     "paths": {
-      "@eventkit/core": ["libs/core/src/index.ts"]
+      "@eventkit/core": ["libs/core/src"],
+      "@eventkit/modules": ["libs/core/src/modules"]
     }
   },
   "exclude": ["node_modules", "tmp"]

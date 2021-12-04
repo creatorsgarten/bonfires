@@ -1,15 +1,16 @@
-import {Event, CreateEventInput} from '@eventkit/core'
-import {Agenda, Notion} from '@eventkit/modules'
+import { Agenda, Notion } from '@eventkit/modules'
 
-import {MockModule} from '../fixtures/mock-module'
-import {mockNotionContext} from '../fixtures/notion-context'
+import { Event, CreateEventInput } from '../../src'
+
+import { MockModule } from '../fixtures/mock-module'
+import { mockNotionContext } from '../fixtures/notion-context'
 
 describe('Event', () => {
   it('can attach modules to event', async () => {
     const data: CreateEventInput = {
       title: 'GraphQL Meetup',
       type: 'meetup',
-      datetime: {start: new Date(), end: new Date()},
+      datetime: { start: new Date(), end: new Date() },
     }
 
     const event = Event.create(data)

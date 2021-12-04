@@ -6,6 +6,8 @@
 
 *.log
 
+# auto-generated GraphQL.
+apps/web/src/generated
 apps/api/src/generated
 
 # compiled output

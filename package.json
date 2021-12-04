@@ -7,11 +7,20 @@
     "api:start": "nx run api:serve",
     "web:start": "nx run web:serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "private": true,
   "devDependencies": {
     "@emotion/babel-plugin": "11.3.0",
+    "@graphql-codegen/cli": "2.3.0",
+    "@graphql-codegen/introspection": "2.1.0",
+    "@graphql-codegen/typed-document-node": "^2.2.1",
+    "@graphql-codegen/typescript": "2.4.1",
+    "@graphql-codegen/typescript-document-nodes": "2.2.1",
+    "@graphql-codegen/typescript-operations": "2.2.1",
+    "@graphql-codegen/typescript-react-apollo": "3.2.2",
+    "@graphql-codegen/typescript-resolvers": "2.4.2",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@nrwl/cli": "13.2.3",
@@ -31,6 +40,7 @@
     "@types/node": "14.14.33",
     "@types/react": "17.0.30",
     "@types/react-dom": "17.0.9",
+    "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "~4.33.0",
     "@typescript-eslint/parser": "~4.33.0",
     "babel-jest": "27.2.3",
@@ -61,8 +71,10 @@
     "@nestjs/common": "^8.2.3",
     "@nestjs/core": "^8.2.3",
     "@nestjs/graphql": "^9.1.2",
+    "@nestjs/platform-express": "^8.0.0",
     "@nestjs/platform-fastify": "^8.2.3",
     "@nestjs/swagger": "^5.1.5",
+    "@notionhq/client": "^0.4.9",
     "@nrwl/next": "^13.2.3",
     "@prisma/client": "^3.6.0",
     "apollo-server-core": "^3.5.0",
@@ -70,7 +82,7 @@
     "core-js": "^3.6.5",
     "fastify-helmet": "^5.3.2",
     "fastify-swagger": "^4.12.6",
-    "graphql": "^15",
+    "graphql": "^15.7.2",
     "graphql-type-json": "^0.3.2",
     "graphql-ws": "^5.5.5",
     "jotai": "^1.4.6",
@@ -81,7 +93,9 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.4.0",
-    "tslib": "^2.0.0"
+    "ts-custom-error": "^3.2.0",
+    "tslib": "^2.0.0",
+    "uuid": "^8.3.2"
   },
   "sideEffects": false
 }
