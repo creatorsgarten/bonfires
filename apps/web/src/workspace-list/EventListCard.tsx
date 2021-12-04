@@ -3,40 +3,40 @@ import tw from 'twin.macro'
 import { truncate } from 'lodash'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import type { IconProp } from '@fortawesome/fontawesome-svg-core'
 
-import { Event } from '@gql'
+import type { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core'
 
 interface Props {
-  event: Omit<Event, '_count'>
+  name: string
+  icon?: string | null
+  color?: string | null
+
+  iconSize?: SizeProp
 }
 
 const Tile = tw.div`
 	flex items-center justify-center text-center
-	bg-neonblue w-20 h-20
+	bg-neonblue w-16 h-16 p-1
 	text-3xl text-white rounded-lg
 	font-semibold cursor-pointer shadow-lg
 	hover:bg-gray-800
 `
 
 export const EventListCard = (props: Props) => {
-  const { event } = props
-
-  const icon = event.icon as IconProp
-  const background = event.color ?? ''
+  const { name = '', icon, color, iconSize = 'lg' } = props
 
   return (
     <div tw="flex flex-col items-center w-36">
-      <Tile css={{ background }}>
+      <Tile css={{ background: color ?? '' }}>
         {icon ? (
-          <FontAwesomeIcon icon={icon} size="lg" />
+          <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
         ) : (
-          event.name.slice(0, 2)
+          name.slice(0, 2)
         )}
       </Tile>
 
-      <p tw="text-center leading-snug">
-        {truncate(event.name, { length: 25 })}
+      <p tw="text-sm text-center leading-snug">
+        {truncate(name, { length: 25 })}
       </p>
     </div>
   )
