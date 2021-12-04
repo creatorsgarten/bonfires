@@ -5,7 +5,7 @@ const Container = tw.section`
 `
 
 const Title = tw.h1`
-	text-2xl sm:text-4xl font-extralight
+	text-2xl sm:text-6xl font-extralight
 	text-gray-800 text-center
 `
 
