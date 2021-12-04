@@ -26,7 +26,7 @@ export const EventListCard = (props: Props) => {
   const { name = '', icon, color, iconSize = 'lg' } = props
 
   return (
-    <div tw="flex flex-col items-center w-36">
+    <div tw="flex flex-col items-center w-32">
       <Tile css={{ background: color ?? '' }}>
         {icon ? (
           <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
