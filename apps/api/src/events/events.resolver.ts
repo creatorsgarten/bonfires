@@ -25,6 +25,11 @@ export class EventsResolver {
   }
 
   @ResolveField()
+  async days(@Parent() event: Event) {
+    return []
+  }
+
+  @ResolveField()
   async staffs(@Parent() event: Event) {
     return []
   }
