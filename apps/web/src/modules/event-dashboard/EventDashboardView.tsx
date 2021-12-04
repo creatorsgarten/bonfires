@@ -10,6 +10,7 @@ export const EventDashboardView = () => {
 
   const { data, loading } = useEventQuery({
     variables: { eventId },
+    skip: !eventId,
   })
 
   const event = data?.event
