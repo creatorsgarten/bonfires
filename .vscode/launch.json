@@ -17,6 +17,10 @@
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "breakOnLoad": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+      ],
       "sourceMapPathOverrides": {
         "webpack:///./~/*": "${workspaceFolder}/node_modules/*",
         "webpack://?:*/*": "${workspaceFolder}/*"
