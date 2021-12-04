@@ -27,7 +27,7 @@ const Tile = tw.div`
 `
 
 export const EventListCard = (props: Props) => {
-  const { name = '', icon, color, iconSize = 'lg', url = '#!' } = props
+  const { name = '', icon, color, iconSize = 'lg', url = '' } = props
 
   return (
     <Link href={url} passHref>
