@@ -32,7 +32,11 @@ export const WorkspaceListView = () => {
 
             <div tw="flex flex-wrap sm:space-x-2">
               {workspace.events?.map(({ id, name, icon, color }) => (
-                <EventListCard key={id} {...{ name, icon, color }} />
+                <EventListCard
+                  key={id}
+                  url={`/event/${id}`}
+                  {...{ name, icon, color }}
+                />
               ))}
 
               <EventListCard

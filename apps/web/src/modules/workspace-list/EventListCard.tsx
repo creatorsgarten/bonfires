@@ -1,6 +1,7 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { truncate } from 'lodash'
+import Link from 'next/link'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -10,6 +11,8 @@ interface Props {
   name: string
   icon?: string | null
   color?: string | null
+
+  url?: string
 
   iconSize?: SizeProp
 }
@@ -24,21 +27,23 @@ const Tile = tw.div`
 `
 
 export const EventListCard = (props: Props) => {
-  const { name = '', icon, color, iconSize = 'lg' } = props
+  const { name = '', icon, color, iconSize = 'lg', url = '#!' } = props
 
   return (
-    <div tw="flex flex-col items-center w-24 sm:w-32">
-      <Tile css={{ background: color ?? '' }}>
-        {icon ? (
-          <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
-        ) : (
-          name.slice(0, 2)
-        )}
-      </Tile>
+    <Link href={url} passHref>
+      <a tw="flex flex-col items-center w-24 sm:w-32 text-black no-underline">
+        <Tile css={{ background: color ?? '' }}>
+          {icon ? (
+            <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
+          ) : (
+            name.slice(0, 2)
+          )}
+        </Tile>
 
-      <p tw="text-sm text-center leading-snug">
-        {truncate(name, { length: 25 })}
-      </p>
-    </div>
+        <p tw="text-sm text-center leading-snug">
+          {truncate(name, { length: 25 })}
+        </p>
+      </a>
+    </Link>
   )
 }
