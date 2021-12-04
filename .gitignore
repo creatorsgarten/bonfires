@@ -4,6 +4,8 @@
 .env.*
 !.env.example
 
+*.log
+
 apps/api/src/generated
 
 # compiled output
