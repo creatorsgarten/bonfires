@@ -1,14 +1,25 @@
-import { Args, Int, Query, ResolveField, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Int,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 
 import { UserService } from './user.service'
 
-const ID = { type: () => Int }
+import { User } from '../generated'
+import { WorkspacesService } from '../workspaces/workspaces.service'
 
-import { User, Workspace } from '../generated'
+const ID = { type: () => Int }
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(readonly userService: UserService) {}
+  constructor(
+    readonly userService: UserService,
+    readonly workspaceService: WorkspacesService
+  ) {}
 
   @Query(() => User)
   user(@Args('id', ID) id: number) {
@@ -16,8 +27,8 @@ export class UserResolver {
   }
 
   @ResolveField()
-  workspaces(): Workspace[] {
-    return [{ id: 1, name: 'YCC 2', slug: 'ycc-2' }]
+  async workspaces(@Parent() user: User) {
+    return this.workspaceService.findByUser(user.id)
   }
 
   @ResolveField(() => [String])

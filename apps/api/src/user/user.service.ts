@@ -1,10 +1,11 @@
+import { Prisma } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 
-import { PrismaClient, User, Prisma, Event } from '@prisma/client'
+import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
 export class UserService {
-  db = new PrismaClient()
+  constructor(readonly db: PrismaService) {}
 
   async findAll(limit: number) {
     return this.db.user.findMany({ take: limit })
