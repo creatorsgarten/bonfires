@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
-import { TypedTypePolicies } from '@gql'
+import type { TypedTypePolicies } from '@gql'
 
 const typePolicies: TypedTypePolicies = {
   Query: {
