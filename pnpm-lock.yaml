@@ -51,6 +51,7 @@ specifiers:
   fastify-swagger: ^4.12.6
   graphql: ^15
   graphql-type-json: ^0.3.2
+  graphql-ws: ^5.5.5
   jest: 27.2.3
   jotai: ^1.4.6
   next: 12.0.0
@@ -88,6 +89,7 @@ dependencies:
   fastify-swagger: 4.12.6
   graphql: 15.7.2
   graphql-type-json: 0.3.2_graphql@15.7.2
+  graphql-ws: 5.5.5_graphql@15.7.2
   jotai: 1.4.6_react@17.0.2
   next: 12.0.0_react-dom@17.0.2+react@17.0.2
   prisma-graphql-type-decimal: 1.0.0_7e9f545d68a470fd4d120c23042ef949

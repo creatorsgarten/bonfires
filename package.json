@@ -72,6 +72,7 @@
     "fastify-swagger": "^4.12.6",
     "graphql": "^15",
     "graphql-type-json": "^0.3.2",
+    "graphql-ws": "^5.5.5",
     "jotai": "^1.4.6",
     "next": "12.0.0",
     "prisma-graphql-type-decimal": "^1.0.0",

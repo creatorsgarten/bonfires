@@ -8,4 +8,8 @@ export const GraphQLAppModule = GraphQLModule.forRoot({
   autoSchemaFile: true,
   path: '/api/graphql',
   plugins: [ApolloServerPluginLandingPageLocalDefault()],
+
+  subscriptions: {
+    'graphql-ws': true,
+  },
 })
