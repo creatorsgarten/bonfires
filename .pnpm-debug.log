@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+    "err": {
+      "name": "pnpm",
+      "message": "No package.json (or package.yaml, or package.json5) was found in \"/Users/poom/Projects/eventkit\".",
+      "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+      "stack": "pnpm: No package.json (or package.yaml, or package.json5) was found in \"/Users/poom/Projects/eventkit\".\n    at readProjectManifest (/Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:40466:13)\n    at async Object.readProjectManifestOnly (/Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:40470:28)\n    at async Object.readProjectManifestOnly (/Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:40689:24)\n    at async Object.handler (/Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:129525:24)\n    at async /Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:133699:20\n    at async run (/Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:133674:34)\n    at async runPnpm (/Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:133884:5)\n    at async /Users/poom/Library/pnpm-global/5/node_modules/.pnpm/pnpm@6.16.1/node_modules/pnpm/dist/pnpm.cjs:133876:7"
+    }
+  }
+}
