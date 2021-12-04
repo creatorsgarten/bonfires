@@ -1,7 +1,10 @@
 import tw from 'twin.macro'
 
-const Container = tw.section`flex justify-center items-center bg-gray-50 min-h-screen`
-const Title = tw.h1`text-5xl font-light`
+const Container = tw.section`
+	flex justify-center items-center min-h-screen bg-gray-50
+`
+
+const Title = tw.h1`text-5xl font-extralight text-gray-800`
 
 export function Dashboard() {
   return (
