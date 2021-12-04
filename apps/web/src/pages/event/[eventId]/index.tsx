@@ -3,16 +3,10 @@ import { useRouter } from 'next/router'
 
 import 'twin.macro'
 
+import { EventDashboardView } from '../../../modules/event-dashboard/EventDashboardView'
+
 export function EventDashboardPage() {
-  const router = useRouter()
-
-  const id = router.query.eventId as string
-
-  return (
-    <div tw="flex justify-center items-center min-h-screen bg-red-500 text-9xl font-semibold text-white">
-      {id}
-    </div>
-  )
+  return <EventDashboardView />
 }
 
 export default EventDashboardPage
