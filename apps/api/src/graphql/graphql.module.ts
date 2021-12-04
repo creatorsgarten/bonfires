@@ -12,11 +12,12 @@ export const GraphQLAppModule = GraphQLModule.forRoot({
   useGlobalPrefix: true,
 
   subscriptions: {
+    'subscriptions-transport-ws': {
+      path: '/api/graphql',
+    },
+
     'graphql-ws': {
       path: '/api/graphql/ws',
-    },
-    'subscriptions-transport-ws': {
-      path: '/api/graphql/ws2',
     },
   },
 })

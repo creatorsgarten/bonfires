@@ -12,7 +12,14 @@
         "outputPath": "dist/apps/web"
       },
       "configurations": {
-        "production": {}
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/web/src/envs/env.ts",
+              "with": "apps/web/src/envs/env.prod.ts"
+            }
+          ]
+        }
       }
     },
     "serve": {
