@@ -6,10 +6,17 @@ export const GraphQLAppModule = GraphQLModule.forRoot({
   debug: true,
   playground: false,
   autoSchemaFile: true,
-  path: '/api/graphql',
+  path: '/graphql',
   plugins: [ApolloServerPluginLandingPageLocalDefault()],
 
+  useGlobalPrefix: true,
+
   subscriptions: {
-    'graphql-ws': true,
+    'graphql-ws': {
+      path: '/api/graphql/ws',
+    },
+    'subscriptions-transport-ws': {
+      path: '/api/graphql/ws2',
+    },
   },
 })

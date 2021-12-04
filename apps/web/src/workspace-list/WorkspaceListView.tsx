@@ -1,13 +1,9 @@
+import React from 'react'
 import tw from 'twin.macro'
 
 import { useWorkspaceListQuery } from '@gql'
 
-const EventTile = tw.div`
-	flex items-center justify-center text-center
-	bg-neonblue w-20 h-20
-	text-3xl text-white rounded-lg
-	font-semibold uppercase
-`
+import { EventListCard } from './EventListCard'
 
 export const WorkspaceListView = () => {
   const { data } = useWorkspaceListQuery({ variables: { userId: 1 } })
@@ -21,16 +17,9 @@ export const WorkspaceListView = () => {
           <section key={workspace.id}>
             <h1 tw="text-3xl font-light">{workspace.name}</h1>
 
-            <div tw="flex items-center space-x-8">
+            <div tw="flex space-x-2">
               {workspace.events?.map((event) => (
-                <div
-                  tw="flex flex-col justify-center items-center"
-                  key={event.id}
-                >
-                  <EventTile>{event.name.slice(0, 2)}</EventTile>
-
-                  <p>{event.name}</p>
-                </div>
+                <EventListCard key={event.id} event={event} />
               ))}
             </div>
           </section>

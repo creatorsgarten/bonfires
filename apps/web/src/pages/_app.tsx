@@ -5,9 +5,12 @@ import { ApolloProvider } from '@apollo/client'
 
 import { createApolloClient } from '../gql/client'
 
+import { setupIcon } from '../styles/icon'
+
 import '../styles/reset.css'
 
 const client = createApolloClient()
+setupIcon()
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (

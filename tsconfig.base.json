@@ -17,11 +17,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
-
     "paths": {
       "@eventkit/core": ["libs/core/src"],
-      "@gql": ["libs/core/src/codegen.ts"],
-      "@eventkit/modules": ["libs/core/src/modules"]
+      "@eventkit/modules": ["libs/core/src/modules"],
+      "@gql": ["libs/core/src/codegen.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

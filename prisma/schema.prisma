@@ -318,6 +318,12 @@ model Event {
   // An event may have a unique slug.
   slug String? @unique
 
+  // Color to associate with this workspace.
+  color String?
+
+  // Icon to associate with this workspace.
+  icon String?
+
   // An event may have multiple days, such as a conference or bootcamp.
   // A day may contain the duties, agendas and directors for that particular day.
   days Day[]

@@ -9,6 +9,10 @@ query workspaceList($userId: Int!) {
         id
         name
         slug
+        icon
+        color
+        createdAt
+        updatedAt
       }
     }
   }
