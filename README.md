@@ -86,7 +86,7 @@ Here is the non-exhaustive list of technologies we are using for EventKit.
 ### Backend
 
 - Runtime: [Node.js](https://nodejs.org), [TypeScript](https://www.typescriptlang.org)
-- Framework: [Nest.js](https://nestjs.com), [Express](https://expressjs.com)
+- Framework: [Nest.js](https://nestjs.com), [Fastify](https://www.fastify.io)
 - Data Layer: [Prisma](https://www.prisma.io), [Postgres](https://www.postgresql.org), [Redis](https://redis.io)
 - Query Layer: [GraphQL](https://graphql.org), [Apollo Server](https://apollographql.com)
 - Codegen: [Prisma Nest.js GraphQL](https://github.com/unlight/prisma-nestjs-graphql) generates GQL object types from Prisma schema

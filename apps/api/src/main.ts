@@ -1,12 +1,24 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 
+import { fastifyHelmet } from 'fastify-helmet'
+
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify'
+
 import { AppModule } from './app/app.module'
 import { setupSwagger } from './swagger/swagger.setup'
 import { PrismaService } from './prisma/prisma.service'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const fastify = new FastifyAdapter()
+
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    fastify
+  )
 
   // Set the global prefix.
   const prefix = 'api'
@@ -14,6 +26,11 @@ async function bootstrap() {
 
   // Expose swagger.
   setupSwagger(app)
+
+  // Setup helmet for secure defaults.
+  app.register(fastifyHelmet, {
+    contentSecurityPolicy: false,
+  })
 
   // Handle Prisma's shutdown event
   app.get(PrismaService).enableShutdownHooks(app)

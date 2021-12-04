@@ -61,13 +61,15 @@
     "@nestjs/common": "^8.2.3",
     "@nestjs/core": "^8.2.3",
     "@nestjs/graphql": "^9.1.2",
-    "@nestjs/platform-express": "^8.2.3",
+    "@nestjs/platform-fastify": "^8.2.3",
     "@nestjs/swagger": "^5.1.5",
     "@nrwl/next": "^13.2.3",
     "@prisma/client": "^3.6.0",
     "apollo-server-core": "^3.5.0",
-    "apollo-server-express": "^3.5.0",
+    "apollo-server-fastify": "^3.5.0",
     "core-js": "^3.6.5",
+    "fastify-helmet": "^5.3.2",
+    "fastify-swagger": "^4.12.6",
     "graphql": "^15",
     "graphql-type-json": "^0.3.2",
     "jotai": "^1.4.6",
@@ -78,8 +80,6 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.4.0",
-    "swagger-ui-express": "^4.2.0",
     "tslib": "^2.0.0"
   }
 }
-
