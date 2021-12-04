@@ -15,7 +15,7 @@ export const WorkspaceListView = () => {
       <main tw="flex flex-col max-w-5xl mx-auto px-8">
         {workspaces?.map((workspace) => (
           <section key={workspace.id}>
-            <h1 tw="text-3xl font-medium">{workspace.name}</h1>
+            <h1 tw="text-xl sm:text-3xl font-medium">{workspace.name}</h1>
 
             <div tw="flex space-x-2">
               {workspace.events?.map(({ id, name, icon, color }) => (

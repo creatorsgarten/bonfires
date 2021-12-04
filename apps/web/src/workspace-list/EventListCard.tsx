@@ -16,7 +16,8 @@ interface Props {
 
 const Tile = tw.div`
 	flex items-center justify-center text-center
-	bg-neonblue w-16 h-16 p-1
+	w-12 h-12 sm:w-16 sm:h-16
+	bg-neonblue p-2 sm:p-1
 	text-3xl text-white rounded-lg
 	font-semibold cursor-pointer shadow-lg
 	hover:bg-gray-800
@@ -26,7 +27,7 @@ export const EventListCard = (props: Props) => {
   const { name = '', icon, color, iconSize = 'lg' } = props
 
   return (
-    <div tw="flex flex-col items-center w-32">
+    <div tw="flex flex-col items-center w-24 sm:w-32">
       <Tile css={{ background: color ?? '' }}>
         {icon ? (
           <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
