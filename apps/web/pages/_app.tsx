@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 
+import '../styles/reset.css'
+
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
