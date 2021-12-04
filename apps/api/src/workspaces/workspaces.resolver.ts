@@ -9,7 +9,7 @@ import {
 
 import { WorkspacesService } from './workspaces.service'
 
-import { Workspace } from '../generated'
+import { Workspace } from '../generated/workspace/workspace.model'
 
 import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'

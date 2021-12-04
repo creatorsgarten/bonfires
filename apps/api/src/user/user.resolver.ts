@@ -9,7 +9,7 @@ import {
 
 import { UserService } from './user.service'
 
-import { User } from '../generated'
+import { User } from '../generated/user/user.model'
 import { WorkspacesService } from '../workspaces/workspaces.service'
 
 const ID = { type: () => Int }

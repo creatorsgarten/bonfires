@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 
-import { Event } from '../generated'
+import { Event } from '../generated/event/event.model'
 
 import { EventsService } from '../events/events.service'
 import { WorkspacesService } from '../workspaces/workspaces.service'
