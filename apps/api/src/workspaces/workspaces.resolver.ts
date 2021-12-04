@@ -10,6 +10,8 @@ import {
 import { WorkspacesService } from './workspaces.service'
 
 import { Workspace } from '../generated'
+
+import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'
 
 const ID = { type: () => Int }
@@ -18,7 +20,8 @@ const ID = { type: () => Int }
 export class WorkspacesResolver {
   constructor(
     private workspaceService: WorkspacesService,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private userService: UserService
   ) {}
 
   @Query(() => Workspace)
@@ -29,5 +32,10 @@ export class WorkspacesResolver {
   @ResolveField()
   async events(@Parent() workspace: Workspace) {
     return this.eventService.findByWorkspace(workspace.id)
+  }
+
+  @ResolveField()
+  async users(@Parent() workspace: Workspace) {
+    return this.userService.findByWorkspace(workspace.id)
   }
 }

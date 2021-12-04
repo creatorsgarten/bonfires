@@ -18,4 +18,11 @@ export class UserService {
   async create(data: Prisma.UserCreateInput) {
     return this.db.user.create({ data })
   }
+
+  async findByWorkspace(workspaceId: number) {
+    return this.db.user.findMany({
+      where: { workspaces: { some: { id: workspaceId } } },
+      orderBy: { id: 'asc' },
+    })
+  }
 }
