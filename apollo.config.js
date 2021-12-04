@@ -1,10 +1,6 @@
 module.exports = {
   client: {
-    includes: [
-      './apps/web/src/**/*.gql',
-      './apps/web/src/**/*.ts',
-      './apps/web/src/**/*.ts',
-    ],
+    includes: ['./apps/web/src/**/*.gql', './libs/core/src/**/*.gql'],
     excludes: ['**/__tests__/**'],
     service: {
       name: 'eventkit',

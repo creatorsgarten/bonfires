@@ -1,0 +1,8 @@
+query user($userId: Int!) {
+  user(id: $userId) {
+    id
+    email
+    photo
+    displayName
+  }
+}

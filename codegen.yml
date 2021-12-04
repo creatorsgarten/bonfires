@@ -2,12 +2,8 @@ overwrite: true
 schema: 'http://localhost:3333/api/graphql'
 documents: 'apps/web/src/**/*.gql'
 generates:
-  apps/web/src/generated:
+  libs/core/src/codegen.ts:
     plugins:
       - 'typescript'
       - 'typescript-operations'
       - 'typescript-react-apollo'
-      - 'typescript-document-nodes'
-  ./graphql.schema.json:
-    plugins:
-      - 'introspection'

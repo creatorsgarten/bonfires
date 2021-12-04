@@ -20,6 +20,7 @@
 
     "paths": {
       "@eventkit/core": ["libs/core/src"],
+      "@gql": ["libs/core/src/codegen.ts"],
       "@eventkit/modules": ["libs/core/src/modules"]
     }
   },
