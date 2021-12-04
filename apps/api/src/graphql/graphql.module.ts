@@ -6,5 +6,6 @@ export const GraphQLAppModule = GraphQLModule.forRoot({
   debug: true,
   playground: false,
   autoSchemaFile: true,
+  path: '/api/graphql',
   plugins: [ApolloServerPluginLandingPageLocalDefault()],
 })
