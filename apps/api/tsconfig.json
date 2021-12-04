@@ -2,6 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
+  "compilerOptions": {
+    "incremental": true,
+    "paths": {
+      "@model": ["./src/model.ts"]
+    }
+  },
   "references": [
     {
       "path": "./tsconfig.app.json"

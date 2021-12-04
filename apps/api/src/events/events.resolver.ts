@@ -7,7 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 
-import { Event } from '../generated/event/event.model'
+import { Event } from '../model'
 
 import { EventsService } from '../events/events.service'
 import { WorkspacesService } from '../workspaces/workspaces.service'
@@ -28,6 +28,8 @@ export class EventsResolver {
 
   @ResolveField()
   async workspace(@Parent() event: Event) {
+    if (!event.workspaceId) return null
+
     return this.workspaceService.findOne(event.workspaceId)
   }
 }
