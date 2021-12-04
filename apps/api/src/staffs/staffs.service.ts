@@ -7,6 +7,9 @@ export class StaffsService {
   constructor(private db: PrismaService) {}
 
   async findByEvent(eventId: number) {
-    return this.db.staff.findMany({ where: { eventId } })
+    return this.db.staff.findMany({
+      where: { eventId },
+      include: { roles: true },
+    })
   }
 }
