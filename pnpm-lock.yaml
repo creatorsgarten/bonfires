@@ -84,6 +84,7 @@ specifiers:
   prisma-graphql-type-decimal: ^1.0.0
   prisma-nestjs-graphql: ^14.6.1
   react: 17.0.2
+  react-content-loader: ^6.0.3
   react-dom: 17.0.2
   react-test-renderer: 17.0.2
   reflect-metadata: ^0.1.13
@@ -135,6 +136,7 @@ dependencies:
   next: 12.0.0_react-dom@17.0.2+react@17.0.2
   prisma-graphql-type-decimal: 1.0.0_7e9f545d68a470fd4d120c23042ef949
   react: 17.0.2
+  react-content-loader: 6.0.3_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   reflect-metadata: 0.1.13
   regenerator-runtime: 0.13.7
@@ -13025,6 +13027,15 @@ packages:
       minimist: 1.2.5
       strip-json-comments: 2.0.1
     dev: true
+
+  /react-content-loader/6.0.3_react@17.0.2:
+    resolution: {integrity: sha512-CIRgTHze+ls+jGDIfCitw27YkW2XcaMpsYORTUdBxsMFiKuUYMnlvY76dZE4Lsaa9vFXVw+41ieBEK7SJt0nug==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16.0.0'
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /react-dom/17.0.2_react@17.0.2:
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}

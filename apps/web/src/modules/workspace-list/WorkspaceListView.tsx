@@ -6,6 +6,8 @@ import { useWorkspaceListQuery } from '@gql'
 
 import { EventListCard } from './EventListCard'
 
+import SimpleLoader from '../loader/SimpleLoader'
+
 const AddWorkspaceButton = () => (
   <section>
     <div tw="flex items-center space-x-2 cursor-pointer">
@@ -17,13 +19,17 @@ const AddWorkspaceButton = () => (
 )
 
 export const WorkspaceListView = () => {
-  const { data } = useWorkspaceListQuery({ variables: { userId: 1 } })
+  const { data, loading } = useWorkspaceListQuery({
+    variables: { userId: 1 },
+  })
 
   const workspaces = data?.user?.workspaces
 
   return (
     <div tw="bg-gray-50 min-h-screen py-4">
       <main tw="flex flex-col max-w-5xl mx-auto px-8">
+        {loading && <SimpleLoader />}
+
         {workspaces?.map((workspace) => (
           <section key={workspace.id}>
             <h1 tw="text-lg xs:text-xl sm:text-2xl font-medium">

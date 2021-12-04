@@ -102,6 +102,7 @@
     "next": "12.0.0",
     "prisma-graphql-type-decimal": "^1.0.0",
     "react": "17.0.2",
+    "react-content-loader": "^6.0.3",
     "react-dom": "17.0.2",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
