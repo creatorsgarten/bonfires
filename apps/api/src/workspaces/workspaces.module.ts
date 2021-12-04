@@ -4,9 +4,14 @@ import { WorkspacesService } from './workspaces.service'
 import { WorkspacesResolver } from './workspaces.resolver'
 
 import { PrismaService } from '../prisma/prisma.service'
+import { EventsService } from '../events/events.service'
 
 @Module({
-  controllers: [],
-  providers: [PrismaService, WorkspacesService, WorkspacesResolver],
+  providers: [
+    PrismaService,
+    EventsService,
+    WorkspacesService,
+    WorkspacesResolver,
+  ],
 })
 export class WorkspacesModule {}

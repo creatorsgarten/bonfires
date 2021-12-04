@@ -1,17 +1,33 @@
-import { Args, Int, Query, ResolveField, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Int,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 
 import { WorkspacesService } from './workspaces.service'
 
-const ID = { type: () => Int }
-
 import { Workspace } from '../generated'
+import { EventsService } from '../events/events.service'
+
+const ID = { type: () => Int }
 
 @Resolver(() => Workspace)
 export class WorkspacesResolver {
-  constructor(readonly workspaceService: WorkspacesService) {}
+  constructor(
+    private workspaceService: WorkspacesService,
+    private eventService: EventsService
+  ) {}
 
   @Query(() => Workspace)
   workspace(@Args('id', ID) id: number) {
     return this.workspaceService.findOne(id)
+  }
+
+  @ResolveField()
+  async events(@Parent() workspace: Workspace) {
+    return this.eventService.findByWorkspace(workspace.id)
   }
 }

@@ -30,9 +30,4 @@ export class UserResolver {
   async workspaces(@Parent() user: User) {
     return this.workspaceService.findByUser(user.id)
   }
-
-  @ResolveField(() => [String])
-  colors(): string[] {
-    return ['green', 'red']
-  }
 }
