@@ -4,12 +4,14 @@ import { ID, Event } from '../model'
 
 import { EventsService } from '../events/events.service'
 import { WorkspacesService } from '../workspaces/workspaces.service'
+import { StaffsService } from '../staffs/staffs.service'
 
 @Resolver(() => Event)
 export class EventsResolver {
   constructor(
     private eventService: EventsService,
-    private workspaceService: WorkspacesService
+    private workspaceService: WorkspacesService,
+    private staffService: StaffsService
   ) {}
 
   @Query(() => Event)
@@ -31,6 +33,6 @@ export class EventsResolver {
 
   @ResolveField()
   async staffs(@Parent() event: Event) {
-    return []
+    return this.staffService.findByEvent(event.id)
   }
 }

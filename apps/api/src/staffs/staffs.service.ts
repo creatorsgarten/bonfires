@@ -1,4 +1,12 @@
 import { Injectable } from '@nestjs/common'
 
+import { PrismaService } from '../prisma/prisma.service'
+
 @Injectable()
-export class StaffsService {}
+export class StaffsService {
+  constructor(private db: PrismaService) {}
+
+  async findByEvent(eventId: number) {
+    return this.db.staff.findMany({ where: { eventId } })
+  }
+}
