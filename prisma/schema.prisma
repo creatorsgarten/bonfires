@@ -1,0 +1,338 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator nestgraphql {
+  provider           = "node node_modules/prisma-nestjs-graphql"
+  output             = "../apps/api/src/generated"
+  noAtomicOperations = true
+  reExport           = All
+}
+
+// User defines the staff/organizer that are using the EventKit platform.
+model User {
+  id Int @id @default(autoincrement())
+
+  // The user's email. Used for authentication and notification.
+  email String @unique
+
+  // The user's username. Must be unique.
+  username String @unique
+
+  // The user's display name. Can be a pseudonym or full name.
+  displayName String
+
+  // URL of the staff's profile photo. Recommended to be set for every staffs,
+  // so it's easy for the organizing team to recognize them.
+  photo String?
+
+  // A user can be in multiple workspaces.
+  // A workspace belongs to an organization that organizes the events.
+  workspaces Workspace[]
+
+  // A user can become a staff in multiple events.
+  // This field stores the event-specific staff records for each events.
+  staffs Staff[]
+
+  // The staff's personal information. Optional.
+  // This can help the team to find contact information and use them for logistics.
+  // For example, a venue might need a list of names and phone numbers.
+  // This must be shared with clear consent for privacy.
+  profile   Profile?
+  profileId Int?
+}
+
+// The profile contains the personal information for either a staff or an attendee.
+model Profile {
+  id Int @id @default(autoincrement())
+
+  // A profile may be tied to a staff/organizer user.
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @unique
+
+  // Their full name.
+  firstName String?
+  lastName  String?
+
+  // Their phone number. Used for contact information when discussing with third parties.
+  phone String?
+
+  // Their home address. Used for sending parcels.
+  homeAddress String?
+
+  // The LINE ID for a user. LINE is one of the commonly-used chat apps in Thailand.
+  // Can be useful when discussing with third-parties such as venue or catering providers.
+  lineId String?
+}
+
+enum RoleType {
+  // Master of Ceremony. Manages and delegates the task for that squad.
+  MC
+
+  // One-Day Director. Directs the event and makes decisions for that particular day.
+  OD
+
+  // Head. Supervises the event or a particular department in that event.
+  HEAD
+
+  // Staff. Supports the event.
+  STAFF
+}
+
+// Squad defines the unit that a staff can belong to.
+model Squad {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  // A squad can contain multiple roles.
+  // For example, "Food" squad can have "MC Food" and "Food Delivery" roles.
+  // Note that the same staff can be in as many squad as they wish, as this is tied to the role.
+  roles Role[]
+
+  // A squad can contain multiple duties spanning multiple days.
+  // For example, "Food" squad can have a "Prepare Lunch Room" duty item at slot 18 - slot 22.
+  duties Duty[]
+
+  // A squad can contain multiple tasks.
+  // Tasks are usually used for pre-event tasks as well as checklists for the day.
+  // For example, "Food" squad can have "Plan Food Catering" and "Serve Food" tasks.
+  tasks Task[]
+}
+
+// Role defines the roles that a staff can take on.
+// Example: [MC Food, OD Day 1]
+model Role {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  // Type of the role, such as MC, OD, Head, or staff.
+  type RoleType
+
+  // Multiple staffs can have the same role.
+  // For example, there can be multiple ODs at once.
+  staffs Staff[]
+
+  // A role can be assigned to a squad.
+  // For example, MC Food belongs to the "Food" squad.
+  squad   Squad @relation(fields: [squadId], references: [id])
+  squadId Int
+}
+
+// The task can be linked to a schedule.
+// This allows for integration with task management systems, such as Airtable, Linear, Trello, etc.
+model Task {
+  id Int @id @default(autoincrement())
+
+  // Title of the task.
+  // Example: Prepare Social Media Post, Clean Up the Venue
+  title String
+
+  // The task may be assigned to a squad.
+  // Logic: we can pre-assign the task's squad from the supervisor's squad.
+  squad   Squad? @relation(fields: [squadId], references: [id])
+  squadId Int?
+
+  // The task should have a single MC (Master of Ceremony) in charge.
+  // The MC ensures that the tasks must be done.
+  // We ensure each task have only one manager so that the responsibility is clear.
+  // Logic: we can pre-assign the task's supervisor to the MC of the squad.
+  manager   Staff? @relation("ManagedTasks", fields: [managerId], references: [id])
+  managerId Int?
+
+  // The due date or "deadline" of the task.
+  dueDate DateTime?
+
+  // The task can have multiple staffs assigned to it.
+  // A difficult task will need more than one people handling it.
+  assignees TaskAssignees[]
+
+  // The task can be assigned to one of the duties, as a checklist for the MC.
+  duty   Duty? @relation(fields: [dutyId], references: [id])
+  dutyId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+// Many-to-many relation mapping to map tasks to staffs.
+// A staff can have multiple tasks, and a task can have multiple tasks.
+model TaskAssignees {
+  task   Task @relation(fields: [taskId], references: [id])
+  taskId Int
+
+  staff   Staff @relation(fields: [staffId], references: [id])
+  staffId Int
+
+  @@id([taskId, staffId])
+}
+
+// The staff record defines the staff's information specifically for the particular event.
+model Staff {
+  id Int @id @default(autoincrement())
+
+  // An event-specific staff name that may change depending on the event.
+  // Use this to personalize your staff title and add meme nicknames :)
+  // For example, "Poom YWC17"
+  displayName String?
+
+  // A staff can be assigned multiple roles within the event.
+  roles Role[]
+
+  // The staff record must be tied to an EventKit user.
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  // The staff record must be tied to an event.
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int
+
+  // The staff can manage multiple tasks.
+  managedTasks Task[] @relation("ManagedTasks")
+
+  // The staff can have multiple tasks assigned to them.
+  assignedTasks TaskAssignees[]
+
+  // The days that the staff are assigned as OD (One-Day Director)
+  // We only allow one day for a staff to be OD, so everyone gets a chance to be the OD.
+  directorDay   Day? @relation("dayDirector", fields: [directorDayId], references: [id])
+  directorDayId Int?
+}
+
+// Workspace is used to manage multiple events.
+model Workspace {
+  id Int @id @default(autoincrement())
+
+  // Display name of the workspace, shown internally.
+  name String
+
+  // URL slug of the workspace. Must be unique.
+  // For example, "polaris" will show up as https://eventkit.sh/polaris
+  // In the future, we may support domain-level workspaces e.g. https://polaris.eventkit.sh
+  slug String @unique
+
+  // Events that are created within a workspace.
+  events Event[]
+
+  // Users that belong to a workspace.
+  // The staff record is event-specific, so it can't be used here.
+  users User[]
+
+  @@index([id, slug, name])
+}
+
+model Agenda {
+  id Int @id @default(autoincrement())
+
+  // Title of the current agenda.
+  // Example: Last Brief, Ice Breaking, Lecture 1.
+  title String
+
+  // An agenda may span multiple time slots.
+  // Start and ending slot used to determine the time range of this duty.
+  // Example: [14, 15] may mean that the agenda begins at 8:10 through 8:20
+  startSlot Int
+  endSlot   Int
+
+  // What day is this agenda located in.
+  day   Day? @relation(fields: [dayId], references: [id])
+  dayId Int?
+}
+
+// Duties are the action items or checklist of things to do on the event day.
+model Duty {
+  id Int @id @default(autoincrement())
+
+  // What you're supposed to be doing right now.
+  title String
+
+  // The day this duty was created in.
+  // This is used to look up the OD responsible for this day.
+  day   Day @relation(fields: [dayId], references: [id])
+  dayId Int
+
+  // A duty may span multiple time slots.
+  // Start and ending slot used to determine the time range of this duty.
+  // Example: [7, 15] may mean that the duty begins at 7:00 through 8:20.
+  startSlot Int
+  endSlot   Int
+
+  // The duty must be assigned to a squad.
+  // For example: Registration, Food, Venue, Lecture
+  // This is used to look up the MC responsible for this duty.
+  squad   Squad @relation(fields: [squadId], references: [id])
+  squadId Int
+
+  // There will be tasks that the MC has to delegate and ensure that it is done
+  // for this duty. This can be small things like checking the sound equipment systems.
+  tasks Task[]
+}
+
+// An event may span multiple days.
+model Day {
+  id Int @id @default(autoincrement())
+
+  // The title of the day.
+  // For example: "Day 0", "Preparation Day", "Workshop Day"
+  title String
+
+  // There must be one or more staffs to be ODs (One-Day Directors) for a day.
+  // The director has to supervise and make decisions for that day.
+  directors Staff[] @relation("dayDirector")
+
+  // When does the day start?
+  // The time is used to mark "Slot 1" of the day,
+  // which is used to track the duties and agendas.
+  startsAt DateTime
+
+  // The duties that has to be verified for that day.
+  // The OD is in charge of supervising and communicating with the MCs on these duties.
+  duties Duty[]
+
+  // The agenda items or schedule of things that will happen that day.
+  agendas Agenda[]
+
+  // The event tied to this day.
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int
+
+  @@index([id, title])
+}
+
+// The event.
+model Event {
+  id Int @id @default(autoincrement())
+
+  // Internal name of the event.
+  name String
+
+  // An event may have a unique slug.
+  slug String? @unique
+
+  // An event may have multiple days, such as a conference or bootcamp.
+  // A day may contain the duties, agendas and directors for that particular day.
+  days Day[]
+
+  // The staffs that participated in this event.
+  staffs Staff[]
+
+  // An event can be assigned to a workspace for easier grouping.
+  // This is useful when an organization regularly organizes multiple events,
+  // so we can share information at workspace level, e.g. venue locations or staffs.
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+  workspaceId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([id, name, slug])
+}

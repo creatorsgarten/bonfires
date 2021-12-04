@@ -1,94 +1,108 @@
+# EventKit: Host events programmatically.
 
+> Event logistics is boring. Let's automate all of them!
 
-# Eventkit
+EventKit is an event organisation platform. It's a collection of tools and applications that help your team run events, from early planning to the chaotic event days.
 
-This project was generated using [Nx](https://nx.dev).
+EventKit ships with an intuitive webapp for staffs to plan, communicate and improvise in all stages. It's based on the MC/OD philosophy which gives full ownership and autonomy to every staff, which allows the event to be experimental, creative and fun.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+EventKit is designed to be API-first and support integrations and programmatic usage in mind, so you can write JS/TS code to automate and manage your events. Repetitive logistics can be fully automated so you can focus on the creative and fun parts. Think of it like Pulumi/CDK but for organising events.
 
-🔎 **Smart, Extensible Build Framework**
+## Get Started
 
-## Adding capabilities to your workspace
+You can get started with EventKit at [eventkit.sh](https://eventkit.sh), and create a workspace there.
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+## CLI Usage
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+Have an event idea you want to get started right away? You can use the `eventkit-cli` and create a new event with a single command. You don't even have to open the browser :D
 
-Below are our core plugins:
+```bash
+eventkit new meetup --title "GraphQL Meetup 10.0" --online --livestream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
+```
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+## GraphQL API
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+EventKit exposes a GraphQL API to interact with your workspaces and events.
 
-## Generate an application
+Our schema has a lot of relations, so a graph representation such as GraphQL makes a lot of sense.
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+Here's an example query to list all events in your workspaces.
 
-> You can use any of the plugins above to generate applications as well.
+```gql
+query Events {
+  currentUser {
+    workspaces {
+      events(first: 10) {
+        staffs {
+          roles {
+            title
+            type
+          }
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+          tasks {
+            title
+          }
 
-## Generate a library
+          user {
+            email
+          }
+        }
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+        days {
+          duties {
+            title
+          }
 
-> You can also use any of the plugins above to generate libraries as well.
+          directors {
+            user {
+              email
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
-Libraries are shareable across libraries and applications. They can be imported from `@eventkit/mylib`.
+## Running EventKit on your servers
 
-## Development server
+EventKit can be self-hosted within a few minutes. Follow this self-hosting guide to configure the EventKit platform on your servers or cloud instances.
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+TBD
 
-## Code scaffolding
+## Technologies
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+Here is the non-exhaustive list of technologies we are using for EventKit.
 
-## Build
+### Frontend
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Foundation: [React](https://reactjs.org), [Next.js](https://nextjs.org), [TypeScript](https://www.typescriptlang.org)
+- State Management: [Jotai](https://jotai.org)
+- Styling: [Tailwind](https://tailwindcss.com), [Emotion](https://emotion.sh), [Twin Macro](https://twin.macro)
+- Data Layer: [GraphQL](https://graphql.org), [React Query](https://react-query.tanstack.com), [Apollo](https://apollographql.com)
+- Deployment: [Vercel](https://vercel.com)
 
-## Running unit tests
+### Backend
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+- Runtime: [Node.js](https://nodejs.org), [TypeScript](https://www.typescriptlang.org)
+- Framework: [Nest.js](https://nestjs.com), [Express](https://expressjs.com)
+- Data Layer: [Prisma](https://www.prisma.io), [Postgres](https://www.postgresql.org), [Redis](https://redis.io)
+- Query Layer: [GraphQL](https://graphql.org), [Apollo Server](https://apollographql.com)
+- Codegen: [Prisma Nest.js GraphQL](https://github.com/unlight/prisma-nestjs-graphql) generates GQL object types from Prisma schema
+- Deployment: [Cloud Run](https://cloud.google.com/run), [Docker](https://docker.io)
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+### Extension and Integration Ideas
 
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+- Airtable Template
+- Notion Template
+- Venue Booking
+- Team Gathering
+- Discord Channel Setup
+- StreamYard Live Setup
+- MC/OD setup & webapp integration
+- Meetup.com Integration
+- Auto-generate Graphics
+- Catering (Food & Drinks) setup
+- EventKit CLI
+- EventKit Discord Bot

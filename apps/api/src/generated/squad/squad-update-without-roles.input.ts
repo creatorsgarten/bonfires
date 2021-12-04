@@ -1,0 +1,17 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { DutyUpdateManyWithoutSquadInput } from '../duty/duty-update-many-without-squad.input';
+import { TaskUpdateManyWithoutSquadInput } from '../task/task-update-many-without-squad.input';
+
+@InputType()
+export class SquadUpdateWithoutRolesInput {
+
+    @Field(() => String, {nullable:true})
+    title?: string;
+
+    @Field(() => DutyUpdateManyWithoutSquadInput, {nullable:true})
+    duties?: DutyUpdateManyWithoutSquadInput;
+
+    @Field(() => TaskUpdateManyWithoutSquadInput, {nullable:true})
+    tasks?: TaskUpdateManyWithoutSquadInput;
+}

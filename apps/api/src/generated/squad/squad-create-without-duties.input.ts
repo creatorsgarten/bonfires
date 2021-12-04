@@ -1,0 +1,17 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { RoleCreateNestedManyWithoutSquadInput } from '../role/role-create-nested-many-without-squad.input';
+import { TaskCreateNestedManyWithoutSquadInput } from '../task/task-create-nested-many-without-squad.input';
+
+@InputType()
+export class SquadCreateWithoutDutiesInput {
+
+    @Field(() => String, {nullable:false})
+    title!: string;
+
+    @Field(() => RoleCreateNestedManyWithoutSquadInput, {nullable:true})
+    roles?: RoleCreateNestedManyWithoutSquadInput;
+
+    @Field(() => TaskCreateNestedManyWithoutSquadInput, {nullable:true})
+    tasks?: TaskCreateNestedManyWithoutSquadInput;
+}
