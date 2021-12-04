@@ -23,4 +23,9 @@ export class EventsResolver {
 
     return this.workspaceService.findOne(event.workspaceId)
   }
+
+  @ResolveField()
+  async staffs(@Parent() event: Event) {
+    return []
+  }
 }
