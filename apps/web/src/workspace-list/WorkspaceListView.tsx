@@ -21,9 +21,12 @@ export const WorkspaceListView = () => {
           <section key={workspace.id}>
             <h1 tw="text-3xl font-light">{workspace.name}</h1>
 
-            <div tw="flex flex-col justify-center">
+            <div tw="flex items-center space-x-8">
               {workspace.events?.map((event) => (
-                <div key={event.id}>
+                <div
+                  tw="flex flex-col justify-center items-center"
+                  key={event.id}
+                >
                   <EventTile>{event.name.slice(0, 2)}</EventTile>
 
                   <p>{event.name}</p>
