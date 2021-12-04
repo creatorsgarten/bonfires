@@ -1,20 +1,11 @@
-import {
-  Args,
-  Int,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql'
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
 import { WorkspacesService } from './workspaces.service'
 
-import { Workspace } from '../model'
+import { ID, Workspace } from '../model'
 
 import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'
-
-const ID = { type: () => Int }
 
 @Resolver(() => Workspace)
 export class WorkspacesResolver {

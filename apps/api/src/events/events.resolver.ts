@@ -1,18 +1,9 @@
-import {
-  Args,
-  Int,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql'
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
-import { Event } from '../model'
+import { ID, Event } from '../model'
 
 import { EventsService } from '../events/events.service'
 import { WorkspacesService } from '../workspaces/workspaces.service'
-
-const ID = { type: () => Int }
 
 @Resolver(() => Event)
 export class EventsResolver {
