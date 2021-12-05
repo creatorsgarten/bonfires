@@ -27,15 +27,8 @@ const read = (type: string): FieldPolicy => ({ read: ref(type) })
 const typePolicies: TypedTypePolicies = {
   Query: {
     fields: {
-      user: read('User'),
       event: read('Event'),
       workspace: read('Workspace'),
-    },
-  },
-
-  User: {
-    fields: {
-      workspaces: read('Workspace'),
     },
   },
 }
