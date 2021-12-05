@@ -60,6 +60,7 @@ specifiers:
   apollo-server-fastify: ^3.5.0
   babel-jest: 27.4.2
   babel-plugin-macros: ^3.1.0
+  color2k: ^1.2.4
   core-js: ^3.6.5
   cypress: ^9.1.1
   eslint: 8.4.0
@@ -130,6 +131,7 @@ dependencies:
   '@types/lodash': 4.14.177
   apollo-server-core: 3.5.0_graphql@15.7.2
   apollo-server-fastify: 3.5.0_graphql@15.7.2
+  color2k: 1.2.4
   core-js: 3.19.2
   faker: 5.5.3
   fastify-helmet: 5.3.2
@@ -6573,6 +6575,10 @@ packages:
       color-convert: 2.0.1
       color-string: 1.9.0
     dev: true
+
+  /color2k/1.2.4:
+    resolution: {integrity: sha512-DiwdBwc0BryPFFXoCrW8XQGXl2rEtMToODybxZjKnN5IJXt/tV/FsN02pCK/b7KcWvJEioz3c74lQSmayFvS4Q==}
+    dev: false
 
   /colord/2.9.1:
     resolution: {integrity: sha512-4LBMSt09vR0uLnPVkOUBnmxgoaeN4ewRbx801wY/bXcltXfpR/G46OdWn96XpYmCWuYvO46aBZP4NgX8HpNAcw==}

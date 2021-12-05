@@ -1,44 +1,35 @@
 import React from 'react'
-import tw from 'twin.macro'
+import tw, { styled, css } from 'twin.macro'
 import { truncate } from 'lodash'
 import Link from 'next/link'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import type { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core'
+
+import { Tile } from './EventListTile'
 
 interface Props {
   name: string
-  icon?: string | null
-  color?: string | null
+  icon: string | null
+  color: string | null
 
   url?: string
-
   iconSize?: SizeProp
 }
-
-const Tile = tw.div`
-	flex items-center justify-center text-center
-	w-12 h-12 sm:w-16 sm:h-16
-	bg-neonblue p-2 sm:p-1
-	text-3xl text-white rounded-lg
-	font-semibold cursor-pointer shadow-lg
-	hover:bg-gray-800
-`
 
 export const EventListCard = (props: Props) => {
   const { name = '', icon, color, iconSize = 'lg', url = '' } = props
 
+  function title() {
+    if (!icon) return name.slice(0, 2)
+
+    return <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
+  }
+
   return (
     <Link href={url} passHref>
       <a tw="flex flex-col items-center w-24 sm:w-32 text-black no-underline">
-        <Tile css={{ background: color ?? '' }}>
-          {icon ? (
-            <FontAwesomeIcon icon={icon as IconProp} size={iconSize} />
-          ) : (
-            name.slice(0, 2)
-          )}
-        </Tile>
+        <Tile bg={color}>{title()}</Tile>
 
         <p tw="text-sm text-center leading-snug">
           {truncate(name, { length: 25 })}
