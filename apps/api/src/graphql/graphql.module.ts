@@ -2,22 +2,16 @@ import { GraphQLModule } from '@nestjs/graphql'
 
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 
+import { createSubscriptionConfig, GQLContext } from './subscriptions.config'
+
 export const GraphQLAppModule = GraphQLModule.forRoot({
   debug: true,
+  path: '/graphql',
   playground: false,
   autoSchemaFile: true,
-  path: '/graphql',
+  useGlobalPrefix: true,
   plugins: [ApolloServerPluginLandingPageLocalDefault()],
 
-  useGlobalPrefix: true,
-
-  subscriptions: {
-    'subscriptions-transport-ws': {
-      path: '/api/graphql',
-    },
-
-    'graphql-ws': {
-      path: '/api/graphql/ws',
-    },
-  },
+  subscriptions: createSubscriptionConfig(),
+  context: ({ connection, extra }: GQLContext) => {},
 })
