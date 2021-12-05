@@ -19,6 +19,9 @@ specifiers:
   '@graphql-codegen/typescript-operations': 2.2.1
   '@graphql-codegen/typescript-react-apollo': 3.2.2
   '@graphql-codegen/typescript-resolvers': 2.4.2
+  '@n1ru4l/graphql-live-query-patch-json-patch': ^0.6.0
+  '@n1ru4l/push-pull-async-iterable-iterator': ^3.1.0
+  '@n1ru4l/socket-io-graphql-client': ^0.11.1
   '@nestjs/common': ^8.2.3
   '@nestjs/core': ^8.2.3
   '@nestjs/graphql': ^9.1.2
@@ -109,6 +112,9 @@ dependencies:
   '@fortawesome/fontawesome-svg-core': 1.2.36
   '@fortawesome/free-solid-svg-icons': 5.15.4
   '@fortawesome/react-fontawesome': 0.1.16_f515edce028694561ceb456e3dba224c
+  '@n1ru4l/graphql-live-query-patch-json-patch': 0.6.0_graphql@15.7.2
+  '@n1ru4l/push-pull-async-iterable-iterator': 3.1.0
+  '@n1ru4l/socket-io-graphql-client': 0.11.1
   '@nestjs/common': 8.2.3_ad16f1f28877c5242670873e13562245
   '@nestjs/core': 8.2.3_1864eb04cdb557d7ef263925d28b0dee
   '@nestjs/graphql': 9.1.2_185a5bcf046148ac5c2dee0d5cc378d2
@@ -2822,6 +2828,25 @@ packages:
     resolution: {integrity: sha512-CtzORUwWTTOTqfVtHaKRJ0I1kNQd1bpn3sUh8I3nJDVY+5/M/Oe1DnEWzPQvqq/xPIIkzzzIP7mfCoAjFRvDhg==}
     dev: false
 
+  /@n1ru4l/graphql-live-query-patch-json-patch/0.6.0_graphql@15.7.2:
+    resolution: {integrity: sha512-frQ2XYrNsss+hQ/CCHAloavBIEFcl0i9UEAJ0d6XG3JsssmpccpuojWsCvs7z9Iq+S0w/6VDDIHaiL7rTOiM5A==}
+    peerDependencies:
+      graphql: ^15.4.0 || ^16.0.0
+    dependencies:
+      '@n1ru4l/graphql-live-query-patch': 0.6.0_graphql@15.7.2
+      fast-json-patch: 3.1.0
+      graphql: 15.7.2
+    dev: false
+
+  /@n1ru4l/graphql-live-query-patch/0.6.0_graphql@15.7.2:
+    resolution: {integrity: sha512-ddjH8G6NyGOqMP7VIDWQ7qiXxEVCkRK28/2FUYCjWkZe4GQ7pGXF+jU8vy550I4t9EdfA3ckeyKCRu3W/x1bvA==}
+    peerDependencies:
+      graphql: ^15.4.0 || ^16.0.0
+    dependencies:
+      fast-json-patch: 3.1.0
+      graphql: 15.7.2
+    dev: false
+
   /@n1ru4l/graphql-live-query/0.9.0_graphql@15.7.2:
     resolution: {integrity: sha512-BTpWy1e+FxN82RnLz4x1+JcEewVdfmUhV1C6/XYD5AjS7PQp9QFF7K8bCD6gzPTr2l+prvqOyVueQhFJxB1vfg==}
     peerDependencies:
@@ -2829,6 +2854,19 @@ packages:
     dependencies:
       graphql: 15.7.2
     dev: true
+
+  /@n1ru4l/push-pull-async-iterable-iterator/3.1.0:
+    resolution: {integrity: sha512-K4scWxGhdQM0masHHy4gIQs2iGiLEXCrXttumknyPJqtdl4J179BjpibWSSQ1fxKdCcHgIlCTKXJU6cMM6D6Wg==}
+    engines: {node: '>=12'}
+    dev: false
+
+  /@n1ru4l/socket-io-graphql-client/0.11.1:
+    resolution: {integrity: sha512-yE917ST4LkvFHsTY6DjJ6v6ILK892sQTrWtVTwunbreqtrr8vkItcyS6CZ6Hy9oa7Ior6rn3WCeWhDbDRKF9Iw==}
+    peerDependencies:
+      socket.io-client: ^3.0.1 || ^4.0.0
+    dependencies:
+      '@n1ru4l/push-pull-async-iterable-iterator': 3.1.0
+    dev: false
 
   /@napi-rs/triples/1.0.3:
     resolution: {integrity: sha512-jDJTpta+P4p1NZTFVLHJ/TLFVYVcOqv6l8xwOeBKNPMgY/zDYH/YH7SJbvrr/h1RcS9GzbPcLKGzpuK9cV56UA==}
@@ -8292,6 +8330,10 @@ packages:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.4
+
+  /fast-json-patch/3.1.0:
+    resolution: {integrity: sha512-IhpytlsVTRndz0hU5t0/MGzS/etxLlfrpG5V5M9mVbuj9TrJLWaMfsox9REM5rkuGX0T+5qjpe8XA1o0gZ42nA==}
+    dev: false
 
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
