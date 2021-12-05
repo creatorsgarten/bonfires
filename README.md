@@ -85,7 +85,7 @@ Here is the non-exhaustive list of technologies we are using for EventKit.
 - Foundation: [React](https://reactjs.org), [Next.js](https://nextjs.org)
 - State Management: [Jotai](https://jotai.org)
 - Styling: [Tailwind](https://tailwindcss.com), [Emotion](https://emotion.sh), [Twin Macro](https://twin.macro)
-- Data Layer: [GraphQL](https://graphql.org), [Apollo](https://apollographql.com), [React Query](https://react-query.tanstack.com),
+- Data Layer: [GraphQL](https://graphql.org), [Apollo Client](https://apollographql.com)
 - Deployment: [Vercel](https://vercel.com)
 
 ### Backend

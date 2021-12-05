@@ -3,7 +3,7 @@ import 'twin.macro'
 
 import { WorkspaceFragment } from '@gql'
 
-import { EventListCard } from './EventListCard'
+import { EventListCard } from './event-card/EventListCard'
 
 interface Props {
   workspace: WorkspaceFragment
