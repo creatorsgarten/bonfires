@@ -1,5 +1,6 @@
 import { join } from 'path'
-import { GraphQLModule } from '@nestjs/graphql'
+import { Module } from '@nestjs/common'
+import { GraphQLModule as GQLModule } from '@nestjs/graphql'
 import { BaseRedisCache } from 'apollo-server-cache-redis'
 
 import {
@@ -14,28 +15,40 @@ import { redisClient } from '../pubsub/redis.service'
 
 const autoSchemaFile = join(process.cwd(), 'schema.gql')
 
-export const GraphQLAppModule = GraphQLModule.forRoot({
-  debug: true,
-  path: '/graphql',
-  playground: false,
-  autoSchemaFile,
-  useGlobalPrefix: true,
+@Module({
+  imports: [
+    GQLModule.forRootAsync({
+      imports: [],
+      inject: [],
 
-  schemaDirectives: {
-    live: LiveDirective,
-  },
+      useFactory() {
+        return {
+          debug: true,
+          path: '/graphql',
+          playground: false,
+          autoSchemaFile,
+          useGlobalPrefix: true,
 
-  typeDefs: `directive @live on QUERY`,
+          schemaDirectives: {
+            live: LiveDirective,
+          },
 
-  plugins: [
-    ApolloServerPluginLandingPageLocalDefault(),
-    ApolloServerPluginInlineTrace(),
+          typeDefs: `directive @live on QUERY`,
+
+          plugins: [
+            ApolloServerPluginLandingPageLocalDefault(),
+            ApolloServerPluginInlineTrace(),
+          ],
+
+          subscriptions: createSubscriptionConfig(),
+          context: ({ connection, extra }: GQLContext) => {},
+
+          persistedQueries: {
+            cache: new BaseRedisCache({ client: redisClient }),
+          },
+        }
+      },
+    }),
   ],
-
-  subscriptions: createSubscriptionConfig(),
-  context: ({ connection, extra }: GQLContext) => {},
-
-  persistedQueries: {
-    cache: new BaseRedisCache({ client: redisClient }),
-  },
 })
+export class GraphQLModule {}

@@ -4,7 +4,7 @@ import { UserModule } from '../user/user.module'
 import { DaysModule } from '../days/days.module'
 import { EventsModule } from '../events/events.module'
 import { StaffsModule } from '../staffs/staffs.module'
-import { GraphQLAppModule } from '../graphql/graphql.module'
+import { GraphQLModule } from '../graphql/graphql.module'
 import { WorkspacesModule } from '../workspaces/workspaces.module'
 
 import { PrismaService } from '../prisma/prisma.service'
@@ -16,7 +16,7 @@ import { PrismaService } from '../prisma/prisma.service'
     EventsModule,
     DaysModule,
     StaffsModule,
-    GraphQLAppModule,
+    GraphQLModule,
   ],
   providers: [PrismaService],
 })
