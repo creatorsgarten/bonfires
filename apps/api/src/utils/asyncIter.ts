@@ -61,8 +61,6 @@ export async function* toAsyncIterator<T>(
   try {
     while (true) {
       const value = await observer.container.promise
-      value //?
-
       if (observer.done) return
 
       if (value !== undefined) yield value
