@@ -3,17 +3,16 @@ import { Module } from '@nestjs/common'
 import { WorkspacesService } from './workspaces.service'
 import { WorkspacesResolver } from './workspaces.resolver'
 
+import { DataModule } from '../app/data.module'
+
 import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'
 
-import { PrismaService } from '../prisma/prisma.service'
-import { PubSubService } from '../pubsub/pubsub.service'
-
 @Module({
+  imports: [DataModule],
+
   providers: [
     UserService,
-    PrismaService,
-    PubSubService,
     EventsService,
     WorkspacesService,
     WorkspacesResolver,

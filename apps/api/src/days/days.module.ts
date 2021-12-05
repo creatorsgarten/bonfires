@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common'
 
 import { DaysService } from './days.service'
 
-import { PrismaService } from '../prisma/prisma.service'
+import { DataModule } from '../app/data.module'
 
 @Module({
-  providers: [PrismaService, DaysService],
+  imports: [DataModule],
+  providers: [DaysService],
 })
 export class DaysModule {}

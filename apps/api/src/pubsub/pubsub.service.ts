@@ -1,3 +1,4 @@
+import * as Redis from 'ioredis'
 import { Injectable } from '@nestjs/common'
 import { RedisPubSub } from 'graphql-redis-subscriptions'
 
@@ -7,6 +8,7 @@ import { Topics } from '../@types/topics'
 
 @Injectable()
 export class PubSubService {
+  redisClient = new Redis()
   pubsub = new RedisPubSub()
   store = new InMemoryLiveQueryStore()
 

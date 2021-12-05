@@ -1,23 +1,28 @@
 import { Module } from '@nestjs/common'
+import { GraphQLModule } from '@nestjs/graphql'
+
+import { DataModule } from './data.module'
 
 import { UserModule } from '../user/user.module'
 import { DaysModule } from '../days/days.module'
 import { EventsModule } from '../events/events.module'
 import { StaffsModule } from '../staffs/staffs.module'
-import { GraphQLModule } from '../graphql/graphql.module'
 import { WorkspacesModule } from '../workspaces/workspaces.module'
 
-import { PrismaService } from '../prisma/prisma.service'
+import { GraphQLConfigService } from '../graphql/graphql.service'
 
 @Module({
   imports: [
     UserModule,
-    WorkspacesModule,
     EventsModule,
     DaysModule,
     StaffsModule,
-    GraphQLModule,
+    WorkspacesModule,
+
+    GraphQLModule.forRootAsync({
+      imports: [DataModule, UserModule],
+      useClass: GraphQLConfigService,
+    }),
   ],
-  providers: [PrismaService],
 })
 export class AppModule {}

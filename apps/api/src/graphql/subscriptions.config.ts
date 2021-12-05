@@ -1,6 +1,10 @@
+import { Logger } from '@nestjs/common'
 import type { Context } from 'graphql-ws'
 import type { User } from '@prisma/client'
+
 import type { SubscriptionConfig } from '@nestjs/graphql/dist/interfaces/gql-module-options.interface'
+
+import { UserService } from '../user/user.service'
 
 /** Subscription connection parameters. */
 interface ConnectionParams {
@@ -9,7 +13,7 @@ interface ConnectionParams {
 
 /** Connection context. */
 interface ConnectionContext {
-  user: User
+  user: User | null
 }
 
 /** GQL Context */
@@ -24,23 +28,19 @@ const wsContext = (context: Context) =>
     extra: ConnectionContext
   }
 
-const mockUser = (): User => ({
-  id: 1,
-  username: 'mockuser',
-  email: 'user@example.com',
-  displayName: 'Mock User',
-  photo: '',
-  profileId: 1,
-})
+interface Options {
+  userService: UserService
+}
 
-export function createSubscriptionConfig(): SubscriptionConfig {
-  const user = mockUser()
-
+export function createSubscriptionConfig(ctx: Options): SubscriptionConfig {
   return {
     'subscriptions-transport-ws': {
       path: '/api/graphql',
 
-      onConnect(params: ConnectionParams): ConnectionContext {
+      async onConnect(params: ConnectionParams): Promise<ConnectionContext> {
+        Logger.log('Client connected.', 'subscriptions-ws')
+        const user = await ctx.userService.findById(1)
+
         return { user }
       },
     },
@@ -48,8 +48,11 @@ export function createSubscriptionConfig(): SubscriptionConfig {
     'graphql-ws': {
       path: '/api/graphql/ws',
 
-      onConnect(context: Context) {
+      async onConnect(context: Context) {
+        Logger.log('Client connected.', 'graphql-ws')
+
         const { connectionParams, extra } = wsContext(context)
+        const user = await ctx.userService.findById(1)
 
         extra.user = user
       },
