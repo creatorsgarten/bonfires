@@ -1,7 +1,11 @@
 import { GraphQLModule } from '@nestjs/graphql'
 
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
+import {
+  ApolloServerPluginInlineTrace,
+  ApolloServerPluginLandingPageLocalDefault,
+} from 'apollo-server-core'
 
+import { LiveDirective } from './live.directive'
 import { createSubscriptionConfig, GQLContext } from './subscriptions.config'
 
 export const GraphQLAppModule = GraphQLModule.forRoot({
@@ -10,7 +14,17 @@ export const GraphQLAppModule = GraphQLModule.forRoot({
   playground: false,
   autoSchemaFile: true,
   useGlobalPrefix: true,
-  plugins: [ApolloServerPluginLandingPageLocalDefault()],
+
+  schemaDirectives: {
+    live: LiveDirective,
+  },
+
+  typeDefs: `directive @live on FIELD_DEFINITION`,
+
+  plugins: [
+    ApolloServerPluginLandingPageLocalDefault(),
+    ApolloServerPluginInlineTrace(),
+  ],
 
   subscriptions: createSubscriptionConfig(),
   context: ({ connection, extra }: GQLContext) => {},
