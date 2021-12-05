@@ -1,14 +1,14 @@
 import {
   Args,
+  Directive,
   Mutation,
   Parent,
   Query,
   ResolveField,
   Resolver,
   Subscription,
+  Int,
 } from '@nestjs/graphql'
-
-import * as faker from 'faker'
 
 import { WorkspacesService } from './workspaces.service'
 
@@ -16,9 +16,9 @@ import { ID, Workspace } from '../model'
 
 import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'
+import { PubSubService } from '../pubsub/pubsub.service'
 
 import { WorkspaceCreateInput } from '../generated/workspace/workspace-create.input'
-import { PubSubService } from '../pubsub/pubsub.service'
 
 @Resolver(() => Workspace)
 export class WorkspacesResolver {
@@ -29,6 +29,7 @@ export class WorkspacesResolver {
     private pubsub: PubSubService
   ) {}
 
+  @Directive('@live')
   @Query(() => Workspace)
   workspace(@Args('id', ID) id: number) {
     return this.workspaceService.findOne(id)

@@ -1,23 +1,31 @@
 import { GraphQLModule } from '@nestjs/graphql'
 
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
+import {
+  ApolloServerPluginInlineTrace,
+  ApolloServerPluginLandingPageLocalDefault,
+} from 'apollo-server-core'
+
+import { LiveDirective } from './live.directive'
+import { createSubscriptionConfig, GQLContext } from './subscriptions.config'
 
 export const GraphQLAppModule = GraphQLModule.forRoot({
   debug: true,
+  path: '/graphql',
   playground: false,
   autoSchemaFile: true,
-  path: '/graphql',
-  plugins: [ApolloServerPluginLandingPageLocalDefault()],
-
   useGlobalPrefix: true,
 
-  subscriptions: {
-    'subscriptions-transport-ws': {
-      path: '/api/graphql',
-    },
-
-    'graphql-ws': {
-      path: '/api/graphql/ws',
-    },
+  schemaDirectives: {
+    live: LiveDirective,
   },
+
+  typeDefs: `directive @live on FIELD_DEFINITION`,
+
+  plugins: [
+    ApolloServerPluginLandingPageLocalDefault(),
+    ApolloServerPluginInlineTrace(),
+  ],
+
+  subscriptions: createSubscriptionConfig(),
+  context: ({ connection, extra }: GQLContext) => {},
 })
