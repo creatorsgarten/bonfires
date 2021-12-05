@@ -1,0 +1,8 @@
+fragment workspace on Workspace {
+  id
+  name
+  slug
+  events {
+    ...event
+  }
+}

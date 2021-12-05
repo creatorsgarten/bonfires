@@ -1,0 +1,5 @@
+subscription onCreateWorkspace {
+  onCreateWorkspace {
+    ...workspace
+  }
+}

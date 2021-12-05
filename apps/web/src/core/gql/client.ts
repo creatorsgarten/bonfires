@@ -4,6 +4,8 @@ import {
   ApolloClient,
   InMemoryCache,
   Operation,
+  FieldReadFunction,
+  FieldPolicy,
 } from '@apollo/client'
 
 import { WebSocketLink } from '@apollo/client/link/ws'
@@ -15,13 +17,25 @@ import { environment } from '../../envs/env'
 
 const { gqlEndpoint, wsEndpoint } = environment
 
+const ref =
+  (type: string): FieldReadFunction =>
+  (_, { args, toReference }) =>
+    toReference({ __typename: type, id: args?.id })
+
+const read = (type: string): FieldPolicy => ({ read: ref(type) })
+
 const typePolicies: TypedTypePolicies = {
   Query: {
     fields: {
-      event: {
-        read: (_, { args, toReference }) =>
-          toReference({ __typename: 'Event', id: args?.id }),
-      },
+      user: read('User'),
+      event: read('Event'),
+      workspace: read('Workspace'),
+    },
+  },
+
+  User: {
+    fields: {
+      workspaces: read('Workspace'),
     },
   },
 }

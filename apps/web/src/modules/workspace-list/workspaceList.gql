@@ -1,0 +1,8 @@
+query workspaceList($userId: Int!) {
+  user(id: $userId) {
+    id
+    workspaces {
+      ...workspace
+    }
+  }
+}

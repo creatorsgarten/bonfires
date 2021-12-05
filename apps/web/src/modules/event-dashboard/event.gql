@@ -1,11 +1,5 @@
 query event($eventId: Int!) {
   event(id: $eventId) {
-    id
-    name
-    slug
-    icon
-    color
-    createdAt
-    updatedAt
+    ...event
   }
 }

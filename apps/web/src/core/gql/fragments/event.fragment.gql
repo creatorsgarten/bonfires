@@ -1,0 +1,9 @@
+fragment event on Event {
+  id
+  name
+  slug
+  icon
+  color
+  createdAt
+  updatedAt
+}
