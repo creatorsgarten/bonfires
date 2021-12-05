@@ -65,4 +65,5 @@
 ### Things I want to try later.
 
 - [Vite](https://vitejs.dev)
+- [React Query](https://react-query.tanstack.com)
 - [React Location](https://react-location.tanstack.com)
