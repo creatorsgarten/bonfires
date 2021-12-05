@@ -10,8 +10,9 @@ import { Tile } from './EventListTile'
 
 interface Props {
   name: string
-  icon: string | null
-  color: string | null
+
+  icon?: string | null
+  color?: string | null
 
   url?: string
   iconSize?: SizeProp

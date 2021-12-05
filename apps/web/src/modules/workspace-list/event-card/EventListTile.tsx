@@ -2,7 +2,7 @@ import { darken } from 'color2k'
 import tw, { css, styled } from 'twin.macro'
 
 interface TileProps {
-  bg: string | null
+  bg?: string | null
 }
 
 export const Tile = styled.div<TileProps>((props) => [
