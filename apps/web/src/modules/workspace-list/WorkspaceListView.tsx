@@ -20,8 +20,8 @@ export const WorkspaceListView = () => {
       <main tw="flex flex-col max-w-5xl mx-auto px-8">
         {loading && <SimpleLoader />}
 
-        {workspaces?.map((workspace) => (
-          <WorkspaceSection workspace={workspace} />
+        {workspaces?.map((space) => (
+          <WorkspaceSection key={space.id} workspace={space} />
         ))}
 
         <AddWorkspaceButton />
