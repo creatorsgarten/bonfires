@@ -2,6 +2,7 @@
 
 .npmrc
 .scratchpad
+schema.gql
 
 .env
 .env.*

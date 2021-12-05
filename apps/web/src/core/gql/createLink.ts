@@ -1,5 +1,7 @@
+import { sha256 } from 'crypto-hash'
 import { io } from 'socket.io-client'
 import { HttpLink } from '@apollo/client'
+import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries'
 
 import { withWebsocketLink } from './websocketLink'
 import { withLiveQueryLink } from './liveQueryLink'
@@ -24,5 +26,10 @@ export function createLink() {
   const socket = io(liveEndpoint)
 
   // Setup live queries.
-  return withLiveQueryLink(socket, wsLink)
+  const liveLink = withLiveQueryLink(socket, wsLink)
+
+  // Setup APQ (Automatic Persisted Queries) to cache queries.
+  const persistLink = createPersistedQueryLink({ sha256 })
+
+  return persistLink.concat(liveLink)
 }

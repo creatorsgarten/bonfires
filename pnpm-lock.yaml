@@ -50,6 +50,7 @@ specifiers:
   '@testing-library/react': 12.1.2
   '@testing-library/react-hooks': 7.0.2
   '@types/faker': ^5.5.9
+  '@types/ioredis': ^4.28.2
   '@types/jest': 27.0.3
   '@types/lodash': ^4.14.177
   '@types/node': 16.11.11
@@ -58,12 +59,14 @@ specifiers:
   '@types/uuid': ^8.3.3
   '@typescript-eslint/eslint-plugin': ~5.5.0
   '@typescript-eslint/parser': ~5.5.0
+  apollo-server-cache-redis: ^3.3.0
   apollo-server-core: ^3.5.0
   apollo-server-fastify: ^3.5.0
   babel-jest: 27.4.2
   babel-plugin-macros: ^3.1.0
   color2k: ^1.2.4
   core-js: ^3.6.5
+  crypto-hash: ^2.0.1
   cypress: ^9.1.1
   eslint: 8.4.0
   eslint-config-next: 12.0.7
@@ -133,10 +136,12 @@ dependencies:
   '@nrwl/next': 13.2.3_2b25851e7fed3ad7838edbcf2107192e
   '@prisma/client': 3.6.0_prisma@3.6.0
   '@types/lodash': 4.14.177
+  apollo-server-cache-redis: 3.3.0
   apollo-server-core: 3.5.0_graphql@15.7.2
   apollo-server-fastify: 3.5.0_graphql@15.7.2
   color2k: 1.2.4
   core-js: 3.19.2
+  crypto-hash: 2.0.1
   faker: 5.5.3
   fastify-helmet: 5.3.2
   fastify-swagger: 4.12.6
@@ -190,6 +195,7 @@ devDependencies:
   '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
   '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
   '@types/faker': 5.5.9
+  '@types/ioredis': 4.28.2
   '@types/jest': 27.0.3
   '@types/node': 16.11.11
   '@types/react': 17.0.37
@@ -4688,6 +4694,12 @@ packages:
     dependencies:
       '@types/node': 14.14.33
 
+  /@types/ioredis/4.28.2:
+    resolution: {integrity: sha512-kOCG4ExodOAoslFjsUzwAK1fxqVRx3JX5m7lm3MkWf5WkDwNTtXBtlBig6cQyFwS7P7TPaTWRreQaMwl7e1FFA==}
+    dependencies:
+      '@types/node': 16.11.11
+    dev: true
+
   /@types/istanbul-lib-coverage/2.0.3:
     resolution: {integrity: sha512-sz7iLqvVUg1gIedBOvlkxPlc8/uVzyS5OwGz1cKjXzkl3FpL3al0crU8YGU1WoHkxn0Wxbw5tyi6hvzJKNzFsw==}
 
@@ -5395,6 +5407,18 @@ packages:
     resolution: {integrity: sha512-2v/5IRJeTGakCJo8kS2LeKUcLsgqxO/HpEyu1EaW79F0CsvrIk10tOIGxouoOgtVl5e1wfGePJ849CUWWczx2A==}
     dependencies:
       '@apollo/protobufjs': 1.2.2
+    dev: false
+
+  /apollo-server-cache-redis/3.3.0:
+    resolution: {integrity: sha512-S5MycJYk2j98hGpSmCs3ESDypNij+lI1phqX0KVZ8e7UmEu3Czz/hWyV+q98SuPexJQwEQyUYey6ikiQVuhJfg==}
+    engines: {node: '>=12.0'}
+    dependencies:
+      apollo-server-caching: 3.3.0
+      apollo-server-env: 4.2.0
+      dataloader: 2.0.0
+      ioredis: 4.28.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /apollo-server-caching/3.3.0:
@@ -6909,6 +6933,11 @@ packages:
       randomfill: 1.0.4
     dev: false
 
+  /crypto-hash/2.0.1:
+    resolution: {integrity: sha512-t4mkp7Vh6MuCZRBf0XLzBOfhkH3nW6YEAotMDSjshVQ1GffCMGdPLSr7pKH0rdXY02jTjAZ7QW2apD0buaZXcQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
   /css-color-names/0.0.4:
     resolution: {integrity: sha1-gIrcLnnPhHOAabZGyyDsJ762KeA=}
     dev: true
@@ -7268,7 +7297,6 @@ packages:
 
   /dataloader/2.0.0:
     resolution: {integrity: sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==}
-    dev: true
 
   /date-fns/1.30.1:
     resolution: {integrity: sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==}
