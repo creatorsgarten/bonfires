@@ -1,4 +1,4 @@
-import {createStore} from '@eventkit/core'
+import { createStore } from '@eventkit/core'
 
 interface IAgenda {
   slots: string[]
@@ -10,7 +10,7 @@ interface Events {
 
 describe('Create Standalone Store', () => {
   it('can dispatch events', () => {
-    let state: IAgenda = {slots: []}
+    let state: IAgenda = { slots: [] }
 
     const store = createStore<IAgenda, Events>()
     store.get = () => state

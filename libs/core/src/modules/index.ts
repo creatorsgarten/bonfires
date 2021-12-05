@@ -1,2 +1,2 @@
-export {Agenda} from './agenda'
-export {Notion} from './notion'
+export { Agenda } from './agenda'
+export { Notion } from './notion'

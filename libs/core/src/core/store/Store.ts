@@ -1,4 +1,4 @@
-import {Store} from '@eventkit/core'
+import { Store } from '@eventkit/core'
 
 interface IOptions<S> {
   get?(): S

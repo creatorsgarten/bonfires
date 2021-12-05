@@ -1,5 +1,5 @@
-import {Registry} from '@eventkit/core'
-import {Agenda, Notion} from '@eventkit/modules'
+import { Registry } from '@eventkit/core'
+import { Agenda, Notion } from '@eventkit/modules'
 
 describe('Registry Store', () => {
   it('can dispatch events using the registry', () => {
@@ -8,7 +8,7 @@ describe('Registry Store', () => {
     const agenda = r.get('agenda')
     expect(agenda.store.handlers).toHaveProperty('agenda/add')
 
-    r.run('agenda/add', {title: 'Third Talk', start: new Date()})
+    r.run('agenda/add', { title: 'Third Talk', start: new Date() })
 
     expect(agenda.store.get()).toBe(agenda.data)
     expect(agenda.data.slots[0]?.title).toBe('Third Talk')

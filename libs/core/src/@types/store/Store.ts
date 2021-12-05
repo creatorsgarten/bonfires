@@ -1,6 +1,6 @@
-import {UnionToIntersection} from 'type-fest'
+import { UnionToIntersection } from 'type-fest'
 
-import {Module} from '@eventkit/core'
+import { Module } from '@eventkit/core'
 
 export interface Store<S = any, E = Record<any, any>> {
   handlers: {

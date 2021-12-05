@@ -1,8 +1,8 @@
-import {Registry, RegistryOf, ModuleC} from '@eventkit/core'
+import { Registry, RegistryOf, ModuleC } from '@eventkit/core'
 
-import {createEvent} from '../../utils/createEvent'
+import { createEvent } from '../../utils/createEvent'
 
-import {CreateEventInput, IEvent} from '../../@types/event/IEvent'
+import { CreateEventInput, IEvent } from '../../@types/event/IEvent'
 
 export class Event<R extends Registry<any>> {
   data: IEvent

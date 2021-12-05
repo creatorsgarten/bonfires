@@ -1,7 +1,7 @@
-import {DuplicateModuleError} from '@eventkit/core'
+import { DuplicateModuleError } from '@eventkit/core'
 
-import {Module} from '../module/Module'
-import {EventBus} from './EventBus'
+import { Module } from '../module/Module'
+import { EventBus } from './EventBus'
 
 import {
   ModuleC,
@@ -10,7 +10,7 @@ import {
   ModuleMapping,
 } from '../../@types/registry/IRegistry'
 
-import {CombinedEvents, Store} from '../../@types/store/Store'
+import { CombinedEvents, Store } from '../../@types/store/Store'
 
 export class Registry<T extends Module[], Events = CombinedEvents<T>>
   implements IRegistry<T>

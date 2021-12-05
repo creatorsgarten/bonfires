@@ -1,7 +1,7 @@
-import {Client} from '@notionhq/client'
-import {User} from '@notionhq/client/build/src/api-types'
+import { Client } from '@notionhq/client'
+import { User } from '@notionhq/client/build/src/api-types'
 
-import {Module} from '@eventkit/core'
+import { Module } from '@eventkit/core'
 
 export interface INotionContext {
   client?: Client
@@ -9,7 +9,7 @@ export interface INotionContext {
 }
 
 const createContext = (): INotionContext => {
-  const client = new Client({auth: process.env['NOTION_TOKEN']})
+  const client = new Client({ auth: process.env['NOTION_TOKEN'] })
 
   return {
     client,
@@ -18,7 +18,7 @@ const createContext = (): INotionContext => {
 }
 
 export class Notion extends Module {
-  meta = Module.Meta('notion', {title: 'Notion Integration'})
+  meta = Module.Meta('notion', { title: 'Notion Integration' })
   context: INotionContext
 
   constructor(context = createContext()) {

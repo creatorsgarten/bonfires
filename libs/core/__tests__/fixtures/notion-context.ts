@@ -1,6 +1,6 @@
-import {User} from '@notionhq/client/build/src/api-types'
+import { User } from '@notionhq/client/build/src/api-types'
 
-import {INotionContext} from '../../src/modules/notion'
+import { INotionContext } from '../../src/modules/notion'
 
 const users: User[] = [
   {
@@ -8,7 +8,7 @@ const users: User[] = [
     object: 'user',
     type: 'person',
     name: 'Phoomparin Mano',
-    person: {email: 'poom@hey.com'},
+    person: { email: 'poom@hey.com' },
   },
   {
     id: '<uuid>',

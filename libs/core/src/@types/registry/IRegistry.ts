@@ -1,5 +1,5 @@
-import {Constructor} from 'type-fest'
-import {Module, EventBus} from '@eventkit/core'
+import { Constructor } from 'type-fest'
+import { Module, EventBus } from '@eventkit/core'
 
 export type NameOf<T> = T extends Module ? T['meta']['id'] : never
 export type DataOf<T> = T extends Module ? T['data'] : never

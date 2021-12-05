@@ -1,11 +1,11 @@
-import {Module, EventStatus} from '@eventkit/core'
-import {Agenda} from '@eventkit/modules'
+import { Module, EventStatus } from '@eventkit/core'
+import { Agenda } from '@eventkit/modules'
 
 export class MockModule extends Module {
-  meta = Module.Meta('eventkit/mock', {title: 'Mock Module'})
+  meta = Module.Meta('eventkit/mock', { title: 'Mock Module' })
 
   data = {
-    summary: {firstTalk: 'N/A'},
+    summary: { firstTalk: 'N/A' },
   }
 
   async onSetup() {

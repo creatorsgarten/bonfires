@@ -1,4 +1,4 @@
-import {EventStatus} from '../../@types/event/EventStatus'
+import { EventStatus } from '../../@types/event/EventStatus'
 
 type Handler = () => void
 
@@ -11,7 +11,7 @@ export class EventBus {
   on<T extends Events>(type: T, handler: Handler) {
     const handlers = this.handlers[type] ?? []
 
-    this.handlers = {...this.handlers, [type]: [...handlers, handler]}
+    this.handlers = { ...this.handlers, [type]: [...handlers, handler] }
   }
 
   emit<T extends Events>(type: T) {

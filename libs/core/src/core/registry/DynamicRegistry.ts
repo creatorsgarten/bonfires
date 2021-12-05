@@ -1,8 +1,8 @@
-import {DuplicateModuleError, Module} from '@eventkit/core'
+import { DuplicateModuleError, Module } from '@eventkit/core'
 
-import {EventBus} from './EventBus'
+import { EventBus } from './EventBus'
 
-import {IRegistry, ModuleC} from '../../@types/registry/IRegistry'
+import { IRegistry, ModuleC } from '../../@types/registry/IRegistry'
 
 export class DynamicRegistry implements IRegistry<Module[]> {
   modules: Module[] = []

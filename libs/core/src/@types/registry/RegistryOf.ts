@@ -1,6 +1,6 @@
-import {Registry} from '@eventkit/core'
+import { Registry } from '@eventkit/core'
 
-import {ModuleC} from './IRegistry'
+import { ModuleC } from './IRegistry'
 
 export type GetModules<R extends Registry<any>> = R extends Registry<infer M>
   ? M

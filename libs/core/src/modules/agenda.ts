@@ -1,4 +1,4 @@
-import {Module} from '@eventkit/core'
+import { Module } from '@eventkit/core'
 
 interface ISlot {
   title: string
@@ -14,11 +14,11 @@ interface Events {
 }
 
 export class Agenda extends Module<Events> {
-  meta = Module.Meta('agenda', {title: 'Agenda Manager'})
+  meta = Module.Meta('agenda', { title: 'Agenda Manager' })
 
-  data: IAgenda = {slots: []}
+  data: IAgenda = { slots: [] }
 
   async onSetup() {
-    this.store.on('agenda/add', (s, e) => ({...s, slots: [...s.slots, e]}))
+    this.store.on('agenda/add', (s, e) => ({ ...s, slots: [...s.slots, e] }))
   }
 }

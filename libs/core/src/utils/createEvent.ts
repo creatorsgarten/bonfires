@@ -1,7 +1,7 @@
-import {v4} from 'uuid'
+import { v4 } from 'uuid'
 
-import {EventStatus} from '../@types/event/EventStatus'
-import {CreateEventInput, IEvent} from '../@types/event/IEvent'
+import { EventStatus } from '../@types/event/EventStatus'
+import { CreateEventInput, IEvent } from '../@types/event/IEvent'
 
 export const createEvent = (input: CreateEventInput): IEvent => ({
   ...input,

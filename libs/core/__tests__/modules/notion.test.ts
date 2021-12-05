@@ -1,7 +1,7 @@
-import {Registry} from '@eventkit/core'
-import {Notion} from '@eventkit/modules'
+import { Registry } from '@eventkit/core'
+import { Notion } from '@eventkit/modules'
 
-import {mockNotionContext} from '../fixtures/notion-context'
+import { mockNotionContext } from '../fixtures/notion-context'
 
 describe('Notion', () => {
   it('can get list of users', async () => {

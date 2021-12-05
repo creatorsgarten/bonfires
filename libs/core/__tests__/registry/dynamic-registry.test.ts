@@ -4,9 +4,9 @@ import {
   DuplicateModuleError,
 } from '@eventkit/core'
 
-import {Agenda} from '@eventkit/modules'
+import { Agenda } from '@eventkit/modules'
 
-import {MockModule} from '../fixtures/mock-module'
+import { MockModule } from '../fixtures/mock-module'
 
 describe('Dynamic Module Registry', () => {
   it('can register modules', () => {
@@ -39,7 +39,7 @@ describe('Dynamic Module Registry', () => {
     expect(r.of(MockModule)?.data.summary.firstTalk).toBe('N/A')
 
     const agenda = r.of(Agenda)
-    if (agenda) agenda.data.slots = [{title: 'Talk 1', start: new Date()}]
+    if (agenda) agenda.data.slots = [{ title: 'Talk 1', start: new Date() }]
 
     expect(r.data['agenda'].slots[0].title).toBe('Talk 1')
 

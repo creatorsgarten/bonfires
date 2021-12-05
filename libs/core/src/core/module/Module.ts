@@ -1,9 +1,9 @@
-import {createStore, Store} from '@eventkit/core'
+import { createStore, Store } from '@eventkit/core'
 
-import {EventBus} from '../registry/EventBus'
-import {IModuleMeta, Meta} from './ModuleMeta'
+import { EventBus } from '../registry/EventBus'
+import { IModuleMeta, Meta } from './ModuleMeta'
 
-import {IRegistry} from '../../@types/registry/IRegistry'
+import { IRegistry } from '../../@types/registry/IRegistry'
 
 export abstract class Module<E = unknown, S = any> {
   static Meta = Meta

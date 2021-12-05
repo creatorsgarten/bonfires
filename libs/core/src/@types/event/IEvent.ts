@@ -1,5 +1,5 @@
-import {EventType} from './EventType'
-import {EventStatus} from './EventStatus'
+import { EventType } from './EventType'
+import { EventStatus } from './EventStatus'
 
 export interface IEvent {
   id: string
