@@ -11,7 +11,7 @@ import { getMainDefinition } from '@apollo/client/utilities'
 
 import type { TypedTypePolicies } from '@gql'
 
-import { environment } from '../envs/env'
+import { environment } from '../../envs/env'
 
 const { gqlEndpoint, wsEndpoint } = environment
 

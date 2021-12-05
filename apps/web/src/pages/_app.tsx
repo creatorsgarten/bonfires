@@ -3,9 +3,8 @@ import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 
-import { createApolloClient } from '../gql/client'
-
 import { setupIcon } from '../styles/icon'
+import { createApolloClient } from '../core/gql/client'
 
 import '../styles/reset.css'
 

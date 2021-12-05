@@ -6,7 +6,7 @@
       "type": "node-terminal",
       "name": "API: Debug",
       "request": "launch",
-      "command": "pnpm run api:start",
+      "command": "pnpm run start:api",
       "cwd": "${workspaceFolder}"
     },
     {
@@ -30,14 +30,14 @@
       "type": "node-terminal",
       "name": "Web: Server",
       "request": "launch",
-      "command": "pnpm run web:start",
+      "command": "pnpm run start:web",
       "cwd": "${workspaceFolder}"
     },
     {
       "name": "Web: Full Stack",
       "type": "node-terminal",
       "request": "launch",
-      "command": "pnpm run web:start",
+      "command": "pnpm run start:web",
       "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": ".+ on http://localhost:(\\d+)",
