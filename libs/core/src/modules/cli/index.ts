@@ -1,7 +1,7 @@
-import {Command} from 'commander'
+import { Command } from 'commander'
 import inquirer from 'inquirer'
 
-import {Event, EventType} from '@eventkit/core'
+import { Event, EventType } from '@eventkit/core'
 
 // eventkit new meetup --title "GraphQL Meetup 10.0" --online --stream=streamyard,youtube --date "19 Aug - 20 Aug" --time "7PM - 9PM"
 
@@ -78,8 +78,6 @@ async function onCreateEvent(type: EventType) {
     title: answer.title ?? options.title,
     type: answer.type ?? type ?? 'event',
     isOnline: answer.online ?? options.online ?? false,
-    datetime: {start: new Date(), end: new Date()},
+    datetime: { start: new Date(), end: new Date() },
   })
-
-  console.log(event)
 }

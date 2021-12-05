@@ -39,9 +39,8 @@ export function createSubscriptionConfig(ctx: Options): SubscriptionConfig {
 
       async onConnect(params: ConnectionParams): Promise<ConnectionContext> {
         Logger.log('Client connected.', 'subscriptions-ws')
-        const user = await ctx.userService.findById(1)
 
-        return { user }
+        return { user: null }
       },
     },
 
@@ -52,9 +51,6 @@ export function createSubscriptionConfig(ctx: Options): SubscriptionConfig {
         Logger.log('Client connected.', 'graphql-ws')
 
         const { connectionParams, extra } = wsContext(context)
-        const user = await ctx.userService.findById(1)
-
-        extra.user = user
       },
     },
   }

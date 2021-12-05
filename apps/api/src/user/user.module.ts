@@ -4,13 +4,13 @@ import { UserService } from './user.service'
 import { UserResolver } from './user.resolver'
 import { UserController } from './user.controller'
 
-import { DataModule } from '../app/data.module'
-import { WorkspacesService } from '../workspaces/workspaces.service'
+import { DataModule } from '../core/data.module'
+import { WorkspacesModule } from '../workspaces/workspaces.module'
 
 @Module({
-  imports: [DataModule],
+  imports: [DataModule, WorkspacesModule],
   controllers: [UserController],
-  providers: [UserService, UserResolver, WorkspacesService],
+  providers: [UserService, UserResolver],
   exports: [UserService],
 })
 export class UserModule {}

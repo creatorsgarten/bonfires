@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 
-import { DataModule } from './data.module'
+import { DataModule } from '../core/data.module'
 
 import { UserModule } from '../user/user.module'
 import { DaysModule } from '../days/days.module'

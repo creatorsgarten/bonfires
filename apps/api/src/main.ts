@@ -10,7 +10,7 @@ import {
 
 import { AppModule } from './app/app.module'
 import { setupSwagger } from './swagger/swagger.setup'
-import { PrismaService } from './prisma/prisma.service'
+import { PrismaService } from './core/prisma.service'
 
 async function bootstrap() {
   const fastify = new FastifyAdapter()

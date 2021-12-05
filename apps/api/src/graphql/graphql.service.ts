@@ -13,7 +13,7 @@ import { LiveDirective } from './live.directive'
 import { createSubscriptionConfig, GQLContext } from './subscriptions.config'
 
 import { UserService } from '../user/user.service'
-import { PubSubService } from '../pubsub/pubsub.service'
+import { PubSubService } from '../core/pubsub.service'
 
 @Injectable()
 export class GraphQLConfigService implements GqlOptionsFactory {
@@ -24,8 +24,6 @@ export class GraphQLConfigService implements GqlOptionsFactory {
 
   async createGqlOptions(): Promise<GqlModuleOptions> {
     const { pubsubService, userService } = this
-
-    Logger.log('Creating GraphQL options', 'GraphQLConfig')
 
     const autoSchemaFile = join(process.cwd(), 'schema.gql')
 
@@ -55,7 +53,7 @@ export class GraphQLConfigService implements GqlOptionsFactory {
       subscriptions,
       persistedQueries: { cache },
 
-      context: ({ connection, extra }: GQLContext) => {},
+      context: (context: GQLContext) => {},
     }
   }
 }

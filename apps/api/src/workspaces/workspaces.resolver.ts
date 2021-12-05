@@ -16,7 +16,7 @@ import { ID, Workspace } from '../model'
 
 import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'
-import { PubSubService } from '../pubsub/pubsub.service'
+import { PubSubService } from '../core/pubsub.service'
 
 import { WorkspaceCreateInput } from '../generated/workspace/workspace-create.input'
 

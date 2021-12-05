@@ -9,8 +9,6 @@ export class LiveDirective extends SchemaDirectiveVisitor {
     field.resolve = async function (...args) {
       const result = await resolve.apply(this, args)
 
-      console.log('directive added')
-
       return result
     }
   }

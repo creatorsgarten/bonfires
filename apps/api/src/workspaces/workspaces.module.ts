@@ -1,21 +1,15 @@
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 
 import { WorkspacesService } from './workspaces.service'
 import { WorkspacesResolver } from './workspaces.resolver'
 
-import { DataModule } from '../app/data.module'
-
-import { UserService } from '../user/user.service'
-import { EventsService } from '../events/events.service'
+import { DataModule } from '../core/data.module'
+import { UserModule } from '../user/user.module'
+import { EventsModule } from '../events/events.module'
 
 @Module({
-  imports: [DataModule],
-
-  providers: [
-    UserService,
-    EventsService,
-    WorkspacesService,
-    WorkspacesResolver,
-  ],
+  imports: [DataModule, EventsModule, forwardRef(() => UserModule)],
+  providers: [WorkspacesService, WorkspacesResolver],
+  exports: [WorkspacesService],
 })
 export class WorkspacesModule {}
