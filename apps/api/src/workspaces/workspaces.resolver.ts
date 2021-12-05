@@ -47,13 +47,13 @@ export class WorkspacesResolver {
   @Mutation(() => Workspace)
   async createWorkspace(@Args('input') input: WorkspaceCreateInput) {
     const workspace = await this.workspaceService.create(input)
-    this.pubsub.publish('workspaces', workspace)
+    this.pubsub.publish('onCreateWorkspace', workspace)
 
     return workspace
   }
 
-  @Subscription(() => Workspace, { name: 'workspaces' })
-  onWorkspaces() {
-    return this.pubsub.asyncIterator('workspaces')
+  @Subscription(() => Workspace)
+  onCreateWorkspace() {
+    return this.pubsub.asyncIterator('onCreateWorkspace')
   }
 }
