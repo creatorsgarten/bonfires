@@ -9,7 +9,7 @@ import {
   ApolloServerPluginInlineTrace,
 } from 'apollo-server-core'
 
-import { LiveDirective } from './live.directive'
+// import { LiveDirective } from './live.directive'
 import { createSubscriptionConfig, GQLContext } from './subscriptions.config'
 
 import { UserService } from '../user/user.service'
@@ -40,7 +40,7 @@ export class GraphQLConfigService implements GqlOptionsFactory {
       useGlobalPrefix: true,
 
       schemaDirectives: {
-        live: LiveDirective,
+        // live: LiveDirective,
       },
 
       typeDefs: `directive @live on QUERY`,
