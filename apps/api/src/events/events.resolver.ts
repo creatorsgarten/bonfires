@@ -2,9 +2,11 @@ import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
 import { ID, Event } from '../model'
 
-import { EventsService } from '../events/events.service'
-import { WorkspacesService } from '../workspaces/workspaces.service'
+import { EventsService } from "./events.service"
+
 import { StaffsService } from '../staffs/staffs.service'
+import { WorkspacesService } from '../workspaces/workspaces.service'
+
 
 @Resolver(() => Event)
 export class EventsResolver {
