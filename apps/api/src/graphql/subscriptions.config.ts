@@ -33,8 +33,6 @@ interface Options {
 export function createSubscriptionConfig(ctx: Options) {
   return {
     'graphql-ws': {
-      path: '/api/graphql/ws',
-
       async onConnect(context: Context) {
         Logger.log('Client connected.', 'graphql-ws')
 
