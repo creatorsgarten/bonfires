@@ -1,19 +1,10 @@
 import React from 'react'
 import tw from 'twin.macro'
-import { useRouter } from 'next/router'
 
-import { useEventQuery } from '@gql'
+import { useEvent } from 'apps/web/src/hooks/useEvent'
 
 const EventSignPage = () => {
-  const router = useRouter()
-  const eventId = parseInt(router.query.eventId as string)
-
-  const { data, loading } = useEventQuery({
-    variables: { eventId },
-    skip: !eventId,
-  })
-
-  const event = data?.event
+  const { event } = useEvent()
 
   return (
     <div

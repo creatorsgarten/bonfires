@@ -1,12 +1,11 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 
 import 'twin.macro'
 
-import { EventDashboardView } from '../../../modules/event-dashboard/EventDashboardView'
+import { DutyView } from 'apps/web/src/modules/duty-view'
 
 export function EventDashboardPage() {
-  return <EventDashboardView />
+  return <DutyView />
 }
 
 export default EventDashboardPage
