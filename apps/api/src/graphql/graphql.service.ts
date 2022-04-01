@@ -1,16 +1,15 @@
 import { join } from 'path'
-import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common'
-import { BaseRedisCache } from 'apollo-server-cache-redis'
+import { ApolloDriverConfig } from '@nestjs/apollo'
+import { Injectable } from '@nestjs/common'
 
-import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
+import { GqlOptionsFactory } from '@nestjs/graphql'
 
 import {
   ApolloServerPluginLandingPageLocalDefault,
   ApolloServerPluginInlineTrace,
 } from 'apollo-server-core'
 
-// import { LiveDirective } from './live.directive'
-import { createSubscriptionConfig, GQLContext } from './subscriptions.config'
+import { createSubscriptionConfig } from './subscriptions.config'
 
 import { UserService } from '../user/user.service'
 import { PubSubService } from '../core/pubsub.service'
@@ -22,13 +21,10 @@ export class GraphQLConfigService implements GqlOptionsFactory {
     private userService: UserService
   ) {}
 
-  async createGqlOptions(): Promise<GqlModuleOptions> {
-    const { pubsubService, userService } = this
+  async createGqlOptions(): Promise<ApolloDriverConfig> {
+    const { userService } = this
 
     const autoSchemaFile = join(process.cwd(), 'schema.gql')
-
-    const client = pubsubService.redisClient
-    const cache = new BaseRedisCache({ client })
 
     const subscriptions = createSubscriptionConfig({ userService })
 
@@ -38,11 +34,6 @@ export class GraphQLConfigService implements GqlOptionsFactory {
       playground: false,
       autoSchemaFile,
       useGlobalPrefix: true,
-
-      schemaDirectives: {
-        // live: LiveDirective,
-      },
-
       typeDefs: `directive @live on QUERY`,
 
       plugins: [
@@ -51,9 +42,9 @@ export class GraphQLConfigService implements GqlOptionsFactory {
       ],
 
       subscriptions,
-      persistedQueries: { cache },
 
-      context: (context: GQLContext) => {},
+      // persistedQueries: { cache },
+      // context: (context: GQLContext) => {},
     }
   }
 }

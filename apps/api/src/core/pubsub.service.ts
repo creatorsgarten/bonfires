@@ -1,4 +1,4 @@
-import * as Redis from 'ioredis'
+import Redis from 'ioredis'
 import { Injectable } from '@nestjs/common'
 import { RedisPubSub } from 'graphql-redis-subscriptions'
 

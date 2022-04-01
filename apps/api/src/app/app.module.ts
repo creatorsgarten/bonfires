@@ -10,6 +10,7 @@ import { StaffsModule } from '../staffs/staffs.module'
 import { WorkspacesModule } from '../workspaces/workspaces.module'
 
 import { GraphQLConfigService } from '../graphql/graphql.service'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 
 @Module({
   imports: [
@@ -19,8 +20,9 @@ import { GraphQLConfigService } from '../graphql/graphql.service'
     StaffsModule,
     WorkspacesModule,
 
-    GraphQLModule.forRootAsync({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [DataModule, UserModule],
+      driver: ApolloDriver,
       useClass: GraphQLConfigService,
     }),
   ],

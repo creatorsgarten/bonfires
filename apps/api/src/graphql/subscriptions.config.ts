@@ -2,8 +2,6 @@ import { Logger } from '@nestjs/common'
 import type { Context } from 'graphql-ws'
 import type { User } from '@prisma/client'
 
-import type { SubscriptionConfig } from '@nestjs/graphql/dist/interfaces/gql-module-options.interface'
-
 import { UserService } from '../user/user.service'
 
 /** Subscription connection parameters. */
@@ -32,18 +30,8 @@ interface Options {
   userService: UserService
 }
 
-export function createSubscriptionConfig(ctx: Options): SubscriptionConfig {
+export function createSubscriptionConfig(ctx: Options) {
   return {
-    'subscriptions-transport-ws': {
-      path: '/api/graphql',
-
-      async onConnect(params: ConnectionParams): Promise<ConnectionContext> {
-        Logger.log('Client connected.', 'subscriptions-ws')
-
-        return { user: null }
-      },
-    },
-
     'graphql-ws': {
       path: '/api/graphql/ws',
 

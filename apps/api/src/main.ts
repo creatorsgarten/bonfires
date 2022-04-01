@@ -28,9 +28,9 @@ async function bootstrap() {
   setupSwagger(app)
 
   // Setup helmet for secure defaults.
-  app.register(fastifyHelmet, {
-    contentSecurityPolicy: false,
-  })
+  // app.register(fastifyHelmet, {
+  //   contentSecurityPolicy: false,
+  // })
 
   // Handle Prisma's shutdown event
   app.get(PrismaService).enableShutdownHooks(app)
