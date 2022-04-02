@@ -19,6 +19,7 @@ fragment day on Day {
       displayName
 
       user {
+        id
         photo
         displayName
       }
