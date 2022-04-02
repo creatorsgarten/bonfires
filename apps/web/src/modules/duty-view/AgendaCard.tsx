@@ -38,7 +38,7 @@ export const AgendaCard = ({ slot, agendas }: Props) => {
     if (slot < 0) return '[ยังไม่เริ่มรันคิวแรก]'
     if (!agenda?.current) return '[หมดช่วงเวลากิจกรรม]'
 
-    return agenda?.current.title
+    return agenda.current.title
   }, [slot, agenda])
 
   const subtitle = useMemo(() => {
