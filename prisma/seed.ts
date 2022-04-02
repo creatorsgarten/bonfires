@@ -67,17 +67,13 @@ async function main() {
               id: 1,
               managerId,
               title: 'สั่งข้าวเช้าให้สตาฟ',
-
-              startSlot: 0,
-              endSlot: 2,
+              slot: 0,
             },
             {
               id: 2,
               managerId,
               title: 'ให้สตาฟที่ไม่ได้ on duty มาทานข้าว',
-
-              startSlot: 3,
-              endSlot: 6,
+              slot: 3,
             },
           ],
         },

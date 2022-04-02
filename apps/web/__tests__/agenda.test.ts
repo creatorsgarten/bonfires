@@ -6,20 +6,17 @@ const agendas: Agenda[] = [
   {
     id: '1',
     title: 'First',
-    startSlot: 0,
-    endSlot: 2,
+    slot: 0,
   },
   {
     id: '2',
     title: 'Second',
-    startSlot: 3,
-    endSlot: 4,
+    slot: 3,
   },
   {
     id: '3',
     title: 'Third',
-    startSlot: 5,
-    endSlot: 6,
+    slot: 4,
   },
 ]
 

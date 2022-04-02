@@ -5,18 +5,14 @@ fragment day on Day {
 
   agendas {
     id
+    slot
     title
-
-    startSlot
-    endSlot
   }
 
   duties {
     id
+    slot
     title
-
-    startSlot
-    endSlot
 
     assignees {
       id

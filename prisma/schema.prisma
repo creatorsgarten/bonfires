@@ -225,11 +225,10 @@ model Agenda {
   // Example: Last Brief, Ice Breaking, Lecture 1.
   title String
 
-  // An agenda may span multiple time slots.
-  // Start and ending slot used to determine the time range of this duty.
-  // Example: [14, 15] may mean that the agenda begins at 8:10 through 8:20
-  startSlot Int
-  endSlot   Int
+  // The start slot is used to determine the time range of this agenda.
+  // e.g. slot 0 might be 09:00, slot 1 might be 09:10.
+  // The agenda can span multiple slots - we assume the agenda ends before the next slot.
+  slot Int
 
   // What day is this agenda located in.
   day   Day? @relation(fields: [dayId], references: [id])
@@ -248,11 +247,10 @@ model Duty {
   day   Day @relation(fields: [dayId], references: [id])
   dayId Int
 
-  // A duty may span multiple time slots.
-  // Start and ending slot used to determine the time range of this duty.
-  // Example: [7, 15] may mean that the duty begins at 7:00 through 8:20.
-  startSlot Int
-  endSlot   Int
+  // The start slot is used to determine the time range of this duty.
+  // e.g. slot 0 might be 09:00, slot 1 might be 09:10.
+  // The duty can span multiple slots - we assume the duty ends before the next slot.
+  slot Int
 
   // The role in charge of this duty.
   // Might be a MC (e.g. Food Duty) or OD (i.e. OD Duty)
