@@ -31,7 +31,7 @@ export const TimeIndicator = (props: Props) => {
       </div>
 
       <div
-        tw="bg-purple-300 w-full h-[6px] rounded-b-lg"
+        tw="bg-purple-300 w-full h-[5px] rounded-b-lg"
         style={{ background: progressBar }}
       />
     </Card>

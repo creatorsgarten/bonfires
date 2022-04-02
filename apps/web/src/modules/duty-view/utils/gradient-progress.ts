@@ -1,10 +1,9 @@
-export function progressToGradient(seconds: number) {
-  const color1 = '#f5576c'
-  const color2 = 'rgb(155, 89, 182)'
+const color = 'rgb(155, 89, 182)'
 
-  const percentage = ((seconds ?? 0) / (10 * 60)) * 100
-  const p2 = percentage < 5 ? 0 : percentage + 4
+export function progressToGradient(seconds: number) {
+  const start = ((seconds ?? 0) / (10 * 60)) * 100
+  const end = start < 5 ? 0 : start + 5
 
   // prettier-ignore
-  return `linear-gradient(90deg, ${color1} 1%, ${color2} ${percentage}%, transparent ${p2}%, transparent 100%)`
+  return `linear-gradient(90deg, ${color} ${start}%, transparent ${end}%, transparent 100%)`
 }
