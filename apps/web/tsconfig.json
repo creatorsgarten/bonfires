@@ -1,5 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
+  "files": [],
+
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
@@ -7,7 +9,6 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest"],
-    "typeRoots": ["./@types"],
     "strict": true,
     "alwaysStrict": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,6 +17,13 @@
     "isolatedModules": true,
     "incremental": true
   },
+
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+
+  "references": [
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

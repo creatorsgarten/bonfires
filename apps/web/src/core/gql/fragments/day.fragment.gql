@@ -1,6 +1,7 @@
 fragment day on Day {
   id
   title
+  startsAt
 
   duties {
     id

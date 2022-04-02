@@ -4,6 +4,8 @@ import { SwipeableCard } from '../ui/SwipeableCard'
 
 import { useEvent } from '../../hooks/useEvent'
 import { useCurrentTime } from '../../hooks/useCurrentTime'
+import { slotFromTime } from '../../utils/slot'
+import { DateTime } from 'luxon'
 
 const Card = tw.div`flex flex-col text-gray-800 shadow-2xl rounded-lg`
 
@@ -52,15 +54,18 @@ export const DutyView = () => {
   const day = event?.currentDay
   const duties = day?.duties ?? []
 
+  const formattedTime =
+    time?.toLocaleString(DateTime.TIME_24_WITH_SECONDS) ?? '00:00:00'
+
   return (
     <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
       <div tw="flex flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
         <Card tw="xs:text-xl sm:text-2xl font-light">
           <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-lg">
-            <div>{time}</div>
+            <div>{formattedTime}</div>
 
             <div>
-              <Small>คิว</Small> 00
+              <Small>คิว</Small> {slotFromTime(day?.startsAt)}
             </div>
 
             <div>
@@ -97,6 +102,10 @@ export const DutyView = () => {
         </div>
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
+
+        <div tw="text-left text-[4px] font-light">
+          <pre>{JSON.stringify(event, null, 2)}</pre>
+        </div>
       </div>
     </div>
   )
