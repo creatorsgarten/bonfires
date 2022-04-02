@@ -63,6 +63,7 @@ specifiers:
   '@types/uuid': ^8.3.4
   '@typescript-eslint/eslint-plugin': 5.17.0
   '@typescript-eslint/parser': 5.17.0
+  '@use-gesture/react': ^10.2.11
   apollo-server-cache-redis: ^3.3.1
   apollo-server-core: ^3.6.7
   apollo-server-fastify: ^3.6.7
@@ -152,6 +153,7 @@ dependencies:
   '@prisma/client': 3.11.1_prisma@3.11.1
   '@react-spring/web': 9.4.4_react-dom@18.0.0+react@18.0.0
   '@types/lodash': 4.14.181
+  '@use-gesture/react': 10.2.11_react@18.0.0
   apollo-server-cache-redis: 3.3.1
   apollo-server-core: 3.6.7_graphql@16.3.0
   apollo-server-fastify: 3.6.7_fastify@3.27.4+graphql@16.3.0
@@ -5391,6 +5393,19 @@ packages:
       '@typescript-eslint/types': 5.17.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@use-gesture/core/10.2.11:
+    resolution: {integrity: sha512-5YeVrT9prf9UeaAO+2fIuiKdZ01uVBvVsjG79berGZPTHVkz01eFX2ODWJG05uQTqmRw6olz1J80yt6qcGPdvA==}
+    dev: false
+
+  /@use-gesture/react/10.2.11_react@18.0.0:
+    resolution: {integrity: sha512-yATjHv6ZNe9Jar1YtJvcb6KxwpcGGW/X8FEUY6xo2mDxHkP7dCsnhZZm7I+giGlrJKBMvpVBARsbUhwQP6v6nA==}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dependencies:
+      '@use-gesture/core': 10.2.11
+      react: 18.0.0
+    dev: false
 
   /@webassemblyjs/ast/1.11.1:
     resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}

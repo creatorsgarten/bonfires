@@ -105,6 +105,7 @@
     "@prisma/client": "^3.11.1",
     "@react-spring/web": "^9.4.4",
     "@types/lodash": "^4.14.181",
+    "@use-gesture/react": "^10.2.11",
     "apollo-server-cache-redis": "^3.3.1",
     "apollo-server-core": "^3.6.7",
     "apollo-server-fastify": "^3.6.7",

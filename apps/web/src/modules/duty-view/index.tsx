@@ -1,13 +1,13 @@
 import tw from 'twin.macro'
-import { nanoid } from 'nanoid'
 
-import { useCurrentTime } from '../../hooks/useCurrentTime'
+import { SwipeableCard } from '../ui/SwipeableCard'
 
 import { useEvent } from '../../hooks/useEvent'
+import { useCurrentTime } from '../../hooks/useCurrentTime'
 
 const Card = tw.div`flex flex-col text-gray-800 shadow-2xl rounded-lg`
 
-const Profile = ({ url }: { url: string }) => (
+const Profile = ({ url = '' }) => (
   <div
     tw="bg-gray-900 flex w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover"
     style={{
@@ -16,30 +16,32 @@ const Profile = ({ url }: { url: string }) => (
   />
 )
 
-const TaskCard = ({ title }: { title: string }) => (
-  <div tw="flex text-gray-800 shadow-2xl rounded-lg bg-white py-2 sm:py-3 relative">
-    <div tw="flex h-full w-1 xs:w-2 bg-red-400 absolute top-0 rounded-l-lg" />
-
-    <div tw="bg-white">
-      <div tw="flex justify-between px-3 xs:px-6">
-        <p tw="xs:text-xl sm:text-2xl text-left m-0 break-words">{title}</p>
-      </div>
-
-      <div tw="absolute right-2.5 bottom-[-15px]">
-        <div tw="flex space-x-1">
-          {[...Array(1)].map((_, id) => (
-            <Profile
-              key={id}
-              url={`https://api.lorem.space/image/face?w=300&h=300&c=${encodeURIComponent(
-                title
-              )}`}
-            />
-          ))}
-        </div>
-      </div>
+const AssigneeAvatars = ({ title = '' }) => (
+  <div tw="absolute right-2.5 bottom-[-15px]">
+    <div tw="flex space-x-1">
+      {[...Array(1)].map((_, id) => (
+        <Profile
+          key={id}
+          url={`https://api.lorem.space/image/face?w=300&h=300&c=${encodeURIComponent(
+            title
+          )}`}
+        />
+      ))}
     </div>
   </div>
 )
+
+const TaskCard = ({ title = '' }) => (
+  <SwipeableCard>
+    <p tw="px-6 text-gray-900 text-left text-base xs:text-xl sm:text-2xl m-0 break-words">
+      {title}
+    </p>
+
+    <AssigneeAvatars title={title} />
+  </SwipeableCard>
+)
+
+const Small = tw.span`text-xs xs:text-base sm:text-xl`
 
 export const DutyView = () => {
   const { event } = useEvent()
@@ -53,11 +55,11 @@ export const DutyView = () => {
             <div>{time}</div>
 
             <div>
-              <span tw="text-xs xs:text-base sm:text-xl">คิว</span> 00
+              <Small>คิว</Small> 00
             </div>
 
             <div>
-              <span tw="text-xs xs:text-base sm:text-xl">เหลือ</span> 00:00
+              <Small>เหลือ</Small> 00:00
             </div>
           </div>
 
