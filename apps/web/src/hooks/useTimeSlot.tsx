@@ -6,27 +6,27 @@ import { useCurrentTime } from './useCurrentTime'
 
 const slotDuration = 10
 
-interface Result {
+export interface TimeSlotInfo {
   slot: number
-  currentTime: string
+  time: DateTime
   remaining: Duration
 }
 
-export function useTimeSlot(startsAt: string): Result {
+export function useTimeSlot(startsAt: string): TimeSlotInfo {
   const time = useCurrentTime()
 
   return useMemo(() => {
-    if (!time)
+    if (!time) {
       return {
         slot: 0,
-        currentTime: '00:00:00',
         remaining: Duration.fromObject({}),
+        time: DateTime.fromObject({ hour: 0, minute: 0, second: 0 }),
       }
+    }
 
-    const currentTime = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS)
     const slot = slotFromTime(startsAt, slotDuration, time)
     const remaining = remainingTimeInSlot(startsAt, slotDuration, time)
 
-    return { slot, currentTime, remaining }
+    return { slot, time, remaining }
   }, [startsAt, time])
 }

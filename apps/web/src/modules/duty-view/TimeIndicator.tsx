@@ -1,20 +1,19 @@
 import 'twin.macro'
+import { DateTime } from 'luxon'
 
 import { Card, Small } from './Card'
 
-import { useTimeSlot } from '../../hooks/useTimeSlot'
+import type { TimeSlotInfo } from '../../hooks/useTimeSlot'
 
-interface Props {
-  startsAt: string
-}
+type Props = TimeSlotInfo
 
 export const TimeIndicator = (props: Props) => {
-  const { currentTime, slot, remaining } = useTimeSlot(props.startsAt)
+  const { slot, remaining, time } = props
 
   return (
     <Card tw="xs:text-xl sm:text-2xl font-light">
       <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-lg">
-        <div>{currentTime}</div>
+        <div>{time.toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</div>
 
         <div>
           <Small>คิว</Small> {slot}

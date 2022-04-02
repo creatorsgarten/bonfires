@@ -1,11 +1,12 @@
 import 'twin.macro'
 
 import { Card } from './Card'
+import { TimeIndicator } from './TimeIndicator'
 
 import { DutyCard } from '../duty-card'
 
 import { useEvent } from '../../hooks/useEvent'
-import { TimeIndicator } from './TimeIndicator'
+import { useTimeSlot } from '../../hooks/useTimeSlot'
 
 export const DutyView = () => {
   const { event } = useEvent()
@@ -13,10 +14,12 @@ export const DutyView = () => {
   const day = event?.currentDay
   const duties = day?.duties ?? []
 
+  const timeSlot = useTimeSlot(day?.startsAt)
+
   return (
     <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
       <div tw="flex flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
-        <TimeIndicator startsAt={day?.startsAt} />
+        <TimeIndicator {...timeSlot} />
 
         <Card>
           <div tw="px-2 bg-white rounded-t-lg text-xl xs:text-2xl sm:text-3xl">
