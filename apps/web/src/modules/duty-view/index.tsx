@@ -29,7 +29,9 @@ export const DutyView = () => {
 
         <div tw="flex flex-col text-gray-800 shadow-2xl">
           <div tw="px-2 bg-white rounded-t-md text-xl xs:text-2xl sm:text-3xl">
-            <p tw="text-center my-2 xs:my-3 sm:my-4">พาน้องไปเล่นออลแคมป์</p>
+            <p tw="text-center my-2 xs:my-3 sm:my-4 font-semibold">
+              พาน้องไปเล่นออลแคมป์
+            </p>
           </div>
 
           <div tw="rounded-b-lg text-white px-2 py-2 text-xs xs:text-sm sm:text-base">
