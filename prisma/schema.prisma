@@ -115,6 +115,9 @@ model Role {
   // The MC may be in charge of multiple duties throughout the day.
   duties Duty[]
 
+  // The MC may be in charge of managing multiple tasks.
+  tasks Task[]
+
   // Multiple staffs can share the same role.
   // For example, there can be multiple ODs for a day.
   staffs Staff[]
@@ -140,19 +143,16 @@ model Task {
   squad   Squad? @relation(fields: [squadId], references: [id])
   squadId Int?
 
-  // The task should have a single MC (Master of Ceremony) in charge.
-  // The MC ensures that the tasks must be done.
-  // We ensure each task have only one manager so that the responsibility is clear.
-  // Logic: we can pre-assign the task's supervisor to the MC of the squad.
-  manager   Staff? @relation("ManagedTasks", fields: [managerId], references: [id])
-  managerId Int?
+  // The task should have one manager (mostly the MC) to manage.
+  manager   Role @relation(fields: [managerId], references: [id])
+  managerId Int
 
   // The due date or "deadline" of the task.
   dueDate DateTime?
 
   // The task can have multiple staffs assigned to it.
   // A difficult task will need more than one people handling it.
-  assignees TaskAssignees[]
+  assignees Staff[]
 
   // The task may be assigned to one of the duties, as a checklist for the MC.
   // This use-case is not very commonly used, as usually just the duty will suffice.
@@ -161,18 +161,7 @@ model Task {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-}
 
-// Many-to-many relation mapping to map tasks to staffs.
-// A staff can have multiple tasks, and a task can have multiple tasks.
-model TaskAssignees {
-  task   Task @relation(fields: [taskId], references: [id])
-  taskId Int
-
-  staff   Staff @relation(fields: [staffId], references: [id])
-  staffId Int
-
-  @@id([taskId, staffId])
 }
 
 // The staff record defines the staff's information specifically for the particular event.
@@ -198,15 +187,12 @@ model Staff {
   // The staff can be assigned multiple duties.
   duties Duty[]
 
-  // The staff can manage multiple tasks.
-  managedTasks Task[] @relation("ManagedTasks")
-
   // The staff can have multiple tasks assigned to them.
-  assignedTasks TaskAssignees[]
+  tasks Task[]
 
   // The days that the staff are assigned as OD (One-Day Director)
   // We only allow one day for a staff to be OD, so everyone gets a chance to be the OD.
-  directorDay   Day? @relation("dayDirector", fields: [directorDayId], references: [id])
+  directorDay   Day? @relation("DayDirector", fields: [directorDayId], references: [id])
   directorDayId Int?
 }
 
@@ -294,7 +280,7 @@ model Day {
 
   // There must be one or more staffs to be ODs (One-Day Directors) for a day.
   // The director has to supervise and make decisions for that day.
-  directors Staff[] @relation("dayDirector")
+  directors Staff[] @relation("DayDirector")
 
   // When does the day start?
   // The time is used to mark "Slot 1" of the day,
