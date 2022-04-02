@@ -42,17 +42,21 @@ export const AgendaCard = ({ slot, agendas }: Props) => {
   }, [slot, agenda])
 
   const subtitle = useMemo(() => {
+    const next = agenda?.next
+
     if (slot === null) return 'รอสักครู่นะ 🌟'
 
     if (slot < 0) {
-      if (!agenda?.next) return 'ขอให้วันนี้เป็นวันที่ดีนะ เธอทำได้ 💪🏻'
+      if (!next) return 'ขอให้วันนี้เป็นวันที่ดีนะ เธอทำได้ 💪🏻'
 
-      return `คิวแรก ${agenda.next.title}`
+      return `คิวแรก ${next.title}`
     }
 
-    if (!agenda?.next || !agenda?.current) return 'ไว้เจอกันวันพรุ่งนี้นะ 💛'
+    if (!next || !agenda?.current) return 'ไว้เจอกันวันพรุ่งนี้นะ 💛'
 
-    return `ต่อไป ${agenda.next.title}`
+    if (next.slot === slot + 1) return `ถัดไป ${next.title}`
+
+    return `ช่วงหน้า ${next.title} · คิว ${next.slot}`
   }, [slot, agenda])
 
   return <PrimaryCard title={title} subtitle={subtitle} />
