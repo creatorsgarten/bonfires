@@ -35,7 +35,7 @@ const TaskCard = ({ title = '' }) => (
   <SwipeableCard>
     <div tw="flex h-full w-1 xs:w-2 bg-red-400 absolute top-0 rounded-l-lg" />
 
-    <p tw="px-6 text-gray-900 text-left text-base xs:text-xl sm:text-2xl m-0 break-words">
+    <p tw="px-6 text-gray-900 text-left text-base xs:text-xl sm:text-2xl m-0 break-words truncate">
       {title}
     </p>
 
@@ -51,7 +51,7 @@ export const DutyView = () => {
 
   return (
     <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
-      <div tw="flex flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4">
+      <div tw="flex flex-col mx-auto w-full xs:max-w-lg mx-4 sm:px-10 space-y-4">
         <Card tw="xs:text-xl sm:text-2xl font-light">
           <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-lg">
             <div>{time}</div>
@@ -75,12 +75,12 @@ export const DutyView = () => {
 
         <Card>
           <div tw="px-2 bg-white rounded-t-lg text-xl xs:text-2xl sm:text-3xl">
-            <p tw="text-center my-2 xs:my-3 sm:my-4 font-semibold">
+            <p tw="text-center my-2 xs:my-3 sm:my-4 font-semibold truncate">
               พาน้องไปเล่นออลแคมป์
             </p>
           </div>
 
-          <div tw="rounded-b-lg text-white px-2 py-2 text-xs xs:text-sm sm:text-base bg-transparent">
+          <div tw="rounded-b-lg text-white px-2 py-2 text-xs xs:text-sm sm:text-base bg-transparent truncate">
             ต่อไป รับน้องมาจากโรงแรม · ช่วง chaos
           </div>
         </Card>

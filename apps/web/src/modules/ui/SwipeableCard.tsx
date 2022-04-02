@@ -46,7 +46,7 @@ export const SwipeableCard: React.FC = ({ children }) => {
       <animated.div
         {...bind()}
         style={{ background: bg, touchAction: 'none' }}
-        tw="relative w-full pointer-events-auto px-8 grid items-center rounded-lg shadow-2xl select-none py-2"
+        tw="relative w-full pointer-events-auto px-8 grid items-center rounded-lg shadow-2xl select-none xs:py-1 sm:py-2"
       >
         <animated.div
           style={{ scale: circleScale, justifySelf }}
