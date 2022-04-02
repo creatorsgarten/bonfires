@@ -22,7 +22,10 @@ export const DutyView = () => {
       <div tw="flex justify-center flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
         <TimeIndicator {...timeslot} />
 
-        <AgendaCard slot={20} agendas={day?.agendas} />
+        <AgendaCard
+          slot={timeslot?.slot ?? null}
+          agendas={day?.agendas ?? []}
+        />
 
         <div tw="py-1" />
 

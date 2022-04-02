@@ -8,8 +8,8 @@ import { Card } from './Card'
 import { agendaFromSlot } from '../../utils/agenda'
 
 interface Props {
-  slot?: number | null
-  agendas?: Agenda[] | null
+  slot: number | null
+  agendas: Agenda[]
 }
 
 const PrimaryCard = ({ title = '', subtitle = '' }) => (
@@ -28,20 +28,22 @@ const PrimaryCard = ({ title = '', subtitle = '' }) => (
 
 export const AgendaCard = ({ slot, agendas }: Props) => {
   const agenda = useMemo(() => {
-    return agendaFromSlot(slot ?? -1, agendas ?? [])
+    return agendaFromSlot(slot ?? -1, agendas)
   }, [agendas, slot])
 
   const title = useMemo(() => {
-    if (!slot) return '[กำลังเตรียมตารางกิจกรรม...]'
+    if (slot === null) return '[กำลังเตรียมตารางกิจกรรม...]'
+    if (slot < 0) return '[ยังไม่เริ่มรันคิวแรก]'
     if (!agenda?.current) return '[หมดช่วงเวลากิจกรรม]'
 
     return agenda?.current.title
   }, [slot, agenda])
 
   const subtitle = useMemo(() => {
-    if (!slot) return 'รอสักครู่นะ 🌟'
+    if (slot === null) return 'รอสักครู่นะ 🌟'
+    if (slot < 0) return 'ขอให้วันนี้เป็นวันที่ดีนะ เธอทำได้ 💪🏻'
     if (!agenda?.current) return 'ไว้เจอกันวันพรุ่งนี้นะ 💛'
-    if (!agenda?.next) return 'กิจกรรมนี้เป็นกิจกรรมสุดท้าย'
+    if (!agenda?.next) return 'กิจกรรมนี้เป็นกิจกรรมสุดท้าย 💛'
 
     return `ต่อไป ${agenda.next.title}`
   }, [slot, agenda])

@@ -13,9 +13,8 @@ export const slotFromTime = (
 ) => {
   const startTime = DateTime.fromISO(startsAt)
   const diff = currentTime.diff(startTime, ['minutes'])
-  const slot = Math.floor(diff.minutes / slotDurationInMinutes)
 
-  return Math.max(slot, 0)
+  return Math.floor(diff.minutes / slotDurationInMinutes)
 }
 
 export const remainingTimeInSlot = (
