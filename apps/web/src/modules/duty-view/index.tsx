@@ -51,7 +51,7 @@ export const DutyView = () => {
 
   return (
     <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
-      <div tw="flex flex-col mx-auto w-full xs:max-w-lg mx-4 sm:px-10 space-y-4">
+      <div tw="flex flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4">
         <Card tw="xs:text-xl sm:text-2xl font-light">
           <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-lg">
             <div>{time}</div>
