@@ -1,4 +1,19 @@
 import { Injectable } from '@nestjs/common'
 
+import { PrismaService } from '../core/prisma.service'
+
 @Injectable()
-export class DaysService {}
+export class DaysService {
+  constructor(readonly db: PrismaService) {}
+
+  async get(id: number) {
+    return this.db.day.findUnique({ where: { id } })
+  }
+
+  async findByEvent(eventId: number) {
+    return this.db.day.findMany({
+      where: { eventId },
+      include: { duties: true },
+    })
+  }
+}

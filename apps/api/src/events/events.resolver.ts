@@ -2,18 +2,19 @@ import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
 import { ID, Event } from '../model'
 
-import { EventsService } from "./events.service"
+import { EventsService } from './events.service'
 
+import { DaysService } from '../days/days.service'
 import { StaffsService } from '../staffs/staffs.service'
 import { WorkspacesService } from '../workspaces/workspaces.service'
-
 
 @Resolver(() => Event)
 export class EventsResolver {
   constructor(
     private eventService: EventsService,
     private workspaceService: WorkspacesService,
-    private staffService: StaffsService
+    private staffService: StaffsService,
+    private dayService: DaysService
   ) {}
 
   @Query(() => Event)
@@ -30,7 +31,7 @@ export class EventsResolver {
 
   @ResolveField()
   async days(@Parent() event: Event) {
-    return []
+    return this.dayService.findByEvent(event.id)
   }
 
   @ResolveField()

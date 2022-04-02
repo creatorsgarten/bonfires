@@ -1,9 +1,45 @@
 import tw from 'twin.macro'
+import { nanoid } from 'nanoid'
+
 import { useCurrentTime } from '../../hooks/useCurrentTime'
 
 import { useEvent } from '../../hooks/useEvent'
 
 const Card = tw.div`flex flex-col text-gray-800 shadow-2xl rounded-lg`
+
+const Profile = ({ url }: { url: string }) => (
+  <div
+    tw="bg-gray-900 flex w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover"
+    style={{
+      backgroundImage: `url(${url})`,
+    }}
+  />
+)
+
+const TaskCard = ({ title }: { title: string }) => (
+  <div tw="flex text-gray-800 shadow-2xl rounded-lg bg-white py-2 sm:py-3 relative">
+    <div tw="flex h-full w-1 xs:w-2 bg-red-400 absolute top-0 rounded-l-lg" />
+
+    <div tw="bg-white">
+      <div tw="flex justify-between px-3 xs:px-6">
+        <p tw="xs:text-xl sm:text-2xl text-left m-0 break-words">{title}</p>
+      </div>
+
+      <div tw="absolute right-2.5 bottom-[-15px]">
+        <div tw="flex space-x-1">
+          {[...Array(1)].map((_, id) => (
+            <Profile
+              key={id}
+              url={`https://api.lorem.space/image/face?w=300&h=300&c=${encodeURIComponent(
+                title
+              )}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)
 
 export const DutyView = () => {
   const { event } = useEvent()
@@ -45,7 +81,12 @@ export const DutyView = () => {
           </div>
         </Card>
 
-        <Card tw="bg-white py-3">XXXX</Card>
+        <div tw="py-1" />
+
+        <div tw="flex flex-col space-y-8">
+          <TaskCard title="สั่งข้าวเช้าให้สตาฟ" />
+          <TaskCard title="ให้สตาฟที่ไม่ได้ on duty มาทานข้าว" />
+        </div>
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
       </div>

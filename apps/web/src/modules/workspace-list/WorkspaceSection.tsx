@@ -13,7 +13,7 @@ export const WorkspaceSection = ({ workspace }: Props) => (
   <section>
     <h1 tw="text-lg xs:text-xl sm:text-2xl font-medium">{workspace.name}</h1>
 
-    <div tw="flex flex-wrap sm:space-x-2">
+    <div tw="flex flex-wrap justify-between xs:justify-start xs:space-x-2">
       {workspace.events?.map(({ id, name, icon, color }) => (
         <EventListCard
           key={id}
@@ -23,6 +23,7 @@ export const WorkspaceSection = ({ workspace }: Props) => (
       ))}
 
       <EventListCard
+        tw="text-gray-500"
         name="Add an Event"
         color="#a5b1c2"
         icon="plus"

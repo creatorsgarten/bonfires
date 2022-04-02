@@ -16,10 +16,12 @@ interface Props {
 
   url?: string
   iconSize?: SizeProp
+
+  className?: string
 }
 
 export const EventListCard = (props: Props) => {
-  const { name = '', icon, color, iconSize = 'lg', url = '' } = props
+  const { name = '', icon, color, iconSize = 'lg', url = '', className } = props
 
   function title() {
     if (!icon) return name.slice(0, 2)
@@ -29,7 +31,10 @@ export const EventListCard = (props: Props) => {
 
   return (
     <Link href={url} passHref>
-      <a tw="flex flex-col items-center w-24 sm:w-32 text-black no-underline">
+      <a
+        tw="flex flex-col items-center w-24 sm:w-32 text-black no-underline"
+        className={className}
+      >
         <Tile bg={color}>{title()}</Tile>
 
         <p tw="text-sm text-center leading-snug">
