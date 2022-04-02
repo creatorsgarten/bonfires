@@ -20,7 +20,7 @@ export const AssigneeAvatars = ({ assignees }: Props) => {
           <div
             key={assignee.id}
             style={{ backgroundImage: `url(${assignee.user.photo})` }}
-            tw="bg-gray-900 flex w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover"
+            tw="bg-gray-700 flex w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover"
           />
         ))}
       </div>
