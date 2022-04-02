@@ -21,7 +21,11 @@ export class DaysService {
   async getCurrentDay(eventId: number) {
     return this.db.day.findFirst({
       where: { eventId },
-      include: { duties: { include: { manager: true } } },
+      include: {
+        duties: {
+          include: { assignees: { include: { user: true } } },
+        },
+      },
     })
   }
 }

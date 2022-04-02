@@ -1,47 +1,12 @@
 import tw from 'twin.macro'
 
-import { SwipeableCard } from '../ui/SwipeableCard'
+import { DutyCard } from '../duty-card'
 
 import { useEvent } from '../../hooks/useEvent'
 import { useTimeSlot } from '../../hooks/useTimeSlot'
 
-const Card = tw.div`flex flex-col text-gray-800 shadow-2xl rounded-lg`
-
-const Profile = ({ url = '' }) => (
-  <div
-    tw="bg-gray-900 flex w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover"
-    style={{
-      backgroundImage: `url(${url})`,
-    }}
-  />
-)
-
-const AssigneeAvatars = ({ title = '' }) => (
-  <div tw="absolute right-2.5 bottom-[-15px]">
-    <div tw="flex space-x-1">
-      {[...Array(1)].map((_, id) => (
-        <Profile
-          key={id}
-          url={`https://api.lorem.space/image/face?w=300&h=300&c=${encodeURIComponent(
-            title
-          )}`}
-        />
-      ))}
-    </div>
-  </div>
-)
-
-const DutyCard = ({ title = '' }) => (
-  <SwipeableCard decoration={<AssigneeAvatars title={title} />}>
-    <div tw="flex h-full w-1 xs:w-2 bg-red-400 absolute top-0 rounded-l-lg" />
-
-    <p tw="px-6 text-gray-900 text-left text-base xs:text-xl sm:text-2xl m-0 break-words truncate">
-      {title}
-    </p>
-  </SwipeableCard>
-)
-
 const Small = tw.span`text-xs xs:text-base sm:text-xl`
+const Card = tw.div`flex flex-col text-gray-800 shadow-2xl rounded-lg`
 
 export const DutyView = () => {
   const { event } = useEvent()
@@ -91,15 +56,15 @@ export const DutyView = () => {
 
         <div tw="flex flex-col space-y-8">
           {duties.map((duty) => (
-            <DutyCard key={duty.id} title={duty.title} />
+            <DutyCard
+              key={duty.id}
+              title={duty.title}
+              assignees={duty.assignees}
+            />
           ))}
         </div>
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
-
-        {/* <div tw="text-left text-[4px] font-light">
-          <pre>{JSON.stringify(event, null, 2)}</pre>
-        </div> */}
       </div>
     </div>
   )
