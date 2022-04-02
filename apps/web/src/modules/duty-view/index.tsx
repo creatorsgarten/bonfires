@@ -7,7 +7,9 @@ import { DutyCard } from '../duty-card'
 
 import { useEvent } from '../../hooks/useEvent'
 import { useTimeSlot } from '../../hooks/useTimeSlot'
+
 import { Debug } from '../ui/Debug'
+import { ReplayControl } from '../replay/ReplayControl'
 
 export const DutyView = () => {
   const { event } = useEvent()
@@ -42,6 +44,7 @@ export const DutyView = () => {
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
         <Debug data={event} />
+        <ReplayControl />
       </div>
     </div>
   )
