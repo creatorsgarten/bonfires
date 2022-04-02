@@ -12,17 +12,11 @@ export interface TimeSlotInfo {
   remaining: Duration
 }
 
-export function useTimeSlot(startsAt: string): TimeSlotInfo {
+export function useTimeSlot(startsAt: string): TimeSlotInfo | null {
   const time = useCurrentTime()
 
   return useMemo(() => {
-    if (!time) {
-      return {
-        slot: 0,
-        remaining: Duration.fromObject({}),
-        time: DateTime.fromObject({ hour: 0, minute: 0, second: 0 }),
-      }
-    }
+    if (!time) return null
 
     const slot = slotFromTime(startsAt, slotDuration, time)
     const remaining = remainingTimeInSlot(startsAt, slotDuration, time)

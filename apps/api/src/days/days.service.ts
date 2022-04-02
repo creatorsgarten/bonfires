@@ -22,9 +22,8 @@ export class DaysService {
     return this.db.day.findFirst({
       where: { eventId },
       include: {
-        duties: {
-          include: { assignees: { include: { user: true } } },
-        },
+        agendas: true,
+        duties: { include: { assignees: { include: { user: true } } } },
       },
     })
   }
