@@ -75,16 +75,13 @@ model Profile {
 
 enum RoleType {
   // Master of Ceremony. Manages and delegates the task for that squad.
-  MC
+  Manager
 
   // One-Day Director. Directs the event and makes decisions for that particular day.
-  OD
-
-  // Head. Supervises the event or a particular department in that event.
-  HEAD
+  Director
 
   // Staff. Supports the event.
-  STAFF
+  Staff
 }
 
 // Squad defines the unit that a staff can belong to.
@@ -96,11 +93,8 @@ model Squad {
   // A squad can contain multiple roles.
   // For example, "Food" squad can have "MC Food" and "Food Delivery" roles.
   // Note that the same staff can be in as many squad as they wish, as this is tied to the role.
+  // Note that one squad may contain multiple MCs, as there may multiple areas to manage.
   roles Role[]
-
-  // A squad can contain multiple duties spanning multiple days.
-  // For example, "Food" squad can have a "Prepare Lunch Room" duty item at slot 18 - slot 22.
-  duties Duty[]
 
   // A squad can contain multiple tasks.
   // Tasks are usually used for pre-event tasks as well as checklists for the day.
@@ -115,11 +109,14 @@ model Role {
 
   title String
 
-  // Type of the role, such as MC, OD, Head, or staff.
+  // Type of the role, such as MC (Manager), OD (Director) and staff.
   type RoleType
 
-  // Multiple staffs can have the same role.
-  // For example, there can be multiple ODs at once.
+  // The MC may be in charge of multiple duties throughout the day.
+  duties Duty[]
+
+  // Multiple staffs can share the same role.
+  // For example, there can be multiple ODs for a day.
   staffs Staff[]
 
   // A role can be assigned to a squad.
@@ -128,13 +125,14 @@ model Role {
   squadId Int
 }
 
-// The task can be linked to a schedule.
+// Tasks are usually used for pre-event tasks and post-event tasks.
+// For example, the "Food" squad can have a "Plan Food Catering" task.
 // This allows for integration with task management systems, such as Airtable, Linear, Trello, etc.
 model Task {
   id Int @id @default(autoincrement())
 
   // Title of the task.
-  // Example: Prepare Social Media Post, Clean Up the Venue
+  // Example: Prepare Social Media Posts
   title String
 
   // The task may be assigned to a squad.
@@ -156,12 +154,25 @@ model Task {
   // A difficult task will need more than one people handling it.
   assignees TaskAssignees[]
 
-  // The task can be assigned to one of the duties, as a checklist for the MC.
+  // The task may be assigned to one of the duties, as a checklist for the MC.
+  // This use-case is not very commonly used, as usually just the duty will suffice.
   duty   Duty? @relation(fields: [dutyId], references: [id])
   dutyId Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+// Many-to-many relation mapping to map tasks to staffs.
+// A staff can have multiple tasks, and a task can have multiple tasks.
+model DutyAssignees {
+  duty   Duty @relation(fields: [dutyId], references: [id])
+  dutyId Int
+
+  staff   Staff @relation(fields: [staffId], references: [id])
+  staffId Int
+
+  @@id([dutyId, staffId])
 }
 
 // Many-to-many relation mapping to map tasks to staffs.
@@ -195,6 +206,9 @@ model Staff {
   // The staff record must be tied to an event.
   event   Event @relation(fields: [eventId], references: [id])
   eventId Int
+
+  // The staff can be assigned to help with multiple duties.
+  assignedDuties DutyAssignees[]
 
   // The staff can manage multiple tasks.
   managedTasks Task[] @relation("ManagedTasks")
@@ -248,11 +262,11 @@ model Agenda {
   dayId Int?
 }
 
-// Duties are the action items or checklist of things to do on the event day.
+// Duties are the action items or checklist of things for each MC to do on the event day.
 model Duty {
   id Int @id @default(autoincrement())
 
-  // What you're supposed to be doing right now.
+  // What the MC is supposed to be doing right now.
   title String
 
   // The day this duty was created in.
@@ -266,15 +280,20 @@ model Duty {
   startSlot Int
   endSlot   Int
 
-  // The duty must be assigned to a squad.
-  // For example: Registration, Food, Venue, Lecture
-  // This is used to look up the MC responsible for this duty.
-  squad   Squad @relation(fields: [squadId], references: [id])
-  squadId Int
+  // The role in charge of this duty.
+  // Might be a MC (e.g. Food Duty) or OD (i.e. OD Duty)
+  manager   Role @relation(fields: [managerId], references: [id])
+  managerId Int
 
-  // There will be tasks that the MC has to delegate and ensure that it is done
-  // for this duty. This can be small things like checking the sound equipment systems.
-  tasks Task[]
+  // The duty may be delegated to other free staffs to help.
+  // The MC can assign the tasks to other staffs.
+  // The MC will still be responsible for managing this.
+  assignees DutyAssignees[]
+
+  // There might be sub-tasks that the MC has to delegate and ensure that it is done for this duty.
+  // This can be small things like checking the sound equipment systems.
+  // Note that this use case is not commonly used, as we can just use the duty itself for tasks.
+  subtasks Task[]
 }
 
 // An event may span multiple days.

@@ -13,7 +13,7 @@ export class DaysService {
   async findByEvent(eventId: number) {
     return this.db.day.findMany({
       where: { eventId },
-      include: { duties: true },
+      include: { duties: { include: { manager: true } } },
     })
   }
 }

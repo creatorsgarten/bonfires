@@ -43,7 +43,7 @@ async function main() {
     data: {
       roles: {
         create: {
-          type: 'OD',
+          type: 'Manager',
           title: 'OD',
           squad: { create: { title: 'Admin' } },
         },
@@ -51,8 +51,6 @@ async function main() {
     },
     include: { roles: { include: { squad: true } } },
   })
-
-  const [{ squadId }] = staff.roles
 
   // Check if there's any existing "Day 0"
   const day = await db.day.findFirst({ where: { title: 'Day 1' } })
@@ -67,15 +65,6 @@ async function main() {
 
         // Assign the user as OD for this day.
         directors: { connect: { id: user.id } },
-
-        duties: {
-          create: {
-            title: 'Do stuff',
-            startSlot: 5,
-            endSlot: 15,
-            squadId,
-          },
-        },
       },
     })
   }
