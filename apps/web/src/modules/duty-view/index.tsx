@@ -27,14 +27,14 @@ export const DutyView = () => {
           />
         </div>
 
-        <div tw="flex flex-col text-gray-800 shadow-2xl">
-          <div tw="px-2 bg-white rounded-t-md text-xl xs:text-2xl sm:text-3xl">
+        <div tw="flex flex-col text-gray-800 shadow-2xl rounded-lg">
+          <div tw="px-2 bg-white rounded-t-lg text-xl xs:text-2xl sm:text-3xl">
             <p tw="text-center my-2 xs:my-3 sm:my-4 font-semibold">
               พาน้องไปเล่นออลแคมป์
             </p>
           </div>
 
-          <div tw="rounded-b-lg text-white px-2 py-2 text-xs xs:text-sm sm:text-base">
+          <div tw="rounded-b-lg text-white px-2 py-2 text-xs xs:text-sm sm:text-base bg-transparent">
             ต่อไป รับน้องมาจากโรงแรม · ช่วง chaos
           </div>
         </div>
