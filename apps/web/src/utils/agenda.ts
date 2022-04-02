@@ -1,14 +1,13 @@
 import { Agenda } from '@gql'
 
-const slotOf = (slot: number) => (a: Agenda) => a.slot >= slot
-
 export function agendaFromSlot(slot: number, agendas: Agenda[]) {
   agendas = [...agendas].sort((a, b) => a?.slot - b?.slot)
 
-  const current = agendas.find(slotOf(slot))
-  if (!current) return { current: null, next: null }
+  let i = -1
 
-  const next = agendas.find(slotOf(current?.slot + 1)) ?? null
+  for (let j = 0; j < agendas.length; j++) {
+    if (agendas[j].slot <= slot) i = j
+  }
 
-  return { current, next }
+  return { current: agendas[i], next: agendas[i + 1] }
 }

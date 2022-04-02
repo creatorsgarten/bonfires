@@ -28,7 +28,9 @@ const PrimaryCard = ({ title = '', subtitle = '' }) => (
 
 export const AgendaCard = ({ slot, agendas }: Props) => {
   const agenda = useMemo(() => {
-    return agendaFromSlot(slot ?? -1, agendas)
+    if (!slot) return null
+
+    return agendaFromSlot(slot, agendas)
   }, [agendas, slot])
 
   const title = useMemo(() => {
@@ -41,9 +43,14 @@ export const AgendaCard = ({ slot, agendas }: Props) => {
 
   const subtitle = useMemo(() => {
     if (slot === null) return 'รอสักครู่นะ 🌟'
-    if (slot < 0) return 'ขอให้วันนี้เป็นวันที่ดีนะ เธอทำได้ 💪🏻'
-    if (!agenda?.current) return 'ไว้เจอกันวันพรุ่งนี้นะ 💛'
-    if (!agenda?.next) return 'กิจกรรมนี้เป็นกิจกรรมสุดท้าย 💛'
+
+    if (slot < 0) {
+      if (!agenda?.next) return 'ขอให้วันนี้เป็นวันที่ดีนะ เธอทำได้ 💪🏻'
+
+      return `คิวแรก ${agenda.next.title}`
+    }
+
+    if (!agenda?.next || !agenda?.current) return 'ไว้เจอกันวันพรุ่งนี้นะ 💛'
 
     return `ต่อไป ${agenda.next.title}`
   }, [slot, agenda])
