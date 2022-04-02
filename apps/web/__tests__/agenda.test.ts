@@ -28,10 +28,10 @@ describe('agenda', () => {
     [0, 'First', 'Second'],
     [3, 'Second', 'Third'],
     [5, 'Third', undefined],
-    [10, 'Third', undefined],
+    [10, undefined, undefined],
   ])(
     'can get the current agenda from slot',
-    (slot: number, current: string, next: string | undefined) => {
+    (slot: number, current: string | undefined, next: string | undefined) => {
       const agenda = agendaFromSlot(slot, agendas)
 
       expect(agenda?.current?.title).toBe(current)

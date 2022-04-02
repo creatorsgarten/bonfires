@@ -31,11 +31,17 @@ export const AgendaCard = ({ slot, agendas }: Props) => {
     return agendaFromSlot(slot ?? -1, agendas ?? [])
   }, [agendas, slot])
 
-  const title = slot ? agenda?.current.title : '[กำลังเตรียมตารางกิจกรรม...]'
+  const title = useMemo(() => {
+    if (!slot) return '[กำลังเตรียมตารางกิจกรรม...]'
+    if (!agenda?.current) return '[หมดช่วงเวลากิจกรรม]'
+
+    return agenda?.current.title
+  }, [slot, agenda])
 
   const subtitle = useMemo(() => {
     if (!slot) return 'รอสักครู่นะ 🌟'
-    if (!agenda?.next) return 'หมดช่วงเวลากิจกรรม'
+    if (!agenda?.current) return 'ไว้เจอกันวันพรุ่งนี้นะ 💛'
+    if (!agenda?.next) return 'กิจกรรมนี้เป็นกิจกรรมสุดท้าย'
 
     return `ต่อไป ${agenda.next.title}`
   }, [slot, agenda])
