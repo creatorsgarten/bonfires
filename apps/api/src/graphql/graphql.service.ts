@@ -1,8 +1,9 @@
 import { join } from 'path'
-import { ApolloDriverConfig } from '@nestjs/apollo'
+import { GraphQLSchema } from 'graphql'
 import { Injectable } from '@nestjs/common'
-
 import { GqlOptionsFactory } from '@nestjs/graphql'
+import { ApolloDriverConfig } from '@nestjs/apollo'
+import { GraphQLLiveDirective } from '@n1ru4l/graphql-live-query'
 
 import {
   ApolloServerPluginLandingPageLocalDefault,
@@ -34,7 +35,6 @@ export class GraphQLConfigService implements GqlOptionsFactory {
       playground: false,
       autoSchemaFile,
       useGlobalPrefix: true,
-      typeDefs: `directive @live on QUERY`,
 
       plugins: [
         ApolloServerPluginLandingPageLocalDefault(),
@@ -42,6 +42,15 @@ export class GraphQLConfigService implements GqlOptionsFactory {
       ],
 
       subscriptions,
+
+      transformSchema(schema) {
+        const config = schema.toConfig()
+
+        return new GraphQLSchema({
+          ...config,
+          directives: [...config.directives, GraphQLLiveDirective],
+        })
+      },
 
       // persistedQueries: { cache },
       // context: (context: GQLContext) => {},

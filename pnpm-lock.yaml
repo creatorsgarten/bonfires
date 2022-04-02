@@ -22,7 +22,6 @@ specifiers:
   '@graphql-codegen/typescript-operations': 2.3.5
   '@graphql-codegen/typescript-react-apollo': 3.2.11
   '@graphql-codegen/typescript-resolvers': 2.6.1
-  '@graphql-tools/utils': ^8.6.5
   '@headlessui/react': ^1.5.0
   '@n1ru4l/graphql-live-query': ^0.9.0
   '@n1ru4l/graphql-live-query-patch-json-patch': ^0.6.1
@@ -134,7 +133,6 @@ dependencies:
   '@fortawesome/fontawesome-svg-core': 6.1.1
   '@fortawesome/free-solid-svg-icons': 6.1.1
   '@fortawesome/react-fontawesome': 0.1.18_02c9bb727bd1fb5f0c396f6c2f700a1d
-  '@graphql-tools/utils': 8.6.5_graphql@16.3.0
   '@headlessui/react': 1.5.0_react-dom@18.0.0+react@18.0.0
   '@n1ru4l/graphql-live-query': 0.9.0_graphql@16.3.0
   '@n1ru4l/graphql-live-query-patch-json-patch': 0.6.1_graphql@16.3.0
@@ -2467,7 +2465,7 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-tools/merge': 8.2.3_graphql@16.3.0
+      '@graphql-tools/merge': 8.2.6_graphql@16.3.0
       '@graphql-tools/utils': 8.6.5_graphql@16.3.0
       graphql: 16.3.0
       tslib: 2.3.1
