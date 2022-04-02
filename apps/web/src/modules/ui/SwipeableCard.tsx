@@ -1,5 +1,7 @@
-import { useSpring, animated } from '@react-spring/web'
+import { clamp } from 'lodash'
+
 import { useDrag } from '@use-gesture/react'
+import { useSpring, animated } from '@react-spring/web'
 
 import 'twin.macro'
 
@@ -13,6 +15,9 @@ const right = {
   justifySelf: 'start',
 }
 
+const CIRCLE = 50
+const DRAG_MAX = 150
+
 export const SwipeableCard: React.FC = ({ children }) => {
   const [{ x, bg, scale, justifySelf }, api] = useSpring(() => ({
     x: 0,
@@ -20,18 +25,18 @@ export const SwipeableCard: React.FC = ({ children }) => {
     ...left,
   }))
 
-  const bind = useDrag(({ active, movement: [x] }) =>
+  const bind = useDrag(({ active, movement: [x] }) => {
     api.start({
-      x: active ? x : 0,
+      x: active ? clamp(x, -DRAG_MAX, DRAG_MAX) : 0,
       scale: active ? 1.1 : 1,
       ...(x < 0 ? left : right),
       immediate: (name) => active && name === 'x',
     })
-  )
+  })
 
   const circleScale = x.to({
     map: Math.abs,
-    range: [50, 300],
+    range: [CIRCLE, DRAG_MAX + CIRCLE],
     output: [0.5, 1],
     extrapolate: 'clamp',
   })
@@ -40,7 +45,7 @@ export const SwipeableCard: React.FC = ({ children }) => {
     <div tw="flex items-center justify-center h-full">
       <animated.div
         {...bind()}
-        style={{ background: bg }}
+        style={{ background: bg, touchAction: 'none' }}
         tw="relative w-full pointer-events-auto px-8 grid items-center rounded-lg shadow-2xl select-none py-2"
       >
         <animated.div
