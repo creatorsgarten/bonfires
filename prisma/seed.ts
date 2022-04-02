@@ -14,21 +14,21 @@ async function main() {
   })
 
   const workspace = await db.workspace.upsert({
-    where: { slug: 'polaris' },
+    where: { slug: 'polaryz' },
     update: {},
     create: {
-      name: 'Polaris Club',
-      slug: 'polaris',
+      name: 'Polaryz',
+      slug: 'polaryz',
       users: { connect: { id: user.id } },
     },
   })
 
   const event = await db.event.upsert({
-    where: { slug: 'code-in-the-dark' },
+    where: { slug: 'polaryz-camp' },
     update: {},
     create: {
-      name: 'Code in the Dark',
-      slug: 'code-in-the-dark',
+      name: 'Polaryz Camp',
+      slug: 'polaryz-camp',
       workspaceId: workspace.id,
 
       staffs: { create: { userId: user.id } },
@@ -52,7 +52,7 @@ async function main() {
     include: { roles: { include: { squad: true } } },
   })
 
-  // Check if there's any existing "Day 0"
+  // Check if there's any existing "Day 1"
   const day = await db.day.findFirst({ where: { title: 'Day 1' } })
 
   // If there isn't, we create one.
