@@ -165,18 +165,6 @@ model Task {
 
 // Many-to-many relation mapping to map tasks to staffs.
 // A staff can have multiple tasks, and a task can have multiple tasks.
-model DutyAssignees {
-  duty   Duty @relation(fields: [dutyId], references: [id])
-  dutyId Int
-
-  staff   Staff @relation(fields: [staffId], references: [id])
-  staffId Int
-
-  @@id([dutyId, staffId])
-}
-
-// Many-to-many relation mapping to map tasks to staffs.
-// A staff can have multiple tasks, and a task can have multiple tasks.
 model TaskAssignees {
   task   Task @relation(fields: [taskId], references: [id])
   taskId Int
@@ -207,8 +195,8 @@ model Staff {
   event   Event @relation(fields: [eventId], references: [id])
   eventId Int
 
-  // The staff can be assigned to help with multiple duties.
-  assignedDuties DutyAssignees[]
+  // The staff can be assigned multiple duties.
+  duties Duty[]
 
   // The staff can manage multiple tasks.
   managedTasks Task[] @relation("ManagedTasks")
@@ -288,7 +276,7 @@ model Duty {
   // The duty may be delegated to other free staffs to help.
   // The MC can assign the tasks to other staffs.
   // The MC will still be responsible for managing this.
-  assignees DutyAssignees[]
+  assignees Staff[]
 
   // There might be sub-tasks that the MC has to delegate and ensure that it is done for this duty.
   // This can be small things like checking the sound equipment systems.

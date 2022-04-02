@@ -1,6 +1,6 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
-import { ID, Event, CurrentDay } from '../models'
+import { ID, Event, Day } from '../models'
 
 import { EventsService } from './events.service'
 
@@ -29,7 +29,7 @@ export class EventsResolver {
     return this.workspaceService.findOne(event.workspaceId)
   }
 
-  @ResolveField(() => CurrentDay)
+  @ResolveField(() => Day)
   async currentDay(@Parent() event: Event) {
     return this.dayService.getCurrentDay(event.id)
   }
