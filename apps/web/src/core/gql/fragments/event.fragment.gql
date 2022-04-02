@@ -6,4 +6,8 @@ fragment event on Event {
   color
   createdAt
   updatedAt
+
+  currentDay {
+    ...day
+  }
 }

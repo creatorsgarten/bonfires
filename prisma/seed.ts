@@ -25,7 +25,10 @@ async function main() {
 
   const event = await db.event.upsert({
     where: { slug: 'polaryz-camp' },
-    update: {},
+    update: {
+      icon: 'dragon',
+      color: '#a55eea',
+    },
     create: {
       name: 'Polaryz Camp',
       slug: 'polaryz-camp',
@@ -36,7 +39,7 @@ async function main() {
     include: { staffs: true },
   })
 
-  const [{ id: staffId }] = event.staffs
+  const [{ id: staffId }] = event.staffs ?? []
 
   const staff = await db.staff.update({
     where: { id: staffId },
@@ -44,30 +47,55 @@ async function main() {
       roles: {
         create: {
           type: 'Manager',
-          title: 'OD',
-          squad: { create: { title: 'Admin' } },
+          title: 'MC Food',
+          squad: { create: { title: 'Food' } },
         },
       },
     },
     include: { roles: { include: { squad: true } } },
   })
 
-  // Check if there's any existing "Day 1"
-  const day = await db.day.findFirst({ where: { title: 'Day 1' } })
+  const [{ id: managerId }] = staff.roles ?? []
 
-  // If there isn't, we create one.
-  if (!day) {
-    await db.day.create({
-      data: {
-        title: 'Day 1',
-        startsAt: new Date(),
-        eventId: event.id,
+  await db.day.upsert({
+    where: { id: 1 },
+    update: {
+      duties: {
+        createMany: {
+          data: [
+            {
+              id: 1,
+              managerId,
+              title: 'สั่งข้าวเช้าให้สตาฟ',
 
-        // Assign the user as OD for this day.
-        directors: { connect: { id: user.id } },
+              startSlot: 0,
+              endSlot: 2,
+            },
+            {
+              id: 2,
+              managerId,
+              title: 'ให้สตาฟที่ไม่ได้ on duty มาทานข้าว',
+
+              startSlot: 3,
+              endSlot: 6,
+            },
+          ],
+        },
       },
-    })
-  }
+    },
+
+    create: {
+      id: 1,
+
+      title: 'Day 1',
+      startsAt: new Date(),
+      eventId: event.id,
+
+      // Assign the user as OD for this day.
+      // Usually the OD should not also be MC for conflicting events.
+      directors: { connect: { id: user.id } },
+    },
+  })
 }
 
 main()

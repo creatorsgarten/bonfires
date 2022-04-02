@@ -1,0 +1,11 @@
+fragment day on Day {
+  id
+  title
+
+  duties {
+    id
+    title
+    startSlot
+    endSlot
+  }
+}

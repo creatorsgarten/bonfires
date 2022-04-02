@@ -16,4 +16,12 @@ export class DaysService {
       include: { duties: { include: { manager: true } } },
     })
   }
+
+  // TODO: add logic to determine which day we are in.
+  async getCurrentDay(eventId: number) {
+    return this.db.day.findFirst({
+      where: { eventId },
+      include: { duties: { include: { manager: true } } },
+    })
+  }
 }
