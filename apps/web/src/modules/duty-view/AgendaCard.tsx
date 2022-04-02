@@ -28,7 +28,7 @@ const PrimaryCard = ({ title = '', subtitle = '' }) => (
 
 export const AgendaCard = ({ slot, agendas }: Props) => {
   const agenda = useMemo(() => {
-    if (!slot) return null
+    if (slot === null) return null
 
     return agendaFromSlot(slot, agendas)
   }, [agendas, slot])

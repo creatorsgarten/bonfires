@@ -44,7 +44,7 @@ export const DutyView = () => {
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
         <Debug data={event} />
-        <ReplayControl />
+        <ReplayControl starts={day?.startsAt} />
       </div>
     </div>
   )
