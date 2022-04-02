@@ -28,7 +28,7 @@ export const SwipeableCard: React.FC = ({ children }) => {
     })
   )
 
-  const avSize = x.to({
+  const circleScale = x.to({
     map: Math.abs,
     range: [50, 300],
     output: [0.5, 1],
@@ -43,7 +43,7 @@ export const SwipeableCard: React.FC = ({ children }) => {
         tw="relative w-full pointer-events-auto px-8 grid items-center rounded-lg shadow-2xl select-none py-2"
       >
         <animated.div
-          style={{ scale: avSize, justifySelf }}
+          style={{ scale: circleScale, justifySelf }}
           tw="w-10 h-10 rounded-full bg-white"
         />
 
@@ -51,8 +51,6 @@ export const SwipeableCard: React.FC = ({ children }) => {
           style={{ x, scale }}
           tw="absolute bg-white h-full w-full grid items-center rounded-lg shadow-2xl transition-all duration-75 cursor-pointer"
         >
-          <div tw="flex h-full w-1 xs:w-2 bg-red-400 absolute top-0 rounded-l-lg" />
-
           {children}
         </animated.div>
       </animated.div>
