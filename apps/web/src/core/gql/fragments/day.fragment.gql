@@ -8,5 +8,14 @@ fragment day on Day {
     title
     startSlot
     endSlot
+
+    assignees {
+      id
+      displayName
+
+      user {
+        photo
+      }
+    }
   }
 }
