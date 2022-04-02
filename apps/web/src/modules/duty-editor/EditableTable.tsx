@@ -65,7 +65,7 @@ export const EditableTable = (props: TableProps) => {
   const table = useTable({
     data,
     columns,
-    defaultColumn: { Cell: EditableCell, maxWidth: 180 },
+    defaultColumn: { Cell: EditableCell, maxWidth: 200 },
   })
 
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
