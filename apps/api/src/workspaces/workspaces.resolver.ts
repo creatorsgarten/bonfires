@@ -12,7 +12,7 @@ import {
 
 import { WorkspacesService } from './workspaces.service'
 
-import { ID, Workspace } from '../model'
+import { ID, Workspace } from '../models'
 
 import { UserService } from '../user/user.service'
 import { EventsService } from '../events/events.service'

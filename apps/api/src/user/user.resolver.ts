@@ -2,7 +2,7 @@ import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 
 import { UserService } from './user.service'
 
-import { ID, User } from '../model'
+import { ID, User } from '../models'
 
 import { WorkspacesService } from '../workspaces/workspaces.service'
 

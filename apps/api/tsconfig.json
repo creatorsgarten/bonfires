@@ -5,7 +5,7 @@
   "compilerOptions": {
     "incremental": true,
     "paths": {
-      "@model": ["./src/model.ts"]
+      "@model": ["src/models/model.ts"]
     }
   },
   "references": [
