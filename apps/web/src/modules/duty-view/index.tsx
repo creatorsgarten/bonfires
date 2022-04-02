@@ -61,9 +61,9 @@ export const DutyView = () => {
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
-        <div tw="text-left text-[8px] font-light">
+        {/* <div tw="text-left text-[8px] font-light">
           <pre>{JSON.stringify(event, null, 2)}</pre>
-        </div>
+        </div> */}
       </div>
     </div>
   )

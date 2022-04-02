@@ -26,5 +26,5 @@ export const remainingTimeInSlot = (
   const slot = slotFromTime(startsAt, slotDurationInMinutes, currentTime)
   const nextSlot = timeFromSlot(slot + 1, startsAt, slotDurationInMinutes)
 
-  return nextSlot.diff(currentTime, ['minutes'])
+  return nextSlot.diff(currentTime)
 }

@@ -40,8 +40,9 @@ describe('time slot calculation', () => {
     ['22:00:55', '09:05'],
   ])('shows the remaining time in the current slot', (timeNow, expected) => {
     const now = DateTime.fromISO(`2022-04-02T${timeNow}.000+07:00`)
-    const remaining = remainingTimeInSlot(starts, 10, now).toFormat('mm:ss')
+    const remaining = remainingTimeInSlot(starts, 10, now)
+    const remainingTime = remaining.toFormat('mm:ss')
 
-    expect(remaining).toBe(expected)
+    expect(remainingTime).toBe(expected)
   })
 })

@@ -10,6 +10,8 @@ type Props = Partial<TimeSlotInfo>
 export const TimeIndicator = (props: Props) => {
   const { slot, remaining, time } = props ?? {}
 
+  const percentage = ((remaining?.as('seconds') ?? 0) / (10 * 60)) * 100
+
   return (
     <Card tw="xs:text-xl sm:text-2xl font-light">
       <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-lg">
@@ -29,7 +31,7 @@ export const TimeIndicator = (props: Props) => {
       <div
         tw="bg-purple-300 w-full h-[6px] rounded-b-lg"
         style={{
-          background: `linear-gradient(45deg, rgb(155, 89, 182) 10%, transparent)`,
+          background: `linear-gradient(45deg, rgb(155, 89, 182) ${percentage}%, transparent)`,
         }}
       />
     </Card>
