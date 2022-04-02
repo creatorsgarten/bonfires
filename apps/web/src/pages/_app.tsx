@@ -1,11 +1,12 @@
 import React from 'react'
+import { Provider } from 'jotai'
+import { ApolloProvider } from '@apollo/client'
+
 import Head from 'next/head'
 import { AppProps } from 'next/app'
-import { ApolloProvider } from '@apollo/client'
-import { Provider } from 'jotai'
 
 import { setupIcon } from '../styles/icon'
-import { createApolloClient } from '../core/gql/createApolloClient'
+import { createApolloClient } from '../utils/gql/createApolloClient'
 
 import '../styles/reset.css'
 
