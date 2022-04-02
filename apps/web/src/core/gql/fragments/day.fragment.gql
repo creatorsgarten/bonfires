@@ -3,9 +3,18 @@ fragment day on Day {
   title
   startsAt
 
+  agendas {
+    id
+    title
+
+    startSlot
+    endSlot
+  }
+
   duties {
     id
     title
+
     startSlot
     endSlot
 
