@@ -7,6 +7,7 @@ import { DutyCard } from '../duty-card'
 
 import { useEvent } from '../../hooks/useEvent'
 import { useTimeSlot } from '../../hooks/useTimeSlot'
+import { Debug } from '../ui/Debug'
 
 export const DutyView = () => {
   const { event } = useEvent()
@@ -17,15 +18,15 @@ export const DutyView = () => {
   const timeslot = useTimeSlot(day?.startsAt)
 
   return (
-    <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
-      <div tw="flex flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
+    <div tw="flex min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
+      <div tw="flex justify-center flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
         <TimeIndicator {...timeslot} />
 
         <AgendaCard slot={timeslot?.slot} agendas={day?.agendas} />
 
         <div tw="py-1" />
 
-        <div tw="flex flex-col space-y-8">
+        <div tw="flex flex-col space-y-6">
           {duties.map((duty) => (
             <DutyCard
               key={duty.id}
@@ -37,9 +38,7 @@ export const DutyView = () => {
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
-        {/* <div tw="text-left text-[8px] font-light">
-          <pre>{JSON.stringify(event, null, 2)}</pre>
-        </div> */}
+        <Debug data={event} />
       </div>
     </div>
   )
