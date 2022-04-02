@@ -1,6 +1,6 @@
 export function progressToGradient(seconds: number) {
   const color1 = '#f5576c'
-  const color2 = '#f093fb'
+  const color2 = 'rgb(155, 89, 182)'
 
   const percentage = ((seconds ?? 0) / (10 * 60)) * 100
   const p2 = percentage < 5 ? 0 : percentage + 4
