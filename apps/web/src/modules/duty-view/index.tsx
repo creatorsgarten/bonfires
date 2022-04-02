@@ -7,7 +7,7 @@ export const DutyView = () => {
 
   return (
     <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
-      <div tw="mx-auto w-full max-w-2xl px-4 sm:px-10 space-y-10">
+      <div tw="mx-auto w-full max-w-2xl px-4 sm:px-10 space-y-4">
         <div tw="flex flex-col text-gray-800 xs:text-xl sm:text-2xl font-light">
           <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-md">
             <div>00:00:00</div>
