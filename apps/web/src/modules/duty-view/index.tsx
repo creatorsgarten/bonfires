@@ -32,14 +32,12 @@ const AssigneeAvatars = ({ title = '' }) => (
 )
 
 const DutyCard = ({ title = '' }) => (
-  <SwipeableCard>
+  <SwipeableCard decoration={<AssigneeAvatars title={title} />}>
     <div tw="flex h-full w-1 xs:w-2 bg-red-400 absolute top-0 rounded-l-lg" />
 
     <p tw="px-6 text-gray-900 text-left text-base xs:text-xl sm:text-2xl m-0 break-words truncate">
       {title}
     </p>
-
-    <AssigneeAvatars title={title} />
   </SwipeableCard>
 )
 

@@ -1,3 +1,7 @@
+html {
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0.05);
+}
+
 body {
   margin: 0;
 
@@ -10,3 +14,4 @@ body {
 p {
   font-weight: 300;
 }
+
