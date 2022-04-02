@@ -12,6 +12,7 @@ const MyLoader = () => (
       viewBox="0 0 400 150"
       backgroundColor="#c4c4c4"
       foregroundColor="#e6e6e6"
+      uniqueKey="simple-loader"
     >
       <rect x="6" y="7" rx="0" ry="0" width="251" height="16" />
       <circle cx="48" cy="75" r="22" />

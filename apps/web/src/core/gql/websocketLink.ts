@@ -1,6 +1,7 @@
-import { ApolloLink, Operation, split } from '@apollo/client'
-import { WebSocketLink } from '@apollo/client/link/ws'
+import { createClient } from 'graphql-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
+import { ApolloLink, Operation, split } from '@apollo/client'
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 
 import { environment } from '../../envs/env'
 
@@ -13,16 +14,22 @@ export function isWebsocketOperation(op: Operation) {
 }
 
 export function withWebsocketLink(defaultLink: ApolloLink) {
-  const wsLink = new WebSocketLink({
-    uri: wsEndpoint,
+  const client = createClient({
+    url: wsEndpoint,
 
-    options: {
-      reconnect: true,
-      connectionParams: {
-        authorization: 'Bearer YOUR_TOKEN_HERE',
-      },
+    on: {
+      connected: () => console.log('[graphql-ws] connected'),
+      error: () => console.log('[graphql-ws] error'),
     },
+
+    connectionParams: {
+      authorization: 'Bearer YOUR_TOKEN_HERE',
+    },
+
+    lazy: true,
   })
+
+  const wsLink = new GraphQLWsLink(client)
 
   return split(isWebsocketOperation, wsLink, defaultLink)
 }

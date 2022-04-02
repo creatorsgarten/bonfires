@@ -6,7 +6,7 @@ export const DutyView = () => {
   const { event } = useEvent()
 
   return (
-    <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-gray-800">
+    <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
       <div tw="mx-auto w-full max-w-2xl px-4 sm:px-10 space-y-10">
         <div tw="flex flex-col text-gray-800 xs:text-xl sm:text-2xl font-light">
           <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-md">
@@ -19,7 +19,12 @@ export const DutyView = () => {
             </div>
           </div>
 
-          <div tw="bg-purple-300 w-full h-[6px] rounded-b-lg" />
+          <div
+            tw="bg-purple-300 w-full h-[6px] rounded-b-lg"
+            style={{
+              background: `linear-gradient(45deg, rgb(155, 89, 182) 10%, transparent)`,
+            }}
+          />
         </div>
 
         <div tw="flex flex-col text-gray-800 shadow-2xl">
