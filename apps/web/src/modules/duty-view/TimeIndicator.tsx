@@ -1,27 +1,18 @@
 import 'twin.macro'
-
-import { clamp } from 'lodash'
 import { DateTime } from 'luxon'
 
 import { Card, Small } from './Card'
+
+import { progressToGradient } from './utils/gradient-progress'
 
 import type { TimeSlotInfo } from '../../hooks/useTimeSlot'
 
 type Props = Partial<TimeSlotInfo>
 
-function toGradient(seconds: number) {
-  const color1 = '#f5576c'
-  const color2 = '#f093fb'
-
-  const percentage = ((seconds ?? 0) / (10 * 60)) * 100
-  const p2 = percentage < 5 ? 0 : percentage + 4
-
-  // prettier-ignore
-  return `linear-gradient(90deg, ${color1} 1%, ${color2} ${percentage}%, transparent ${p2}%, transparent 100%)`
-}
-
 export const TimeIndicator = (props: Props) => {
   const { slot, remaining, time } = props ?? {}
+
+  const progressBar = progressToGradient(remaining?.as('seconds') ?? 0)
 
   return (
     <Card tw="xs:text-xl sm:text-2xl font-light">
@@ -41,7 +32,7 @@ export const TimeIndicator = (props: Props) => {
 
       <div
         tw="bg-purple-300 w-full h-[6px] rounded-b-lg"
-        style={{ background: toGradient(remaining?.as('seconds') ?? 0) }}
+        style={{ background: progressBar }}
       />
     </Card>
   )
