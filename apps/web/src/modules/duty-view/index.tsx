@@ -1,4 +1,5 @@
 import tw from 'twin.macro'
+import { useCurrentTime } from '../../hooks/useCurrentTime'
 
 import { useEvent } from '../../hooks/useEvent'
 
@@ -6,13 +7,14 @@ const Card = tw.div`flex flex-col text-gray-800 shadow-2xl rounded-lg`
 
 export const DutyView = () => {
   const { event } = useEvent()
+  const time = useCurrentTime()
 
   return (
     <div tw="flex justify-center items-center min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
-      <div tw="mx-auto w-full max-w-2xl px-4 sm:px-10 space-y-4">
+      <div tw="flex flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4">
         <Card tw="xs:text-xl sm:text-2xl font-light">
           <div tw="flex items-center justify-around px-3 py-2 bg-white rounded-t-lg">
-            <div>00:00:00</div>
+            <div>{time}</div>
 
             <div>
               <span tw="text-xs xs:text-base sm:text-xl">คิว</span> 00
@@ -42,6 +44,8 @@ export const DutyView = () => {
             ต่อไป รับน้องมาจากโรงแรม · ช่วง chaos
           </div>
         </Card>
+
+        <Card tw="bg-white py-3">XXXX</Card>
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
       </div>
