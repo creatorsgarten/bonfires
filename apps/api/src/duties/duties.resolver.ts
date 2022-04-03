@@ -32,6 +32,6 @@ export class DutyResolver {
 
   @Mutation(() => Duty)
   async updateDutyBySlot(@Args('input') input: EditDutyBySlotDto) {
-    return this.dutyService.editBySlot(input)
+    return this.dutyService.updateBySlot(input)
   }
 }

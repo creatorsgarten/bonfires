@@ -8,21 +8,19 @@ import { useEffect, useMemo, useReducer } from 'react'
 import { EditableTable } from './EditableTable'
 
 import { Duty } from './types'
-import { dutyAtom } from './atoms/duty.atom'
-
+import { setupDayAtom } from './atoms/day.atom'
 import { createColumns } from './utils/createColumns'
-import { createDutyState } from './utils/createDutyState'
 
 import { Debug } from '../ui/Debug'
 import { ErrorBoundary } from '../ui/ErrorBoundary'
 
 import { useEvent } from '../../hooks/useEvent'
 
-// Used to edit agenda/duties and plan out the day.
+/** Edit agenda and duties, and plan out your event operations. */
 export const DutyEditor = () => {
   const { event } = useEvent()
 
-  const [duties, setDuty] = useAtom(dutyAtom)
+  const [day, setupDay] = useAtom(setupDayAtom)
   const [filtered, toggle] = useReducer((n) => !n, false)
 
   const today = event?.today
@@ -35,14 +33,14 @@ export const DutyEditor = () => {
   useEffect(() => {
     if (!today) return
 
-    setDuty(createDutyState(today))
-  }, [setDuty, today])
+    setupDay(today)
+  }, [setupDay, today])
 
   return (
     <div tw="space-y-4">
       <div tw="shadow-2xl rounded-lg bg-[#111]">
         <ErrorBoundary>
-          <EditableTable columns={columns.filter(canView)} data={duties} />
+          <EditableTable columns={columns.filter(canView)} data={day.duties} />
         </ErrorBoundary>
       </div>
 
@@ -59,7 +57,7 @@ export const DutyEditor = () => {
         </label>
       </div>
 
-      <Debug data={duties} />
+      <Debug data={day.duties} />
     </div>
   )
 }

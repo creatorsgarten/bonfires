@@ -21,12 +21,12 @@ export class DutyService {
     return this.db.duty.update({ data, where: { id } })
   }
 
-  editBySlot(data: EditDutyBySlotDto) {
+  updateBySlot(data: EditDutyBySlotDto) {
     const { slot, dayId, managerId } = data
 
     return this.db.duty.upsert({
       where: {
-        slot_dayId_managerId: data,
+        slot_dayId_managerId: { slot, dayId, managerId },
       },
       create: {
         title: data.title ?? '',
