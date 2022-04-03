@@ -22,8 +22,6 @@ export const EditableTable = (props: TableProps) => {
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
     table
 
-  console.log('tbl', table)
-
   return (
     <table {...getTableProps()} tw="text-white table">
       <thead tw="bg-[#222]">
