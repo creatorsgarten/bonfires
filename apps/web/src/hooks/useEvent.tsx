@@ -7,8 +7,8 @@ export function useEvent() {
   const eventId = parseInt(router.query.eventId as string)
 
   const { data, loading } = useEventQuery({
-    variables: { eventId },
     skip: !eventId,
+    variables: { eventId },
   })
 
   const event = data?.event
