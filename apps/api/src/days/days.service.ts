@@ -22,7 +22,9 @@ export class DaysService {
     return this.db.day.findFirst({
       where: { eventId },
       include: {
+        roles: true,
         agendas: true,
+
         duties: {
           include: {
             manager: true,

@@ -86,10 +86,6 @@ async function main() {
       title: 'Day 1',
       startsAt: new Date(),
       eventId: event.id,
-
-      // Assign the user as OD for this day.
-      // Usually the OD should not also be MC for conflicting events.
-      directors: { connect: { id: user.id } },
     },
   })
 }

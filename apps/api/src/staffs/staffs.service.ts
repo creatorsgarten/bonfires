@@ -20,7 +20,6 @@ export class StaffsService {
       include: {
         roles: true,
         user: true,
-        directorDay: true,
         duties: true,
         tasks: true,
       },
