@@ -2,12 +2,10 @@ import 'twin.macro'
 
 import { useAtom } from 'jotai'
 
-import { Column } from 'react-table'
 import { useEffect, useMemo, useReducer } from 'react'
 
 import { EditableTable } from './EditableTable'
 
-import { Duty } from './types'
 import { setupDayAtom } from './atoms/day.atom'
 import { createColumns } from './utils/createColumns'
 
@@ -16,6 +14,8 @@ import { ErrorBoundary } from '../ui/ErrorBoundary'
 
 import { useEvent } from '../../hooks/useEvent'
 
+const baseColumns = ['slot', 'time', 'agenda']
+
 /** Edit agenda and duties, and plan out your event operations. */
 export const DutyEditor = () => {
   const { event } = useEvent()
@@ -23,12 +23,23 @@ export const DutyEditor = () => {
   const [day, setupDay] = useAtom(setupDayAtom)
   const [filtered, toggle] = useReducer((n) => !n, false)
 
-  const today = event?.today
+  const { today, me } = event ?? {}
 
-  const columns = useMemo(() => createColumns(today ?? null), [today])
+  const columns = useMemo(() => {
+    let columns = createColumns(today ?? null)
 
-  const canView = (c: Column<Duty>) =>
-    !filtered || ['slot', 'time', 'agenda'].includes(c.accessor as string)
+    if (filtered) {
+      const roles = me?.roles?.map((r) => `duties.${r.id}`) ?? []
+
+      columns = columns.filter((c) => {
+        return [...baseColumns, ...roles].includes(c.accessor as string)
+      })
+    }
+
+    return columns
+  }, [today, filtered])
+
+  console.log('cols', { me, columns })
 
   useEffect(() => {
     if (!today) return
@@ -40,7 +51,7 @@ export const DutyEditor = () => {
     <div tw="space-y-4">
       <div tw="shadow-2xl rounded-lg bg-[#111]">
         <ErrorBoundary>
-          <EditableTable columns={columns.filter(canView)} data={day.duties} />
+          <EditableTable columns={columns} data={day.duties} />
         </ErrorBoundary>
       </div>
 

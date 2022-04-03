@@ -10,4 +10,8 @@ fragment event on Event {
   today {
     ...day
   }
+
+  me {
+    ...staff
+  }
 }

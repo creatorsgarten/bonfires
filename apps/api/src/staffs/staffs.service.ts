@@ -12,4 +12,18 @@ export class StaffsService {
       include: { roles: true },
     })
   }
+
+  async getByUser(userId: number, eventId: number) {
+    return this.db.staff.findUnique({
+      where: { userId_eventId: { userId, eventId } },
+
+      include: {
+        roles: true,
+        user: true,
+        directorDay: true,
+        duties: true,
+        tasks: true,
+      },
+    })
+  }
 }

@@ -194,6 +194,8 @@ model Staff {
   // We only allow one day for a staff to be OD, so everyone gets a chance to be the OD.
   directorDay   Day? @relation("DayDirector", fields: [directorDayId], references: [id])
   directorDayId Int?
+
+  @@unique([userId, eventId])
 }
 
 // Workspace is used to manage multiple events.

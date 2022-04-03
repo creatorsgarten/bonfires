@@ -1,0 +1,15 @@
+fragment staff on Staff {
+  id
+  displayName
+
+  user {
+    id
+    photo
+  }
+
+  roles {
+    id
+    type
+    title
+  }
+}
