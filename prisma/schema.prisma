@@ -122,6 +122,9 @@ model Role {
   // For example, there can be multiple ODs for a day.
   staffs Staff[]
 
+  // Which days are this role present in?
+  days Day[]
+
   // A role can be assigned to a squad.
   // For example, MC Food belongs to the "Food" squad.
   squad   Squad @relation(fields: [squadId], references: [id])
@@ -189,11 +192,6 @@ model Staff {
 
   // The staff can have multiple tasks assigned to them.
   tasks Task[]
-
-  // The days that the staff are assigned as OD (One-Day Director)
-  // We only allow one day for a staff to be OD, so everyone gets a chance to be the OD.
-  directorDay   Day? @relation("DayDirector", fields: [directorDayId], references: [id])
-  directorDayId Int?
 
   @@unique([userId, eventId])
 }
@@ -282,9 +280,9 @@ model Day {
   // For example: "Day 0", "Preparation Day", "Workshop Day"
   title String
 
-  // There must be one or more staffs to be ODs (One-Day Directors) for a day.
-  // The director has to supervise and make decisions for that day.
-  directors Staff[] @relation("DayDirector")
+  // List of the directors, managers and supporting positions in the day.
+  // Used to create list of OD and MC duties.
+  roles Role[]
 
   // When does the day start?
   // The time is used to mark "Slot 1" of the day,
