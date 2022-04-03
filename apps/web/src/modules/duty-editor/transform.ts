@@ -46,8 +46,6 @@ export function createDutyState(day: InputDay | null): Duty[] {
       .map((d) => ({ [d.manager.id]: d.title }))
       .reduce((a, b) => ({ ...a, ...b }), {})
 
-    console.log('dx', { slot, dd: day.duties, duties })
-
     return {
       slot,
       time,
