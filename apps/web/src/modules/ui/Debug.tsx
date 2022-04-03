@@ -9,7 +9,7 @@ export const Debug = ({ data }: { data: any }) => {
   if (!debug) return null
 
   return (
-    <div tw="text-left text-[7px] font-light absolute right-2 top-2">
+    <div tw="text-left text-xs font-light absolute right-2 top-2 text-white">
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   )

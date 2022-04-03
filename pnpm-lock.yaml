@@ -96,6 +96,7 @@ specifiers:
   graphql-tag: ^2.12.6
   graphql-type-json: ^0.3.2
   graphql-ws: ^5.6.4
+  immer: ^9.0.12
   ioredis: ^5.0.3
   jest: 27.5.1
   jotai: ^1.6.1
@@ -170,8 +171,9 @@ dependencies:
   graphql-subscriptions: 2.0.0_graphql@16.3.0
   graphql-tag: 2.12.6_graphql@16.3.0
   graphql-ws: 5.6.4_graphql@16.3.0
+  immer: 9.0.12
   ioredis: 5.0.3
-  jotai: 1.6.1_@babel+core@7.17.8+react@18.0.0
+  jotai: 1.6.1_b1aabcec4d81fd4df9ce37f74707df64
   lodash: 4.17.21
   luxon: 2.3.1
   nanoid: 3.3.2
@@ -9431,6 +9433,10 @@ packages:
     requiresBuild: true
     optional: true
 
+  /immer/9.0.12:
+    resolution: {integrity: sha512-lk7UNmSbAukB5B6dh9fnh5D0bJTOFKxVg2cyJWTYrWRfhLrLMBquONcUs3aFq507hNoIZEDDh8lb8UtOizSMhA==}
+    dev: false
+
   /immutable/3.7.6:
     resolution: {integrity: sha1-E7TTyxK++hVIKib+Gy665kAHHks=}
     engines: {node: '>=0.8.0'}
@@ -10760,7 +10766,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /jotai/1.6.1_@babel+core@7.17.8+react@18.0.0:
+  /jotai/1.6.1_b1aabcec4d81fd4df9ce37f74707df64:
     resolution: {integrity: sha512-iNKHmpKGN31KXDqxGLsplb4HLTroYtiM7oBEQ9leyoXSEGQGUZKK5IOV4kN6fUmkBSJbwb5WnmInYOYzpjIDOw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -10795,6 +10801,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.17.8
+      immer: 9.0.12
       react: 18.0.0
     dev: false
 

@@ -1,34 +1,23 @@
 import 'twin.macro'
 
-import { nanoid } from 'nanoid'
+import { useAtom } from 'jotai'
 import { Column } from 'react-table'
-
-import { EditableTable } from './EditableTable'
 import { useMemo, useReducer } from 'react'
 
-interface Duty {
-  slot: number
-  time: string
-  agenda: string
+import { EditableTable } from './EditableTable'
 
-  duties?: { [duty: string]: string }
-}
+import { Duty, dutyAtom, mockIds } from './store'
 
-const ids = {
-  od: nanoid(4),
-  food: nanoid(4),
-  venue: nanoid(4),
-  onboard: nanoid(4),
-}
-
-const duties = [
-  { id: ids.od, title: 'OD 💛' },
-  { id: ids.food, title: 'Food 🍣' },
-  { id: ids.venue, title: 'Venue 🏖' },
-  { id: ids.onboard, title: 'Onboard 🙏🏻' },
-]
+import { Debug } from '../ui/Debug'
 
 function createColumns(): Column<Duty>[] {
+  const duties = [
+    { id: mockIds.od, title: 'OD 💛' },
+    { id: mockIds.food, title: 'Food 🍣' },
+    { id: mockIds.venue, title: 'Venue 🏖' },
+    { id: mockIds.onboard, title: 'Onboard 🙏🏻' },
+  ]
+
   const dutyColumns = duties.map((d) => ({
     Header: d.title,
     accessor: `duties.${d.id}`,
@@ -44,72 +33,23 @@ function createColumns(): Column<Duty>[] {
   ]
 }
 
-const data: Duty[] = [
-  {
-    slot: 0,
-    time: '09:30',
-    agenda: 'สตาฟเตรียมตัวหน้างาน',
-
-    duties: {
-      [ids.od]: 'เคาะห้อง เช็ค staff',
-      [ids.onboard]: 'เตรียมโต๊ะลงทะเบียน',
-      [ids.food]: 'หาข้าวให้ staff',
-    },
-  },
-
-  {
-    slot: 1,
-    time: '09:40',
-    agenda: 'เปิดโต๊ะลงทะเบียน',
-
-    duties: {
-      [ids.od]: 'เช็ค registration',
-      [ids.onboard]: 'on duty',
-    },
-  },
-
-  {
-    slot: 2,
-    time: '09:50',
-    agenda: 'เล่น ice breaking',
-
-    duties: {
-      [ids.onboard]: 'ให้ staff ที่ไม่ได้ on duty มาทานข้าว',
-    },
-  },
-
-  {
-    slot: 3,
-    time: '10:00',
-    agenda: '',
-  },
-
-  {
-    slot: 4,
-    time: '10:10',
-    agenda: 'จบกิจกรรม',
-
-    duties: {
-      [ids.onboard]: 'เก็บโต๊ะลงทะเบียน',
-      [ids.venue]: 'เก็บสถานที่',
-    },
-  },
-]
-
 // Used to edit agenda/duties and plan out the day.
 export const DutyEditor = () => {
+  const [duties] = useAtom(dutyAtom)
   const [filtered, toggle] = useReducer((n) => !n, false)
 
   const columns = useMemo(() => createColumns(), [])
 
   const canView = (c: Column<Duty>) =>
     !filtered ||
-    ['slot', 'time', 'agenda', 'food'].includes(c.accessor as string)
+    ['slot', 'time', 'agenda', `duties.${mockIds.food}`].includes(
+      c.accessor as string
+    )
 
   return (
     <div tw="space-y-4">
       <div tw="shadow-2xl rounded-lg bg-[#111]">
-        <EditableTable columns={columns.filter(canView)} data={data} />
+        <EditableTable columns={columns.filter(canView)} data={duties} />
       </div>
 
       <div tw="flex items-center space-x-1">
@@ -124,6 +64,8 @@ export const DutyEditor = () => {
           แสดงแค่งานของคุณ
         </label>
       </div>
+
+      <Debug data={duties} />
     </div>
   )
 }

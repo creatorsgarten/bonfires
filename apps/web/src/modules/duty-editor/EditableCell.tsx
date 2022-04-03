@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useAtom } from 'jotai'
 import { Row, Column } from 'react-table'
+import { useEffect, useState } from 'react'
 
 import 'twin.macro'
+
+import { setDutyAtom } from './store'
 
 interface CellProps {
   value: string
@@ -18,18 +21,18 @@ export const EditableCell = (props: CellProps) => {
     column: { id, maxWidth },
   } = props
 
+  const [, setDuty] = useAtom(setDutyAtom)
+
   // We need to keep and update the state of the cell normally
   const [value, setValue] = useState(initialValue ?? '')
 
-  const readOnly = ['slot', 'time', 'agenda'].includes(id ?? '')
-
-  const onChange = (e: any) => {
-    setValue(e.target.value)
-  }
+  const readOnly = ['slot', 'time'].includes(id ?? '')
 
   // We'll only update the external data when the input is blurred
   const onBlur = () => {
-    console.log(row.index, id, value)
+    if (readOnly || !id) return
+
+    setDuty({ slot: row.index, field: id, value })
   }
 
   // If the initialValue is changed external, sync it up with our state
@@ -40,7 +43,7 @@ export const EditableCell = (props: CellProps) => {
   return (
     <input
       value={value ?? ''}
-      onChange={onChange}
+      onChange={(e) => setValue(e.target.value)}
       onBlur={onBlur}
       readOnly={readOnly}
       tw="flex border-none h-full text-lg rounded-none appearance-none overflow-visible py-1 md:py-3 bg-transparent text-white px-2 md:px-4 w-full"
