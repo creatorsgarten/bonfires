@@ -1,5 +1,4 @@
 import { atom } from 'jotai'
-import { nanoid } from 'nanoid'
 import { atomWithImmer } from 'jotai/immer'
 
 export interface Duty {
@@ -16,45 +15,23 @@ interface SetDutyInput {
   value: string
 }
 
-export const mockIds = {
-  od: nanoid(4),
-  food: nanoid(4),
-  venue: nanoid(4),
-  onboard: nanoid(4),
-}
-
 const initialState: Duty[] = [
   {
     slot: 0,
     time: '09:30',
     agenda: 'สตาฟเตรียมตัวหน้างาน',
-
-    duties: {
-      [mockIds.od]: 'เคาะห้อง เช็ค staff',
-      [mockIds.onboard]: 'เตรียมโต๊ะลงทะเบียน',
-      [mockIds.food]: 'หาข้าวให้ staff',
-    },
   },
 
   {
     slot: 1,
     time: '09:40',
     agenda: 'เปิดโต๊ะลงทะเบียน',
-
-    duties: {
-      [mockIds.od]: 'เช็ค registration',
-      [mockIds.onboard]: 'on duty',
-    },
   },
 
   {
     slot: 2,
     time: '09:50',
     agenda: 'เล่น ice breaking',
-
-    duties: {
-      [mockIds.onboard]: 'ให้ staff ที่ไม่ได้ on duty มาทานข้าว',
-    },
   },
 
   {
@@ -67,11 +44,6 @@ const initialState: Duty[] = [
     slot: 4,
     time: '10:10',
     agenda: 'จบกิจกรรม',
-
-    duties: {
-      [mockIds.onboard]: 'เก็บโต๊ะลงทะเบียน',
-      [mockIds.venue]: 'เก็บสถานที่',
-    },
   },
 ]
 

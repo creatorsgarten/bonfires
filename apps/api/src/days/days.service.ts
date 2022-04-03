@@ -23,7 +23,12 @@ export class DaysService {
       where: { eventId },
       include: {
         agendas: true,
-        duties: { include: { assignees: { include: { user: true } } } },
+        duties: {
+          include: {
+            manager: true,
+            assignees: { include: { user: true } },
+          },
+        },
       },
     })
   }

@@ -14,6 +14,12 @@ fragment day on Day {
     slot
     title
 
+    manager {
+      id
+      title
+      type
+    }
+
     assignees {
       id
       displayName

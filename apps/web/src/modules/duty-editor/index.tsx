@@ -1,50 +1,54 @@
 import 'twin.macro'
 
 import { useAtom } from 'jotai'
+import { uniqBy } from 'lodash'
 import { Column } from 'react-table'
 import { useMemo, useReducer } from 'react'
 
+import { EventQuery } from '@gql'
+
 import { EditableTable } from './EditableTable'
 
-import { Duty, dutyAtom, mockIds } from './store'
+import { Duty, dutyAtom } from './store'
 
 import { Debug } from '../ui/Debug'
+import { useEvent } from '../../hooks/useEvent'
 
-function createColumns(): Column<Duty>[] {
-  const duties = [
-    { id: mockIds.od, title: 'OD 💛' },
-    { id: mockIds.food, title: 'Food 🍣' },
-    { id: mockIds.venue, title: 'Venue 🏖' },
-    { id: mockIds.onboard, title: 'Onboard 🙏🏻' },
-  ]
+type InputDay = EventQuery['event']['today']
 
-  const dutyColumns = duties.map((d) => ({
-    Header: d.title,
-    accessor: `duties.${d.id}`,
+const fixedColumns: Column<Duty>[] = [
+  { Header: '#', accessor: 'slot', maxWidth: 55 },
+
+  { Header: 'Time', accessor: 'time', maxWidth: 85 },
+  { Header: 'Agenda 📙', accessor: 'agenda', maxWidth: 220 },
+]
+
+function createColumns(day: InputDay | null): Column<Duty>[] {
+  if (!day) return fixedColumns
+
+  let dutyColumns = day.duties?.map((duty) => ({
+    Header: duty.manager.title,
+    accessor: `duties.${duty.manager.id}`,
   }))
 
-  return [
-    { Header: '#', accessor: 'slot', maxWidth: 55 },
+  dutyColumns = uniqBy(dutyColumns, (d) => d.accessor)
 
-    { Header: 'Time', accessor: 'time', maxWidth: 85 },
-    { Header: 'Agenda 📙', accessor: 'agenda', maxWidth: 220 },
-
-    ...(dutyColumns as Column<Duty>[]),
-  ]
+  return [...fixedColumns, ...(dutyColumns as Column<Duty>[])]
 }
 
 // Used to edit agenda/duties and plan out the day.
 export const DutyEditor = () => {
+  const { event } = useEvent()
+
   const [duties] = useAtom(dutyAtom)
   const [filtered, toggle] = useReducer((n) => !n, false)
 
-  const columns = useMemo(() => createColumns(), [])
+  const today = event?.today
+
+  const columns = useMemo(() => createColumns(today ?? null), [today])
 
   const canView = (c: Column<Duty>) =>
-    !filtered ||
-    ['slot', 'time', 'agenda', `duties.${mockIds.food}`].includes(
-      c.accessor as string
-    )
+    !filtered || ['slot', 'time', 'agenda'].includes(c.accessor as string)
 
   return (
     <div tw="space-y-4">

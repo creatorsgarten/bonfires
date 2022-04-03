@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 export function useEvent() {
   const router = useRouter()
+
   const eventId = parseInt(router.query.eventId as string)
 
   const { data, loading } = useEventQuery({
