@@ -1,46 +1,23 @@
 import 'twin.macro'
 
 import { useAtom } from 'jotai'
-import { uniqBy } from 'lodash'
-import { Column } from 'react-table'
-import { useMemo, useReducer } from 'react'
 
-import { EventQuery } from '@gql'
+import { Column } from 'react-table'
+import { useEffect, useMemo, useReducer } from 'react'
 
 import { EditableTable } from './EditableTable'
 
 import { Duty, dutyAtom } from './store'
+import { createColumns, createDutyState } from './transform'
 
 import { Debug } from '../ui/Debug'
 import { useEvent } from '../../hooks/useEvent'
-
-type InputDay = EventQuery['event']['today']
-
-const fixedColumns: Column<Duty>[] = [
-  { Header: '#', accessor: 'slot', maxWidth: 55 },
-
-  { Header: 'Time', accessor: 'time', maxWidth: 85 },
-  { Header: 'Agenda 📙', accessor: 'agenda', maxWidth: 220 },
-]
-
-function createColumns(day: InputDay | null): Column<Duty>[] {
-  if (!day) return fixedColumns
-
-  let dutyColumns = day.duties?.map((duty) => ({
-    Header: duty.manager.title,
-    accessor: `duties.${duty.manager.id}`,
-  }))
-
-  dutyColumns = uniqBy(dutyColumns, (d) => d.accessor)
-
-  return [...fixedColumns, ...(dutyColumns as Column<Duty>[])]
-}
 
 // Used to edit agenda/duties and plan out the day.
 export const DutyEditor = () => {
   const { event } = useEvent()
 
-  const [duties] = useAtom(dutyAtom)
+  const [duties, setDuty] = useAtom(dutyAtom)
   const [filtered, toggle] = useReducer((n) => !n, false)
 
   const today = event?.today
@@ -49,6 +26,12 @@ export const DutyEditor = () => {
 
   const canView = (c: Column<Duty>) =>
     !filtered || ['slot', 'time', 'agenda'].includes(c.accessor as string)
+
+  useEffect(() => {
+    if (!today) return
+
+    setDuty(createDutyState(today))
+  }, [setDuty, today])
 
   return (
     <div tw="space-y-4">
