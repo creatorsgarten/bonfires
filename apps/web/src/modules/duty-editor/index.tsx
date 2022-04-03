@@ -37,7 +37,7 @@ export const DutyEditor = () => {
     }
 
     return columns
-  }, [today, filtered])
+  }, [today, filtered, me?.roles])
 
   console.log('cols', { me, columns })
 
