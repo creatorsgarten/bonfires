@@ -14,7 +14,7 @@ import { ReplayControl } from '../replay/ReplayControl'
 export const DutyView = () => {
   const { event } = useEvent()
 
-  const day = event?.currentDay
+  const day = event?.today
   const duties = day?.duties ?? []
 
   const timeslot = useTimeSlot(day?.startsAt)

@@ -30,7 +30,7 @@ export class EventsResolver {
   }
 
   @ResolveField(() => Day)
-  async currentDay(@Parent() event: Event) {
+  async today(@Parent() event: Event) {
     return this.dayService.getCurrentDay(event.id)
   }
 
