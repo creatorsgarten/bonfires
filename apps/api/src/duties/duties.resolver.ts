@@ -6,6 +6,7 @@ import { DutyService } from './duties.service'
 
 import { DutyCreateInput } from '../generated/duty/duty-create.input'
 import { DutyUpdateInput } from '../generated/duty/duty-update.input'
+import { EditDutyBySlotDto } from './duties.dto'
 
 @Resolver(() => Duty)
 export class DutyResolver {
@@ -22,10 +23,15 @@ export class DutyResolver {
   }
 
   @Mutation(() => Duty)
-  async updateDuty(
+  async updateDutyById(
     @Args('id', ID) id: number,
     @Args('input') input: DutyUpdateInput
   ) {
-    return this.dutyService.update(id, input)
+    return this.dutyService.updateById(id, input)
+  }
+
+  @Mutation(() => Duty)
+  async updateDutyBySlot(@Args('input') input: EditDutyBySlotDto) {
+    return this.dutyService.editBySlot(input)
   }
 }

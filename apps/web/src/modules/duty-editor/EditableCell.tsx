@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import 'twin.macro'
 
-import { setDutyAtom } from './store'
+import { updateDutyAtom } from './atoms/updateDuty.atom'
 
 interface CellProps {
   value: string
@@ -21,7 +21,7 @@ export const EditableCell = (props: CellProps) => {
     column: { id, maxWidth },
   } = props
 
-  const [, setDuty] = useAtom(setDutyAtom)
+  const [, updateDuty] = useAtom(updateDutyAtom)
 
   // We need to keep and update the state of the cell normally
   const [value, setValue] = useState(initialValue ?? '')
@@ -32,7 +32,7 @@ export const EditableCell = (props: CellProps) => {
   const onBlur = () => {
     if (readOnly || !id) return
 
-    setDuty({ slot: row.index, field: id, value })
+    updateDuty({ id, slot: row.index, field: id, value })
   }
 
   // If the initialValue is changed external, sync it up with our state

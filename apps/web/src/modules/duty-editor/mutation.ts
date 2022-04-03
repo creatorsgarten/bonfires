@@ -1,5 +1,18 @@
-import { EventDocument } from '@gql'
+import { TypedDocumentNode } from '@apollo/client'
 
-import { atomWithQuery } from '../apollo'
+import {
+  UpdateDutyBySlotDocument,
+  UpdateDutyBySlotMutation,
+  UpdateDutyBySlotMutationVariables,
+} from '@gql'
 
-export const eventAtom = atomWithQuery((get) => ({ query: EventDocument }))
+import { atomWithMutation } from '../apollo'
+
+type M = TypedDocumentNode<
+  UpdateDutyBySlotMutation,
+  UpdateDutyBySlotMutationVariables
+>
+
+export const updateDutyBySlotAtom = atomWithMutation((get) => ({
+  mutation: UpdateDutyBySlotDocument as M,
+}))

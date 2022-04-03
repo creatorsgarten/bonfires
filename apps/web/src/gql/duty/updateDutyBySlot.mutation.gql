@@ -1,0 +1,5 @@
+mutation updateDutyBySlot($input: EditDutyBySlotDto!) {
+  updateDutyBySlot(input: $input) {
+    id
+  }
+}

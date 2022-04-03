@@ -114,6 +114,7 @@ specifiers:
   react: 18.0.0
   react-content-loader: ^6.2.0
   react-dom: 18.0.0
+  react-error-boundary: ^3.1.4
   react-table: ^7.7.0
   react-test-renderer: 18.0.0
   reflect-metadata: ^0.1.13
@@ -184,6 +185,7 @@ dependencies:
   react: 18.0.0
   react-content-loader: 6.2.0_react@18.0.0
   react-dom: 18.0.0_react@18.0.0
+  react-error-boundary: 3.1.4_react@18.0.0
   react-table: 7.7.0_react@18.0.0
   reflect-metadata: 0.1.13
   regenerator-runtime: 0.13.9
@@ -1680,7 +1682,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
-    dev: true
 
   /@babel/template/7.16.0:
     resolution: {integrity: sha512-MnZdpFD/ZdYhXwiunMqqgyZyucaYsbL0IrjoGjaVhGilz+x8YB++kRfygSOIj1yOtWKPlx7NBp+9I1RQSgsd5A==}
@@ -13102,9 +13103,8 @@ packages:
     peerDependencies:
       react: '>=16.13.1'
     dependencies:
-      '@babel/runtime': 7.16.3
+      '@babel/runtime': 7.17.8
       react: 18.0.0
-    dev: true
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -13246,7 +13246,7 @@ packages:
   /regenerator-transform/0.14.5:
     resolution: {integrity: sha512-eOf6vka5IO151Jfsw2NO9WpGX58W6wWmefK3I1zEGr0lOD0u8rwPaNqQL1aRxUaxLeKO3ArNh3VYg1KbaD+FFw==}
     dependencies:
-      '@babel/runtime': 7.16.5
+      '@babel/runtime': 7.17.8
 
   /regexp.prototype.flags/1.4.1:
     resolution: {integrity: sha512-pMR7hBVUUGI7PMA37m2ofIdQCsomVnas+Jn5UPGAHQ+/LlwKm/aTLJHdasmHRzlfeZwHiAOaRSo2rbBDm3nNUQ==}

@@ -233,6 +233,8 @@ model Agenda {
   // What day is this agenda located in.
   day   Day? @relation(fields: [dayId], references: [id])
   dayId Int?
+
+  @@unique([slot, dayId])
 }
 
 // Duties are the action items or checklist of things for each MC to do on the event day.
@@ -266,6 +268,8 @@ model Duty {
   // This can be small things like checking the sound equipment systems.
   // Note that this use case is not commonly used, as we can just use the duty itself for tasks.
   subtasks Task[]
+
+  @@unique([slot, dayId, managerId])
 }
 
 // An event may span multiple days.

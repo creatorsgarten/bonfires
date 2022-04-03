@@ -7,10 +7,15 @@ import { useEffect, useMemo, useReducer } from 'react'
 
 import { EditableTable } from './EditableTable'
 
-import { Duty, dutyAtom } from './store'
-import { createColumns, createDutyState } from './transform'
+import { Duty } from './types'
+import { dutyAtom } from './atoms/duty.atom'
+
+import { createColumns } from './utils/createColumns'
+import { createDutyState } from './utils/createDutyState'
 
 import { Debug } from '../ui/Debug'
+import { ErrorBoundary } from '../ui/ErrorBoundary'
+
 import { useEvent } from '../../hooks/useEvent'
 
 // Used to edit agenda/duties and plan out the day.
@@ -36,7 +41,9 @@ export const DutyEditor = () => {
   return (
     <div tw="space-y-4">
       <div tw="shadow-2xl rounded-lg bg-[#111]">
-        <EditableTable columns={columns.filter(canView)} data={duties} />
+        <ErrorBoundary>
+          <EditableTable columns={columns.filter(canView)} data={duties} />
+        </ErrorBoundary>
       </div>
 
       <div tw="flex items-center space-x-1">

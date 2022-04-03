@@ -1,6 +1,8 @@
 import { Prisma } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 
+import { EditDutyBySlotDto } from './duties.dto'
+
 import { PrismaService } from '../core/prisma.service'
 
 @Injectable()
@@ -15,7 +17,27 @@ export class DutyService {
     return this.db.duty.create({ data })
   }
 
-  update(id: number, data: Prisma.DutyUpdateInput) {
+  updateById(id: number, data: Prisma.DutyUpdateInput) {
     return this.db.duty.update({ data, where: { id } })
+  }
+
+  editBySlot(data: EditDutyBySlotDto) {
+    const { slot, dayId, managerId } = data
+
+    return this.db.duty.upsert({
+      where: {
+        slot_dayId_managerId: data,
+      },
+      create: {
+        title: data.title ?? '',
+
+        slot,
+        dayId,
+        managerId,
+      },
+      update: {
+        title: data.title,
+      },
+    })
   }
 }

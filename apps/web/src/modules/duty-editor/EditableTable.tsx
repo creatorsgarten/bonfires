@@ -1,3 +1,5 @@
+import { divide } from 'lodash'
+import { Suspense } from 'react'
 import { useTable, Column } from 'react-table'
 
 import 'twin.macro'
@@ -48,14 +50,15 @@ export const EditableTable = (props: TableProps) => {
             <tr {...row.getRowProps()} key={i} tw="table-row">
               {row.cells.map((cell, j) => {
                 return (
-                  <td
-                    {...cell.getCellProps()}
-                    key={j}
-                    tw="table-cell"
-                    style={{ maxWidth: cell.column.maxWidth }}
-                  >
-                    {cell.render('Cell')}
-                  </td>
+                  <Suspense key={j} fallback={<div>suspending</div>}>
+                    <td
+                      {...cell.getCellProps()}
+                      tw="table-cell"
+                      style={{ maxWidth: cell.column.maxWidth }}
+                    >
+                      {cell.render('Cell')}
+                    </td>
+                  </Suspense>
                 )
               })}
             </tr>
