@@ -26,16 +26,14 @@ export const TimeIndicator = (props: Props) => {
         </div>
 
         {isQueueRunning && (
-          <>
-            <div>
-              <Small>คิว</Small> {slot ?? 0}
-            </div>
-
-            <div>
-              <Small>เหลือ</Small> {remaining?.toFormat('mm:ss') ?? '00:00'}
-            </div>
-          </>
+          <div>
+            <Small>คิว</Small> {slot ?? 0}
+          </div>
         )}
+
+        <div>
+          <Small>เหลือ</Small> {remaining?.toFormat('mm:ss') ?? '00:00'}
+        </div>
       </div>
 
       <div
