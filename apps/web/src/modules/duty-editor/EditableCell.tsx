@@ -21,7 +21,7 @@ export const EditableCell = (props: CellProps) => {
   // We need to keep and update the state of the cell normally
   const [value, setValue] = useState(initialValue ?? '')
 
-  const readOnly = ['slot', 'agenda'].includes(id ?? '')
+  const readOnly = ['slot', 'time', 'agenda'].includes(id ?? '')
 
   const onChange = (e: any) => {
     setValue(e.target.value)
