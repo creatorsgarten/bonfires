@@ -1,8 +1,9 @@
 import 'twin.macro'
 
-import { DutyList } from './DutyList'
 import { AgendaCard } from './AgendaCard'
 import { TimeIndicator } from './TimeIndicator'
+
+import { DutyList } from '../duty-list'
 
 import { useEvent } from '../../hooks/useEvent'
 import { useTimeSlot } from '../../hooks/useTimeSlot'
@@ -29,7 +30,7 @@ export const DutyView = () => {
 
         <div tw="py-1" />
 
-        <DutyList duties={today?.duties} />
+        <DutyList duties={today?.duties} slot={timeslot?.slot} />
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
