@@ -1,10 +1,16 @@
 import { atom } from 'jotai'
+import { Column } from 'react-table'
+
+import { Duty } from '../types'
 
 import { currentStaffAtom, dayAtom } from './day.atom'
 
-import { createColumns } from '../utils/createColumns'
+const baseColumns: Column<Duty>[] = [
+  { Header: '#', accessor: 'slot', maxWidth: 55 },
 
-const baseColumns = ['slot', 'time', 'agenda']
+  { Header: 'Time', accessor: 'time', maxWidth: 85 },
+  { Header: 'Agenda 📙', accessor: 'agenda', maxWidth: 220 },
+]
 
 export const managedDutyAtom = atom(false)
 
@@ -18,12 +24,19 @@ export const dutyColumnsAtom = atom((get) => {
   const me = get(currentStaffAtom)
   const filtered = get(managedDutyAtom)
 
-  const columns = createColumns(today ?? null)
-  if (!filtered) return columns
+  const columns: Column<Duty>[] =
+    today?.roles
+      ?.filter((role) => {
+        if (!filtered) return role
 
-  const roles = me?.roles?.map((r) => `duties.${r.id}`) ?? []
+        return me?.roles?.some((my) => role.id === my.id)
+      })
+      ?.map((r) => ({
+        Header: r.title,
+        accessor: `duties.${r.id}` as any,
+      })) ?? []
 
-  return columns.filter((c) => {
-    return [...baseColumns, ...roles].includes(c.accessor as string)
-  })
+  console.log('cx', { columns })
+
+  return [...baseColumns, ...columns]
 })

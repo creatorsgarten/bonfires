@@ -3,6 +3,12 @@ fragment day on Day {
   title
   startsAt
 
+  roles {
+    id
+    type
+    title
+  }
+
   agendas {
     id
     slot
