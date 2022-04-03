@@ -8,6 +8,7 @@ async function main() {
     update: {},
     create: {
       email: 'poom@hey.com',
+      password: '<hash>',
       username: 'poom',
       displayName: 'Poom',
     },

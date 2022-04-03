@@ -12,7 +12,11 @@ export class UserService {
   }
 
   async findById(userId: number) {
-    return this.db.user.findFirst({ where: { id: userId } })
+    return this.db.user.findUnique({ where: { id: userId } })
+  }
+
+  async findByEmail(email: string) {
+    return this.db.user.findUnique({ where: { email } })
   }
 
   async create(data: Prisma.UserCreateInput) {

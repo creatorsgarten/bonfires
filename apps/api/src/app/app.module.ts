@@ -5,6 +5,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { DataModule } from '../core/data.module'
 
 import { UserModule } from '../user/user.module'
+import { AuthModule } from '../auth/auth.module'
 import { DaysModule } from '../days/days.module'
 import { DutyModule } from '../duties/duties.module'
 import { EventsModule } from '../events/events.module'
@@ -17,6 +18,7 @@ import { GraphQLConfigService } from '../graphql/graphql.service'
 @Module({
   imports: [
     UserModule,
+    AuthModule,
     EventsModule,
     DaysModule,
     DutyModule,
