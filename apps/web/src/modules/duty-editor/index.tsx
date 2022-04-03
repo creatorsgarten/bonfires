@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 import { Column } from 'react-table'
 
 import { EditableTable } from './EditableTable'
-import { useReducer } from 'react'
+import { useMemo, useReducer } from 'react'
 
 interface Duty {
   slot: number
@@ -28,17 +28,21 @@ const duties = [
   { id: ids.onboard, title: 'Onboard 🙏🏻' },
 ]
 
-const columns: Column<Duty>[] = [
-  { Header: '#', accessor: 'slot', maxWidth: 55 },
-
-  { Header: 'Time', accessor: 'time', maxWidth: 85 },
-  { Header: 'Agenda 📙', accessor: 'agenda', maxWidth: 220 },
-
-  ...duties.map((d) => ({
+function createColumns(): Column<Duty>[] {
+  const dutyColumns = duties.map((d) => ({
     Header: d.title,
-    accessor: (a: Duty) => a.duties?.[d.id],
-  })),
-]
+    accessor: `duties.${d.id}`,
+  }))
+
+  return [
+    { Header: '#', accessor: 'slot', maxWidth: 55 },
+
+    { Header: 'Time', accessor: 'time', maxWidth: 85 },
+    { Header: 'Agenda 📙', accessor: 'agenda', maxWidth: 220 },
+
+    ...(dutyColumns as Column<Duty>[]),
+  ]
+}
 
 const data: Duty[] = [
   {
@@ -95,6 +99,8 @@ const data: Duty[] = [
 // Used to edit agenda/duties and plan out the day.
 export const DutyEditor = () => {
   const [filtered, toggle] = useReducer((n) => !n, false)
+
+  const columns = useMemo(() => createColumns(), [])
 
   const canView = (c: Column<Duty>) =>
     !filtered ||
