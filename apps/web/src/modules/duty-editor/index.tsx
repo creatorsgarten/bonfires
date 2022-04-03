@@ -17,13 +17,15 @@ import { dutyAtom } from './atoms/duty.atom'
 export const DutyEditor = () => {
   const { event } = useEvent()
 
-  const [, setupEvent] = useAtom(setupEventAtom)
+  // Fetches the duties and columns for the data table.
+  const [duties] = useAtom(dutyAtom)
+  const [columns] = useAtom(dutyColumnsAtom)
 
   // Show only my own duties if this checkbox is ticked.
   const [showOwnedDuty, toggleOwnedDuty] = useAtom(toggleManagedDutyAtom)
 
-  const [duties] = useAtom(dutyAtom)
-  const [columns] = useAtom(dutyColumnsAtom)
+  // Setup the state for the duty editor.
+  const [, setupEvent] = useAtom(setupEventAtom)
 
   useEffect(() => {
     if (event) setupEvent(event)
