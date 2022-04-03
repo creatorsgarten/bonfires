@@ -17,7 +17,6 @@ specifiers:
   '@graphql-codegen/introspection': 2.1.1
   '@graphql-codegen/typed-document-node': ^2.2.8
   '@graphql-codegen/typescript': 2.4.8
-  '@graphql-codegen/typescript-apollo-client-helpers': ^2.1.15
   '@graphql-codegen/typescript-document-nodes': 2.2.8
   '@graphql-codegen/typescript-operations': 2.3.5
   '@graphql-codegen/typescript-react-apollo': 3.2.11
@@ -203,7 +202,6 @@ devDependencies:
   '@graphql-codegen/introspection': 2.1.1_graphql@16.3.0
   '@graphql-codegen/typed-document-node': 2.2.8_graphql@16.3.0
   '@graphql-codegen/typescript': 2.4.8_graphql@16.3.0
-  '@graphql-codegen/typescript-apollo-client-helpers': 2.1.15_graphql@16.3.0
   '@graphql-codegen/typescript-document-nodes': 2.2.8_graphql@16.3.0
   '@graphql-codegen/typescript-operations': 2.3.5_graphql@16.3.0
   '@graphql-codegen/typescript-react-apollo': 3.2.11_e20029557891e0afb887c44ec7f516f8
@@ -2101,22 +2099,6 @@ packages:
 
   /@graphql-codegen/typed-document-node/2.2.8_graphql@16.3.0:
     resolution: {integrity: sha512-72qTGNOMVnT51Fenk1MvavOwdyJewCZlrEp0miiTjtOSiTPzAm1acOck7cx8smNWyxNaDh3g4Jf60MkS8VCySw==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-    dependencies:
-      '@graphql-codegen/plugin-helpers': 2.4.2_graphql@16.3.0
-      '@graphql-codegen/visitor-plugin-common': 2.7.4_graphql@16.3.0
-      auto-bind: 4.0.0
-      change-case-all: 1.0.14
-      graphql: 16.3.0
-      tslib: 2.3.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: true
-
-  /@graphql-codegen/typescript-apollo-client-helpers/2.1.15_graphql@16.3.0:
-    resolution: {integrity: sha512-XXv54LXJX1Nf51BgGS8kZ2kDeWuqdmPnXHRxOFD51vRy2brpOFML/lzSt4sW1Fwv7EBvcRI02be0sPN9ObwLgg==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:

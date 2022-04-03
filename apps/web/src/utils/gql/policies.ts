@@ -1,7 +1,5 @@
 import { FieldReadFunction, FieldPolicy } from '@apollo/client'
 
-import { TypedTypePolicies } from '@gql'
-
 const ref =
   (type: string): FieldReadFunction =>
   (_, { args, toReference }) =>
@@ -9,7 +7,7 @@ const ref =
 
 const read = (type: string): FieldPolicy => ({ read: ref(type) })
 
-export const typePolicies: TypedTypePolicies = {
+export const typePolicies = {
   Query: {
     fields: {
       event: read('Event'),

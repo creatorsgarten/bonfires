@@ -1,8 +1,6 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 
-import { fastifyHelmet } from 'fastify-helmet'
-
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -26,11 +24,6 @@ async function bootstrap() {
 
   // Expose swagger.
   setupSwagger(app)
-
-  // Setup helmet for secure defaults.
-  // app.register(fastifyHelmet, {
-  //   contentSecurityPolicy: false,
-  // })
 
   // Handle Prisma's shutdown event
   app.get(PrismaService).enableShutdownHooks(app)

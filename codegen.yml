@@ -7,7 +7,6 @@ generates:
       - 'typescript'
       - 'typescript-operations'
       - 'typescript-react-apollo'
-      - 'typescript-apollo-client-helpers'
     config:
       - documentNodeImport: '@apollo/client#TypedDocumentNode'
       - pureMagicComment: true
