@@ -41,20 +41,20 @@ export function createDutyState(day: InputDay | null): Duty[] {
     const date = timeFromSlot(slot, day.startsAt)
     const time = date.toLocaleString(DateTime.TIME_24_SIMPLE)
 
-    if (!agenda) return { id: null, slot, time, agenda: '', duties: {} }
-
     const duties = day.duties
-      ?.filter((d) => d.slot === agenda.slot)
-      .map((d) => ({ [d.id]: d.title }))
+      ?.filter((d) => d.slot === slot)
+      .map((d) => ({ [d.manager.id]: d.title }))
       .reduce((a, b) => ({ ...a, ...b }), {})
+
+    console.log('dx', { slot, dd: day.duties, duties })
 
     return {
       slot,
       time,
       duties,
 
-      id: agenda.id,
-      agenda: agenda.title,
+      id: agenda?.id ?? null,
+      agenda: agenda?.title ?? '',
     }
   })
 }
