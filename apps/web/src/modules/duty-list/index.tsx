@@ -26,11 +26,13 @@ export const DutyList = (props: Props) => {
 
   return (
     <div tw="flex flex-col space-y-8">
-      <div>
-        <Title>งานปัจจุบัน</Title>
+      {now.length > 0 && (
+        <div>
+          <Title>งานปัจจุบัน</Title>
 
-        <DutyGroup duties={now} />
-      </div>
+          <DutyGroup duties={now} />
+        </div>
+      )}
 
       {upcoming.length > 0 && (
         <div>
