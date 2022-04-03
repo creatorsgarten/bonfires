@@ -1,5 +1,6 @@
-import { Prisma } from '@prisma/client'
+import { hash } from 'bcrypt'
 import { Injectable } from '@nestjs/common'
+import { Prisma, User } from '@prisma/client'
 
 import { PrismaService } from '../core/prisma.service'
 
@@ -19,7 +20,9 @@ export class UserService {
     return this.db.user.findUnique({ where: { email } })
   }
 
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: Prisma.UserCreateInput): Promise<User> {
+    data.password = await hash(data.password, 10)
+
     return this.db.user.create({ data })
   }
 

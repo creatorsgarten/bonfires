@@ -1,23 +1,30 @@
-import { omit } from 'lodash'
 import { compare } from 'bcrypt'
 import { User } from '@prisma/client'
+import { JwtService } from '@nestjs/jwt'
 import { Injectable } from '@nestjs/common'
 
 import { UserService } from '../user/user.service'
 
-type U = Omit<User, 'password'>
-
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService
+  ) {}
 
-  async validate(email: string, password: string): Promise<U | null> {
+  async validate(email: string, password: string): Promise<User | null> {
     const user = await this.userService.findByEmail(email)
     if (!user) return null
 
     const isValid = await compare(password, user.password)
     if (!isValid) return null
 
-    return omit(user, ['password'])
+    return user
+  }
+
+  async login(user: User) {
+    return {
+      token: this.jwtService.sign({ sub: user.id, email: user.email }),
+    }
   }
 }

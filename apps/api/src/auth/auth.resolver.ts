@@ -1,13 +1,14 @@
 import { UseGuards } from '@nestjs/common'
-import { Args, Context, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
+import { LoginResult } from './auth.model'
 import { AuthService } from './auth.service'
+import { CurrentUser } from './user.decorator'
 import { LocalAuthGuard } from './local.auth.guard'
 
 import { User } from '../models'
 
 import { UserService } from '../user/user.service'
-import { CurrentUser } from './user.decorator'
 
 @Resolver()
 export class AuthResolver {
@@ -17,12 +18,12 @@ export class AuthResolver {
   ) {}
 
   @UseGuards(LocalAuthGuard)
-  @Mutation(() => User)
+  @Mutation(() => LoginResult)
   async loginWithEmail(
     @Args('email') email: string,
     @Args('password') password: string,
     @CurrentUser() user: User
   ) {
-    return user
+    return this.authService.login(user)
   }
 }

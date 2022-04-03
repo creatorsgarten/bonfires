@@ -1,14 +1,6 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-  UnauthorizedException,
-} from '@nestjs/common'
-import { GqlExecutionContext } from '@nestjs/graphql'
-
 import { AuthGuard } from '@nestjs/passport'
-
-import { LocalStrategy } from './local.strategy'
+import { GqlExecutionContext } from '@nestjs/graphql'
+import { Injectable, ExecutionContext } from '@nestjs/common'
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {
