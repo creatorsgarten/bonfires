@@ -9,6 +9,7 @@ import { DaysModule } from '../days/days.module'
 import { DutyModule } from '../duties/duties.module'
 import { EventsModule } from '../events/events.module'
 import { StaffsModule } from '../staffs/staffs.module'
+import { AgendaModule } from '../agenda/agenda.module'
 import { WorkspacesModule } from '../workspaces/workspaces.module'
 
 import { GraphQLConfigService } from '../graphql/graphql.service'
@@ -19,6 +20,7 @@ import { GraphQLConfigService } from '../graphql/graphql.service'
     EventsModule,
     DaysModule,
     DutyModule,
+    AgendaModule,
     StaffsModule,
     WorkspacesModule,
 

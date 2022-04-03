@@ -1,0 +1,5 @@
+mutation updateAgendaBySlot($input: EditAgendaBySlotDto!) {
+  updateAgendaBySlot(input: $input) {
+    id
+  }
+}

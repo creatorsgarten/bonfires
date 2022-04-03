@@ -1,12 +1,13 @@
 import { atom } from 'jotai'
 
-import { dayAtom } from '../../store/day.atom'
 import { dutyAtom } from './duty.atom'
 
 import { SetDutyInput } from '../types'
-import { updateDutyBySlotAtom } from '../mutation'
 
 import { updateDuty } from '../utils/updateDuty'
+import { updateAgendaBySlotAtom, updateDutyBySlotAtom } from '../utils/mutation'
+
+import { dayAtom } from '../../store/day.atom'
 
 export const updateDutyAtom = atom(
   (get) => get(dutyAtom),
@@ -15,24 +16,27 @@ export const updateDutyAtom = atom(
     if (!day) return
 
     set(dutyAtom, async (draft) => {
-      if (data.field.startsWith('duties')) {
-        const managerId = data.field.replace('duties.', '')
+      const { slot, field, value } = data
+
+      const input = { slot, title: value, dayId: parseInt(day?.id) }
+
+      if (field.startsWith('duties')) {
+        const managerId = field.replace('duties.', '')
 
         // If the value is the same, we don't need to update.
-        const prev = draft[data.slot]?.duties?.[managerId]
-        if (data.value === prev) return
+        const prev = draft[slot]?.duties?.[managerId]
+        if (value === prev) return
 
         await set(updateDutyBySlotAtom, {
-          variables: {
-            input: {
-              slot: data.slot,
-              dayId: parseInt(day?.id),
-              managerId: parseInt(managerId),
-
-              title: data.value,
-            },
-          },
+          variables: { input: { ...input, managerId: parseInt(managerId) } },
         })
+      }
+
+      if (field === 'agenda') {
+        // If the value is the same, we don't need to update.
+        if (value === draft[slot]?.agenda) return
+
+        await set(updateAgendaBySlotAtom, { variables: { input } })
       }
 
       draft = updateDuty(draft, data)
