@@ -23,31 +23,33 @@ const data = [
   },
 
   {
-    slot: 2,
+    slot: 1,
     agenda: 'เปิดโต๊ะลงทะเบียน',
     od: 'เช็ค registration',
     onboard: 'on duty',
   },
 
   {
-    slot: 4,
+    slot: 2,
     agenda: 'เล่น ice breaking',
     od: '',
     onboard: 'ให้ staff ที่ไม่ได้ on duty มาทานข้าว',
   },
-  { slot: 10, agenda: 'จบกิจกรรม', od: '' },
+  { slot: 3, agenda: 'จบกิจกรรม', od: '' },
 ]
 
 // Used to edit agenda/duties and plan out the day.
 export const DutyEditor = () => {
-  const [filtered, toggle] = useReducer((n) => !n, true)
+  const [filtered, toggle] = useReducer((n) => !n, false)
 
   const canView = (c: Column) =>
     !filtered || ['slot', 'agenda', 'food'].includes(c.accessor as string)
 
   return (
-    <div tw="shadow-2xl rounded-lg bg-[#111]">
-      <EditableTable columns={columns.filter(canView)} data={data} />
+    <div tw="space-y-4">
+      <div tw="shadow-2xl rounded-lg bg-[#111]">
+        <EditableTable columns={columns.filter(canView)} data={data} />
+      </div>
 
       <div tw="flex items-center space-x-1">
         <input
@@ -58,7 +60,7 @@ export const DutyEditor = () => {
         />
 
         <label tw="text-white text-xs" htmlFor="show-all">
-          filtered
+          แสดงแค่งานของคุณ
         </label>
       </div>
     </div>

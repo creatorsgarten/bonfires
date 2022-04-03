@@ -20,6 +20,8 @@ const EditableCell = (props: CellProps) => {
   // We need to keep and update the state of the cell normally
   const [value, setValue] = useState(initialValue)
 
+  const readOnly = ['slot', 'agenda'].includes(id ?? '')
+
   const onChange = (e: any) => {
     setValue(e.target.value)
   }
@@ -39,6 +41,7 @@ const EditableCell = (props: CellProps) => {
       value={value}
       onChange={onChange}
       onBlur={onBlur}
+      readOnly={readOnly}
       tw="flex border-none h-full text-lg rounded-none appearance-none overflow-visible py-1 md:py-3 bg-transparent text-white px-2 md:px-4 w-full"
       css={{
         fontFamily: 'inherit',
@@ -46,7 +49,9 @@ const EditableCell = (props: CellProps) => {
         maxWidth,
 
         '&:focus': {
-          outline: '2px solid #1c8ee6',
+          outline: '2px solid #7bed9f',
+
+          ...(readOnly && { outline: '2px solid #dfe4ea' }),
         },
       }}
     />
