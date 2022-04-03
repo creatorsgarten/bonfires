@@ -1,65 +1,47 @@
 import 'twin.macro'
 
 import { useAtom } from 'jotai'
-
-import { useEffect, useMemo, useReducer } from 'react'
+import { useEffect } from 'react'
 
 import { EditableTable } from './EditableTable'
 
-import { setupDayAtom } from './atoms/day.atom'
-import { createColumns } from './utils/createColumns'
+import { setupEventAtom } from './atoms/day.atom'
+import { dutyColumnsAtom, toggleManagedDutyAtom } from './atoms/columns.atom'
 
-import { Debug } from '../ui/Debug'
 import { ErrorBoundary } from '../ui/ErrorBoundary'
 
 import { useEvent } from '../../hooks/useEvent'
-
-const baseColumns = ['slot', 'time', 'agenda']
+import { dutyAtom } from './atoms/duty.atom'
 
 /** Edit agenda and duties, and plan out your event operations. */
 export const DutyEditor = () => {
   const { event } = useEvent()
 
-  const [day, setupDay] = useAtom(setupDayAtom)
-  const [filtered, toggle] = useReducer((n) => !n, false)
+  const [, setupEvent] = useAtom(setupEventAtom)
 
-  const { today, me } = event ?? {}
+  // Show only my own duties if this checkbox is ticked.
+  const [showOwnedDuty, toggleOwnedDuty] = useAtom(toggleManagedDutyAtom)
 
-  const columns = useMemo(() => {
-    let columns = createColumns(today ?? null)
-
-    if (filtered) {
-      const roles = me?.roles?.map((r) => `duties.${r.id}`) ?? []
-
-      columns = columns.filter((c) => {
-        return [...baseColumns, ...roles].includes(c.accessor as string)
-      })
-    }
-
-    return columns
-  }, [today, filtered, me?.roles])
-
-  console.log('cols', { me, columns })
+  const [duties] = useAtom(dutyAtom)
+  const [columns] = useAtom(dutyColumnsAtom)
 
   useEffect(() => {
-    if (!today) return
-
-    setupDay(today)
-  }, [setupDay, today])
+    if (event) setupEvent(event)
+  }, [event, setupEvent])
 
   return (
     <div tw="space-y-4">
       <div tw="shadow-2xl rounded-lg bg-[#111]">
         <ErrorBoundary>
-          <EditableTable columns={columns} data={day.duties} />
+          <EditableTable columns={columns} data={duties} />
         </ErrorBoundary>
       </div>
 
       <div tw="flex items-center space-x-1">
         <input
           type="checkbox"
-          checked={filtered}
-          onChange={toggle}
+          checked={showOwnedDuty}
+          onChange={toggleOwnedDuty}
           id="show-all"
         />
 
@@ -67,8 +49,6 @@ export const DutyEditor = () => {
           แสดงแค่งานของคุณ
         </label>
       </div>
-
-      <Debug data={day.duties} />
     </div>
   )
 }

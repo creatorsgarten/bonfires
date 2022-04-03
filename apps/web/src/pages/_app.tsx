@@ -17,7 +17,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <React.StrictMode>
       <ErrorBoundary>
-        <Suspense fallback={<div />}>
+        <Suspense fallback={<h1>SUSPENDING</h1>}>
           <Provider>
             <ApolloProvider client={apolloClient}>
               <Head>

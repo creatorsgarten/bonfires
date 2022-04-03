@@ -50,7 +50,7 @@ export const EditableTable = (props: TableProps) => {
             <tr {...row.getRowProps()} key={i} tw="table-row">
               {row.cells.map((cell, j) => {
                 return (
-                  <Suspense key={j} fallback={<div>suspending</div>}>
+                  <Suspense key={j} fallback={<h1>SUSPENDING</h1>}>
                     <td
                       {...cell.getCellProps()}
                       tw="table-cell"
