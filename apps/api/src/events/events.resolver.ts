@@ -30,8 +30,11 @@ export class EventsResolver {
   }
 
   @ResolveField(() => Day)
-  async today(@Parent() event: Event) {
-    return this.dayService.getCurrentDay(event.id)
+  async today(
+    @Parent() event: Event,
+    @Args('owned', { type: () => Boolean, nullable: true }) owned = false
+  ) {
+    return this.dayService.getCurrentDay(event.id, { owned })
   }
 
   @ResolveField(() => Staff)

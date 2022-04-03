@@ -25,4 +25,13 @@ export class StaffsService {
       },
     })
   }
+
+  async rolesByUser(eventId: number, userId: number) {
+    const s = await this.db.staff.findUnique({
+      where: { userId_eventId: { userId, eventId } },
+      select: { roles: { select: { id: true } } },
+    })
+
+    return s?.roles?.map((role) => role.id)
+  }
 }

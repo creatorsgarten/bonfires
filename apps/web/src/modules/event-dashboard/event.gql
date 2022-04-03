@@ -1,5 +1,19 @@
-query event($eventId: Int!) {
+query event($eventId: Int!, $owned: Boolean) {
   event(id: $eventId) {
-    ...event
+    id
+    name
+    slug
+    icon
+    color
+    createdAt
+    updatedAt
+
+    today(owned: $owned) {
+      ...day
+    }
+
+    me {
+      ...staff
+    }
   }
 }

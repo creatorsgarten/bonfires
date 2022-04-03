@@ -36,7 +36,5 @@ export const dutyColumnsAtom = atom((get) => {
         accessor: `duties.${r.id}` as any,
       })) ?? []
 
-  console.log('cx', { columns })
-
   return [...baseColumns, ...columns]
 })

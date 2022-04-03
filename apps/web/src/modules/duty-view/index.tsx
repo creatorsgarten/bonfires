@@ -12,12 +12,13 @@ import { Debug } from '../ui/Debug'
 import { ReplayControl } from '../replay/ReplayControl'
 
 export const DutyView = () => {
-  const { event } = useEvent()
+  const { event } = useEvent({ owned: true })
 
-  const day = event?.today
-  const duties = day?.duties ?? []
+  const { today, me } = event ?? {}
 
-  const timeslot = useTimeSlot(day?.startsAt)
+  const timeslot = useTimeSlot(today?.startsAt)
+
+  const { duties = [] } = today ?? {}
 
   return (
     <div tw="flex min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
@@ -26,13 +27,13 @@ export const DutyView = () => {
 
         <AgendaCard
           slot={timeslot?.slot ?? null}
-          agendas={day?.agendas ?? []}
+          agendas={today?.agendas ?? []}
         />
 
         <div tw="py-1" />
 
         <div tw="flex flex-col space-y-6">
-          {duties.map((duty) => (
+          {duties?.map((duty) => (
             <DutyCard
               key={duty.id}
               title={duty.title}
@@ -44,7 +45,7 @@ export const DutyView = () => {
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
         <Debug data={event} />
-        <ReplayControl starts={day?.startsAt} />
+        <ReplayControl starts={today?.startsAt} />
       </div>
     </div>
   )
