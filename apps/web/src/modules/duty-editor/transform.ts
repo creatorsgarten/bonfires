@@ -1,5 +1,5 @@
-import { uniqBy } from 'lodash'
 import { DateTime } from 'luxon'
+import { uniqBy, max } from 'lodash'
 import { Column } from 'react-table'
 
 import { EventQuery } from '@gql'
@@ -33,22 +33,28 @@ export function createColumns(day: InputDay | null): Column<Duty>[] {
 export function createDutyState(day: InputDay | null): Duty[] {
   if (!day?.agendas) return []
 
-  return [...day.agendas]
-    ?.sort((a, b) => a.slot - b.slot)
-    ?.map((a): Duty => {
-      const time = timeFromSlot(a.slot, day.startsAt)
+  const slots = [...day.agendas].map((s) => s.slot)
+  const high = max(slots) ?? 0
 
-      const duties = day.duties
-        ?.filter((d) => d.slot === a.slot)
-        .map((d) => ({ [d.id]: d.title }))
-        .reduce((a, b) => ({ ...a, ...b }), {})
+  return [...Array(high + 2)].map((_, slot): Duty => {
+    const agenda = day.agendas?.find((a) => a.slot === slot)
+    const date = timeFromSlot(slot, day.startsAt)
+    const time = date.toLocaleString(DateTime.TIME_24_SIMPLE)
 
-      return {
-        id: a.id,
-        slot: a.slot,
-        agenda: a.title,
-        time: time.toLocaleString(DateTime.TIME_24_SIMPLE),
-        duties,
-      }
-    })
+    if (!agenda) return { id: null, slot, time, agenda: '', duties: {} }
+
+    const duties = day.duties
+      ?.filter((d) => d.slot === agenda.slot)
+      .map((d) => ({ [d.id]: d.title }))
+      .reduce((a, b) => ({ ...a, ...b }), {})
+
+    return {
+      slot,
+      time,
+      duties,
+
+      id: agenda.id,
+      agenda: agenda.title,
+    }
+  })
 }

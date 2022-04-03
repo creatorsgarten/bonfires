@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { atomWithImmer } from 'jotai/immer'
 
 interface DutyMeta {
-  id: string
+  id: string | null
   slot: number
 }
 
