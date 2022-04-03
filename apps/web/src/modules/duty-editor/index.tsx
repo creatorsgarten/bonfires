@@ -2,7 +2,7 @@ import 'twin.macro'
 import { Column } from 'react-table'
 
 import { EditableTable } from './EditableTable'
-import { useReducer, useState } from 'react'
+import { useReducer } from 'react'
 
 const columns: Column<any>[] = [
   { Header: 'Q', accessor: 'slot', maxWidth: 60 },
