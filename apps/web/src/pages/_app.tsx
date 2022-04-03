@@ -6,17 +6,16 @@ import Head from 'next/head'
 import { AppProps } from 'next/app'
 
 import { setupIcon } from '../styles/icon'
-import { createApolloClient } from '../utils/gql/createApolloClient'
+import { apolloClient } from '../modules/store/apollo'
 
 import '../styles/reset.css'
 
-const client = createApolloClient()
 setupIcon()
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <React.StrictMode>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <Provider>
           <Head>
             <title>EventKit Dashboard</title>

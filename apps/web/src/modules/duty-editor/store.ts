@@ -79,7 +79,7 @@ export const dutyAtom = atomWithImmer<Duty[]>(initialState)
 
 export const setDutyAtom = atom(
   (get) => get(dutyAtom),
-  (get, set, data: SetDutyInput) => {
+  async (get, set, data: SetDutyInput) => {
     set(dutyAtom, (draft) => {
       if (!draft[data.slot]) {
         draft[data.slot] = { slot: data.slot, time: '', agenda: '' }
