@@ -4,10 +4,10 @@ import tw from 'twin.macro'
 import { DutyGroup, DutyListProps, DutyListSection } from './DutyRenderer'
 
 interface Props extends DutyListProps {
-  slot: number
+  slot: number | null
 }
 
-const Title = tw.div`text-left mb-4 text-lg font-thin text-gray-300`
+const Title = tw.div`text-left mb-4 text-sm sm:text-base font-thin text-gray-300`
 
 export const DutyList = (props: Props) => {
   const { slot, duties } = props

@@ -3,7 +3,7 @@ import { Column } from 'react-table'
 
 import { Duty } from '../types'
 
-import { currentStaffAtom, dayAtom } from './day.atom'
+import { currentStaffAtom, dayAtom } from '../../store/day.atom'
 
 const baseColumns: Column<Duty>[] = [
   { Header: '#', accessor: 'slot', maxWidth: 55 },

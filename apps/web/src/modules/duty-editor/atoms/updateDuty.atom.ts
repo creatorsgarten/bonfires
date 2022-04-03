@@ -1,6 +1,6 @@
 import { atom } from 'jotai'
 
-import { dayAtom } from './day.atom'
+import { dayAtom } from '../../store/day.atom'
 import { dutyAtom } from './duty.atom'
 
 import { SetDutyInput } from '../types'

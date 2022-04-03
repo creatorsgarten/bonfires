@@ -2,7 +2,7 @@ import { useAtomValue } from 'jotai'
 import { DateTime } from 'luxon'
 import { useEffect, useState } from 'react'
 
-import { replayTimeAtom } from '../modules/replay/store'
+import { replayTimeAtom } from '../modules/replay/replay.atom'
 
 export function useCurrentTime() {
   const replayTime = useAtomValue(replayTimeAtom)

@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 
 import { EditableTable } from './EditableTable'
 
-import { setupEventAtom } from './atoms/day.atom'
+import { setupEventAtom } from '../store/day.atom'
 import { dutyColumnsAtom, toggleManagedDutyAtom } from './atoms/columns.atom'
 
 import { ErrorBoundary } from '../ui/ErrorBoundary'

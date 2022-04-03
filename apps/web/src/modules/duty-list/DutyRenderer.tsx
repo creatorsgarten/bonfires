@@ -5,6 +5,7 @@ import { groupBy } from 'lodash'
 import { EventQuery } from '@gql'
 
 import { DutyCard } from '../duty-card'
+import { AgendaTitle } from './AgendaTitle'
 
 type Duties = EventQuery['event']['today']['duties']
 
@@ -19,7 +20,7 @@ export const DutyListSection = (props: DutyListProps) => {
     <div tw="flex flex-col space-y-10">
       {Object.entries(dutiesBySlot).map(([slot, duties]) => (
         <div tw="space-y-3" key={slot}>
-          <div tw="text-left">คิวที่ {slot}</div>
+          <AgendaTitle slot={parseInt(slot)} />
 
           <DutyGroup duties={duties} />
         </div>

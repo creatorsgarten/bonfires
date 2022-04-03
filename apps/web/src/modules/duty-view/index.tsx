@@ -1,5 +1,8 @@
 import 'twin.macro'
 
+import { useAtom } from 'jotai'
+import { useEffect } from 'react'
+
 import { AgendaCard } from './AgendaCard'
 import { TimeIndicator } from './TimeIndicator'
 
@@ -11,26 +14,28 @@ import { useTimeSlot } from '../../hooks/useTimeSlot'
 import { Debug } from '../ui/Debug'
 import { ReplayControl } from '../replay/ReplayControl'
 
+import { dayAtom } from '../store/day.atom'
+
 export const DutyView = () => {
   const { event } = useEvent({ owned: true })
-
-  const { today, me } = event ?? {}
+  const { today } = event ?? {}
 
   const timeslot = useTimeSlot(today?.startsAt)
+  const slot = timeslot?.slot ?? null
+
+  const [, setDay] = useAtom(dayAtom)
+  useEffect(() => today && setDay(today), [setDay, today])
 
   return (
     <div tw="flex min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
       <div tw="flex justify-center flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
         <TimeIndicator {...timeslot} />
 
-        <AgendaCard
-          slot={timeslot?.slot ?? null}
-          agendas={today?.agendas ?? []}
-        />
+        <AgendaCard slot={slot} agendas={today?.agendas ?? []} />
 
         <div tw="py-1" />
 
-        <DutyList duties={today?.duties} slot={timeslot?.slot} />
+        <DutyList duties={today?.duties} slot={slot} />
 
         <div tw="text-xs text-gray-300">{event?.name}</div>
 
