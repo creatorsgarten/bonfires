@@ -5,6 +5,7 @@ specifiers:
   '@babel/core': ^7.17.8
   '@babel/preset-env': ^7.16.11
   '@casl/ability': ^5.4.3
+  '@casl/prisma': ^1.0.1
   '@emotion/babel-plugin': 11.7.2
   '@emotion/react': 11.8.2
   '@emotion/server': 11.4.0
@@ -142,6 +143,7 @@ specifiers:
 dependencies:
   '@apollo/client': 3.5.10_2a6e03e4c8e5d67961f22774405308cf
   '@casl/ability': 5.4.3
+  '@casl/prisma': 1.0.1_2fe31bac4bd1258f9abb80cc1a0328e8
   '@emotion/react': 11.8.2_01d56d277bbc737f671dd85124c7a696
   '@emotion/server': 11.4.0
   '@emotion/styled': 11.8.1_5523eef1f28247487551dd1a5a7c5be6
@@ -1756,6 +1758,18 @@ packages:
     resolution: {integrity: sha512-X6U79udKkfS7459Y3DCkw58ZQno7BD9VJa5GnTL1rcKRACqERMVDs7qjVMW+JlLUZcT5DB2/GF5uvu0KsudEcA==}
     dependencies:
       '@ucast/mongo2js': 1.3.3
+    dev: false
+
+  /@casl/prisma/1.0.1_2fe31bac4bd1258f9abb80cc1a0328e8:
+    resolution: {integrity: sha512-6pthrO8WwOrwBjylaNo6rJEoKdXgeTvSMh7rl6eyOHI4+mHCxrAM3RMyiX6x9zmi3DfgIltJ3DFFdo2wza3ymA==}
+    peerDependencies:
+      '@casl/ability': ^5.3.0
+      '@prisma/client': ^2.14.0 || ^3.0.0
+    dependencies:
+      '@casl/ability': 5.4.3
+      '@prisma/client': 3.11.1_prisma@3.11.1
+      '@ucast/core': 1.10.1
+      '@ucast/js': 3.0.2
     dev: false
 
   /@cypress/request/2.88.10:

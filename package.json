@@ -83,6 +83,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@casl/ability": "^5.4.3",
+    "@casl/prisma": "^1.0.1",
     "@emotion/react": "11.8.2",
     "@emotion/server": "11.4.0",
     "@emotion/styled": "11.8.1",
