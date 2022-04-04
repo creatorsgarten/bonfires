@@ -7,7 +7,7 @@ export const secret = process.env.JWT_SECRET ?? environment.jwtSecret
 
 export const jwtModuleOptions: JwtModuleOptions = {
   secret,
-  signOptions: { expiresIn: '60s' },
+  signOptions: { expiresIn: '1d' },
 }
 
 export const jwtStrategyOptions: StrategyOptions = {
