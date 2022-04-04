@@ -6,13 +6,13 @@ import { SystemRole } from '../../models'
 export const systemPermissions: Record<SystemRole, DefinePermissions> = {
   /** System admin will have access to everything. */
   Admin(user, { can }) {
-    can('manage', 'all')
+    can('manage', 'Workspace')
   },
 
   Member(user, { can }) {
     can('manage', 'Workspace', {})
     can('manage', 'Event', {})
     can('manage', 'Day', {})
-    can('update', 'User', {})
+    can('update', 'User', { id: user.id })
   },
 }

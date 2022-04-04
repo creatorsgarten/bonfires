@@ -1,21 +1,38 @@
-import { Ability, AbilityBuilder, ForcedSubject } from '@casl/ability'
+import {
+  User,
+  Workspace,
+  Event,
+  Day,
+  Profile,
+  Squad,
+  Task,
+  Role,
+  Staff,
+  Agenda,
+  Duty,
+  Prisma,
+} from '@prisma/client'
 
-import { User } from '../../models'
+import { PrismaAbility, Subjects } from '@casl/prisma'
+import { AbilityClass, AbilityBuilder, subject } from '@casl/ability'
 
-export type Action = 'manage' | 'create' | 'read' | 'update' | 'delete'
+interface SubjectMap {
+  Agenda: Agenda
+  Day: Day
+  Duty: Duty
+  Event: Event
+  Profile: Profile
+  Role: Role
+  Squad: Squad
+  Staff: Staff
+  Task: Task
+  User: User
+  Workspace: Workspace
+}
 
-export type Subject =
-  | 'all'
-  | 'User'
-  | 'Workspace'
-  | 'Event'
-  | 'Day'
-  | 'Agenda'
-  | 'Duty'
-
-type Forced = ForcedSubject<Exclude<Subject, 'all'>>
-
-export type AppAbility = Ability<[Action, Subject | Forced]>
+type AppSubjects = Subjects<SubjectMap>
+type Action = 'manage' | 'create' | 'read' | 'update' | 'delete'
+export type AppAbility = PrismaAbility<[Action, AppSubjects]>
 
 export type DefinePermissions = (
   user: User,
