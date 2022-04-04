@@ -1,6 +1,8 @@
 import { atom } from 'jotai'
 import { Column } from 'react-table'
 
+import { RoleType } from '@gql'
+
 import { Duty } from '../types'
 
 import { currentStaffAtom, dayAtom } from '../../store/day.atom'
@@ -19,6 +21,8 @@ export const toggleManagedDutyAtom = atom(
   (get, set) => set(managedDutyAtom, !get(managedDutyAtom))
 )
 
+const roleSortOrder = [RoleType.Director, RoleType.Manager, RoleType.Staff]
+
 export const dutyColumnsAtom = atom((get) => {
   const today = get(dayAtom)
   const me = get(currentStaffAtom)
@@ -30,6 +34,9 @@ export const dutyColumnsAtom = atom((get) => {
         if (!filtered) return role
 
         return me?.roles?.some((my) => role.id === my.id)
+      })
+      ?.sort((a, b) => {
+        return roleSortOrder.indexOf(a.type) - roleSortOrder.indexOf(b.type)
       })
       ?.map((r) => ({
         Header: r.title,
