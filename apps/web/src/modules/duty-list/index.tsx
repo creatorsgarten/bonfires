@@ -15,9 +15,13 @@ export const DutyList = (props: Props) => {
   const { now, past, upcoming } = useMemo(() => {
     if (!duties) return { now: [], past: [], upcoming: [] }
 
-    const now = duties.filter((d) => d.slot === slot)
-    const past = duties.filter((d) => slot === null || d.slot < slot)
-    const upcoming = duties.filter((d) => slot !== null && d.slot > slot)
+    // Exclude empty duties.
+    const list = duties.filter((d) => d.title)
+
+    // Group the duties based on time slot.
+    const now = list.filter((d) => d.slot === slot)
+    const past = list.filter((d) => slot === null || d.slot < slot)
+    const upcoming = list.filter((d) => slot !== null && d.slot > slot)
 
     return { now, past, upcoming }
   }, [duties, slot])
