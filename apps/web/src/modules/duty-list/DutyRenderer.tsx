@@ -32,7 +32,7 @@ export const DutyListSection = (props: DutyListProps) => {
 export const DutyGroup = (props: DutyListProps) => (
   <div tw="flex flex-col space-y-6">
     {props.duties?.map((duty) => (
-      <DutyCard key={duty.id} title={duty.title} assignees={duty.assignees} />
+      <DutyCard key={duty.id} duty={duty} />
     ))}
   </div>
 )

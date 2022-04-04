@@ -3,6 +3,8 @@ import tw from 'twin.macro'
 
 import { DutyGroup, DutyListProps, DutyListSection } from './DutyRenderer'
 
+import { sortDuty } from './utils/sort-duty'
+
 interface Props extends DutyListProps {
   slot: number | null
 }
@@ -16,7 +18,7 @@ export const DutyList = (props: Props) => {
     if (!duties) return { now: [], past: [], upcoming: [] }
 
     // Exclude empty duties.
-    const list = duties.filter((d) => d.title)
+    const list = duties.filter((d) => d.title).sort(sortDuty)
 
     // Group the duties based on time slot.
     const now = list.filter((d) => d.slot === slot)

@@ -1,7 +1,8 @@
 import tw from 'twin.macro'
-import ColorHash from 'color-hash'
 
 import { Staff, User } from '@gql'
+
+import { colorHash } from './color'
 
 export type Assignee = Pick<Staff, 'id' | 'displayName'> & {
   user: Pick<User, 'id' | 'photo' | 'displayName'>
@@ -10,8 +11,6 @@ export type Assignee = Pick<Staff, 'id' | 'displayName'> & {
 interface Props {
   assignees?: Assignee[] | null
 }
-
-const colorHash = new ColorHash()
 
 const Circle = tw.div`flex items-center justify-center text-center bg-gray-700 w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover`
 

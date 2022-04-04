@@ -1,11 +1,10 @@
 import { atom } from 'jotai'
 import { Column } from 'react-table'
 
-import { RoleType } from '@gql'
-
 import { Duty } from '../types'
 
 import { currentStaffAtom, dayAtom } from '../../store/day.atom'
+import { roleSortOrder } from '../../../utils/roles.constants'
 
 const baseColumns: Column<Duty>[] = [
   { Header: '#', accessor: 'slot', maxWidth: 55 },
@@ -20,8 +19,6 @@ export const toggleManagedDutyAtom = atom(
   (get) => get(managedDutyAtom),
   (get, set) => set(managedDutyAtom, !get(managedDutyAtom))
 )
-
-const roleSortOrder = [RoleType.Director, RoleType.Manager, RoleType.Staff]
 
 export const dutyColumnsAtom = atom((get) => {
   const today = get(dayAtom)
