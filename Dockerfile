@@ -3,7 +3,7 @@ FROM node:gallium-alpine AS builder
 WORKDIR /opt/app
 
 # Install build dependencies.
-COPY package.json pnpm-lock.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml ./
 RUN npx pnpm i
 
 COPY . .
@@ -18,7 +18,7 @@ FROM node:gallium-alpine AS runner
 WORKDIR /opt/app
 
 # Install production dependencies.
-COPY package.json pnpm-lock.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml ./
 RUN npx pnpm i --only production
 
 COPY --from=builder /opt/app/dist/api/ .
