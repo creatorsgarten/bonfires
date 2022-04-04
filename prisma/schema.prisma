@@ -144,8 +144,8 @@ model Role {
 
   // A role can be assigned to a squad.
   // For example, MC Food belongs to the "Food" squad.
-  squad   Squad @relation(fields: [squadId], references: [id])
-  squadId Int
+  squad   Squad? @relation(fields: [squadId], references: [id])
+  squadId Int?
 }
 
 // Tasks are usually used for pre-event tasks and post-event tasks.
