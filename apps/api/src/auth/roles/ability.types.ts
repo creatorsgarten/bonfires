@@ -10,11 +10,10 @@ import {
   Staff,
   Agenda,
   Duty,
-  Prisma,
 } from '@prisma/client'
 
+import { AbilityBuilder } from '@casl/ability'
 import { PrismaAbility, Subjects } from '@casl/prisma'
-import { AbilityClass, AbilityBuilder, subject } from '@casl/ability'
 
 interface SubjectMap {
   Agenda: Agenda

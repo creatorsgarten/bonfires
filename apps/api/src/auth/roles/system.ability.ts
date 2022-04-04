@@ -1,4 +1,5 @@
-import { Ability, AbilityBuilder } from '@casl/ability'
+import { PrismaAbility } from '@casl/prisma'
+import { AbilityBuilder } from '@casl/ability'
 
 import { AppAbility } from './ability.types'
 import { systemPermissions } from './system.permissions'
@@ -9,7 +10,7 @@ import { SystemRole } from '../../generated/prisma/system-role.enum'
 
 /** Get the abilities for the platform user. */
 export function getSystemUserAbility(user: User): AppAbility {
-  const builder = new AbilityBuilder<AppAbility>(Ability)
+  const builder = new AbilityBuilder<AppAbility>(PrismaAbility)
 
   const permissions = systemPermissions[user.role ?? SystemRole.Member]
 
