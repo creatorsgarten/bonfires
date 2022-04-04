@@ -11,7 +11,7 @@ import { UserService } from './user.service'
 
 import { ID, User, Workspace } from '../models'
 
-import { CurrentUser } from '../auth/user.decorator'
+import { AuthUser } from '../auth/user.decorator'
 import { WorkspacesService } from '../workspaces/workspaces.service'
 
 import { UserCreateInput } from '../generated/user/user-create.input'
@@ -29,7 +29,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  me(@CurrentUser() user: CurrentUser): Promise<User | null> {
+  me(@AuthUser() user: AuthUser): Promise<User | null> {
     return this.userService.findById(user.id)
   }
 
