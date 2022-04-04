@@ -19,7 +19,7 @@ export class DaysService {
   }
 
   // TODO: add logic to determine which day of the event we are in.
-  async getCurrentDay(eventId: number, { owned = false } = {}) {
+  async getCurrentDay(eventId: number, { owned = false, userId = 0 } = {}) {
     return this.db.day.findFirst({
       where: { eventId },
       include: {
@@ -37,7 +37,7 @@ export class DaysService {
           // Filter only the owned roles once owned is true.
           ...(owned && {
             where: {
-              managerId: { in: await this.staff.rolesByUser(eventId, 1) },
+              managerId: { in: await this.staff.rolesByUser(eventId, userId) },
             },
           }),
         },

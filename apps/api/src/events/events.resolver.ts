@@ -8,6 +8,8 @@ import { DaysService } from '../days/days.service'
 import { StaffsService } from '../staffs/staffs.service'
 import { WorkspacesService } from '../workspaces/workspaces.service'
 
+import { CurrentUser } from '../auth/user.decorator'
+
 @Resolver(() => Event)
 export class EventsResolver {
   constructor(
@@ -32,14 +34,15 @@ export class EventsResolver {
   @ResolveField(() => Day)
   async today(
     @Parent() event: Event,
+    @CurrentUser() user: CurrentUser,
     @Args('owned', { type: () => Boolean, nullable: true }) owned = false
   ) {
-    return this.dayService.getCurrentDay(event.id, { owned })
+    return this.dayService.getCurrentDay(event.id, { owned, userId: user.id })
   }
 
   @ResolveField(() => Staff)
-  async me(@Parent() event: Event) {
-    return this.staffService.getByUser(1, event.id)
+  async me(@Parent() event: Event, @CurrentUser() user: CurrentUser) {
+    return this.staffService.getByUser(user.id, event.id)
   }
 
   @ResolveField()

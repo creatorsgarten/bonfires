@@ -8,6 +8,7 @@ import { AuthResolver } from './auth.resolver'
 import { jwtModuleOptions } from './auth.config'
 
 import { JwtStrategy } from './jwt/jwt.strategy'
+import { AccessGuard } from './roles/access.guard'
 import { JwtAuthGuard } from './jwt/jwt.auth.guard'
 
 import { UserModule } from '../user/user.module'
@@ -20,6 +21,7 @@ import { UserModule } from '../user/user.module'
     AuthResolver,
     JwtStrategy,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: AccessGuard },
   ],
 })
 export class AuthModule {}
