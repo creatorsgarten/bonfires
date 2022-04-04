@@ -32,7 +32,7 @@ export const DutyEditor = () => {
   }, [event, setupEvent])
 
   return (
-    <div tw="space-y-4">
+    <div tw="space-y-4 py-12">
       <div tw="shadow-2xl rounded-lg bg-[#111]">
         <ErrorBoundary>
           <EditableTable columns={columns} data={duties} />
