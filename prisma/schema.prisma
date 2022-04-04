@@ -17,6 +17,15 @@ generator nestgraphql {
   reExport           = None
 }
 
+// System-wide role.
+enum SystemRole {
+  // Super-admin. Can do everything in the platform.
+  Admin
+
+  // Member. Only has access to their own workspaces.
+  Member
+}
+
 // User defines the staff/organizer that are using the EventKit platform.
 model User {
   id Int @id @default(autoincrement())
@@ -30,6 +39,9 @@ model User {
   // The user's salted password hash, used for authentication.
   password String
 
+  // Platform-wide role. Used to indicate whether the user is a super-admin.
+  role SystemRole @default(Member)
+
   // The user's display name. Can be a pseudonym or full name.
   displayName String
 
@@ -39,6 +51,7 @@ model User {
 
   // A user can be in multiple workspaces.
   // A workspace belongs to an organization that organizes the events.
+  // This is used to provide multi-tenancy.
   workspaces Workspace[]
 
   // A user can become a staff in multiple events.
@@ -76,6 +89,7 @@ model Profile {
   lineId String?
 }
 
+// Day-specific roles.
 enum RoleType {
   // Master of Ceremony. Manages and delegates the task for that squad.
   Manager

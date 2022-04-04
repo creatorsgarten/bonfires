@@ -8,3 +8,5 @@ export { Duty } from '../generated/duty/duty.model'
 export { Staff } from '../generated/staff/staff.model'
 export { Event } from '../generated/event/event.model'
 export { Workspace } from '../generated/workspace/workspace.model'
+
+export { SystemRole } from '../generated/prisma/system-role.enum'

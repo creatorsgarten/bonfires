@@ -7,8 +7,8 @@ import { AuthService } from './auth.service'
 import { AuthResolver } from './auth.resolver'
 import { jwtModuleOptions } from './auth.config'
 
-import { JwtStrategy } from './jwt.strategy'
-import { JwtAuthGuard } from './jwt.auth.guard'
+import { JwtStrategy } from './jwt/jwt.strategy'
+import { JwtAuthGuard } from './jwt/jwt.auth.guard'
 
 import { UserModule } from '../user/user.module'
 

@@ -4,6 +4,7 @@ specifiers:
   '@apollo/client': ^3.5.10
   '@babel/core': ^7.17.8
   '@babel/preset-env': ^7.16.11
+  '@casl/ability': ^5.4.3
   '@emotion/babel-plugin': 11.7.2
   '@emotion/react': 11.8.2
   '@emotion/server': 11.4.0
@@ -140,6 +141,7 @@ specifiers:
 
 dependencies:
   '@apollo/client': 3.5.10_2a6e03e4c8e5d67961f22774405308cf
+  '@casl/ability': 5.4.3
   '@emotion/react': 11.8.2_01d56d277bbc737f671dd85124c7a696
   '@emotion/server': 11.4.0
   '@emotion/styled': 11.8.1_5523eef1f28247487551dd1a5a7c5be6
@@ -1749,6 +1751,12 @@ packages:
 
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+
+  /@casl/ability/5.4.3:
+    resolution: {integrity: sha512-X6U79udKkfS7459Y3DCkw58ZQno7BD9VJa5GnTL1rcKRACqERMVDs7qjVMW+JlLUZcT5DB2/GF5uvu0KsudEcA==}
+    dependencies:
+      '@ucast/mongo2js': 1.3.3
+    dev: false
 
   /@cypress/request/2.88.10:
     resolution: {integrity: sha512-Zp7F+R93N0yZyG34GutyTNr+okam7s/Fzc1+i3kcqOP8vk6OuajuE9qZJ6Rs+10/1JFtXFYMdyarnU1rZuJesg==}
@@ -5542,6 +5550,30 @@ packages:
       '@typescript-eslint/types': 5.17.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@ucast/core/1.10.1:
+    resolution: {integrity: sha512-sXKbvQiagjFh2JCpaHUa64P4UdJbOxYeC5xiZFn8y6iYdb0WkismduE+RmiJrIjw/eLDYmIEXiQeIYYowmkcAw==}
+    dev: false
+
+  /@ucast/js/3.0.2:
+    resolution: {integrity: sha512-zxNkdIPVvqJjHI7D/iK8Aai1+59yqU+N7bpHFodVmiTN7ukeNiGGpNmmSjQgsUw7eNcEBnPrZHNzp5UBxwmaPw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo/2.4.2:
+    resolution: {integrity: sha512-/zH1TdBJlYGKKD+Wh0oyD+aBvDSWrwHcD8b4tUL9UgHLhzHtkEnMVFuxbw3SRIRsAa01wmy06+LWt+WoZdj1Bw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+    dev: false
+
+  /@ucast/mongo2js/1.3.3:
+    resolution: {integrity: sha512-sBPtMUYg+hRnYeVYKL+ATm8FaRPdlU9PijMhGYKgsPGjV9J4Ks41ytIjGayvKUnBOEhiCaKUUnY4qPeifdqATw==}
+    dependencies:
+      '@ucast/core': 1.10.1
+      '@ucast/js': 3.0.2
+      '@ucast/mongo': 2.4.2
+    dev: false
 
   /@use-gesture/core/10.2.11:
     resolution: {integrity: sha512-5YeVrT9prf9UeaAO+2fIuiKdZ01uVBvVsjG79berGZPTHVkz01eFX2ODWJG05uQTqmRw6olz1J80yt6qcGPdvA==}
