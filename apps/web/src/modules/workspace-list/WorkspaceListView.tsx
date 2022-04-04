@@ -9,11 +9,9 @@ import { AddWorkspaceButton } from './AddWorkspaceButton'
 import SimpleLoader from '../loader/SimpleLoader'
 
 export const WorkspaceListView = () => {
-  const { data, loading } = useWorkspaceListQuery({
-    variables: { userId: 1 },
-  })
+  const { data, loading } = useWorkspaceListQuery()
 
-  const workspaces = data?.user?.workspaces
+  const { workspaces = [] } = data?.me ?? {}
 
   return (
     <div tw="bg-gray-50 min-h-screen py-4">

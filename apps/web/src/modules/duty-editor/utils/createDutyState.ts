@@ -9,7 +9,11 @@ export function createDutyState(day: InputDay | null): Duty[] {
   if (!day?.agendas) return []
 
   const slots = [...day.agendas].map((s) => s.slot)
-  const high = max(slots) ?? 0
+
+  // Ensure that there are at least 10 slots.
+  const high = Math.max(max(slots) ?? 0, 10)
+
+  console.log('h', high)
 
   return [...Array(high + 2)].map((_, slot): Duty => {
     const agenda = day.agendas?.find((a) => a.slot === slot)
