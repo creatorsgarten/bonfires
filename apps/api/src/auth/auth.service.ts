@@ -1,7 +1,8 @@
 import { compare } from 'bcrypt'
+
 import { User } from '@prisma/client'
 import { JwtService } from '@nestjs/jwt'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 
 import { UserService } from '../user/user.service'
 
@@ -23,6 +24,8 @@ export class AuthService {
   }
 
   async login(user: User) {
+    if (!user.id || !user.email) throw new UnauthorizedException()
+
     return {
       token: this.jwtService.sign({ sub: user.id, email: user.email }),
     }

@@ -1,29 +1,24 @@
-import { UseGuards } from '@nestjs/common'
+import { UnauthorizedException } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
 import { LoginResult } from './auth.model'
 import { AuthService } from './auth.service'
-import { CurrentUser } from './user.decorator'
-import { LocalAuthGuard } from './local.auth.guard'
 
-import { User } from '../models'
-
-import { UserService } from '../user/user.service'
+import { Public } from './public.decorator'
 
 @Resolver()
 export class AuthResolver {
-  constructor(
-    readonly authService: AuthService,
-    readonly userService: UserService
-  ) {}
+  constructor(readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
+  @Public()
   @Mutation(() => LoginResult)
   async loginWithEmail(
     @Args('email') email: string,
-    @Args('password') password: string,
-    @CurrentUser() user: User
+    @Args('password') password: string
   ) {
+    const user = await this.authService.validate(email, password)
+    if (!user) throw new UnauthorizedException()
+
     return this.authService.login(user)
   }
 }
