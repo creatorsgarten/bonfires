@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://localhost:3333/api/graphql'
+schema: ${SCHEMA_URL:http://localhost:3333/api/graphql}
 documents: 'apps/web/src/**/*.gql'
 generates:
   libs/core/src/codegen.ts:
