@@ -1,12 +1,12 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 
-import { ID, Duty } from '../models'
-
 import { DutyService } from './duties.service'
+import { EditDutyBySlotDto } from './duties.dto'
+
+import { ID, Duty } from '../models'
 
 import { DutyCreateInput } from '../generated/duty/duty-create.input'
 import { DutyUpdateInput } from '../generated/duty/duty-update.input'
-import { EditDutyBySlotDto } from './duties.dto'
 
 @Resolver(() => Duty)
 export class DutyResolver {

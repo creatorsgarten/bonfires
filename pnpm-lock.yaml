@@ -67,6 +67,7 @@ specifiers:
   '@typescript-eslint/parser': 5.17.0
   '@use-gesture/react': ^10.2.11
   apollo-server-core: ^3.6.7
+  apollo-server-fastify: ^3.6.7
   autoprefixer: ^10.4.4
   babel-jest: 27.5.1
   babel-loader: ^8.2.4
@@ -86,6 +87,7 @@ specifiers:
   eslint-plugin-react: 7.29.4
   eslint-plugin-react-hooks: 4.4.0
   fastify: ^3.27.4
+  fastify-swagger: ^5.1.0
   graphql: ^16.3.0
   graphql-redis-subscriptions: ^2.4.2
   graphql-tag: ^2.12.6
@@ -122,7 +124,7 @@ specifiers:
   ts-jest: 27.1.4
   tslib: ^2.0.0
   twin.macro: ^2.8.2
-  typescript: ^4.6.3
+  typescript: ^4
   uuid: ^8.3.2
   webpack: ^5.70.0
 
@@ -140,24 +142,26 @@ dependencies:
   '@n1ru4l/in-memory-live-query-store': 0.9.0_graphql@16.3.0
   '@n1ru4l/push-pull-async-iterable-iterator': 3.2.0
   '@n1ru4l/socket-io-graphql-client': 0.11.1_socket.io-client@4.4.1
-  '@nestjs/apollo': 10.0.8_fae626f439cd37275cd58f3df4e8d24f
+  '@nestjs/apollo': 10.0.8_ef3ec1780cea621b2ecbc6fbb7434f82
   '@nestjs/common': 8.4.3_5199533202e21c7185c9d97f881e2827
   '@nestjs/core': 8.4.3_00edab75de3d00160109b98add317aa9
   '@nestjs/graphql': 10.0.8_cc5d701b001b5bfb81bd98c99973e3d8
   '@nestjs/jwt': 8.0.0_@nestjs+common@8.4.3
   '@nestjs/passport': 8.2.1_bdc4c6d4e53181e1a525c1b5bd912ba2
   '@nestjs/platform-fastify': 8.4.3_2da8a9968be4406723e870d9d23c8df0
-  '@nestjs/swagger': 5.2.1_54c4790080b388699eaf900b734f3ee2
+  '@nestjs/swagger': 5.2.1_3355817c6a028d8eed0197cb4c1b8d4c
   '@notionhq/client': 1.0.4
   '@nrwl/next': 13.9.5_30cda057f986f4f483f6192e66af1c3b
   '@prisma/client': 3.11.1_prisma@3.11.1
   '@react-spring/web': 9.4.4_react-dom@18.0.0+react@18.0.0
   '@use-gesture/react': 10.2.11_react@18.0.0
   apollo-server-core: 3.6.7_graphql@16.3.0
+  apollo-server-fastify: 3.6.7_fastify@3.27.4+graphql@16.3.0
   bcrypt: 5.0.1
   color-hash: 2.0.1
   color2k: 2.0.0
   fastify: 3.27.4
+  fastify-swagger: 5.1.0
   graphql-redis-subscriptions: 2.4.2
   graphql-tag: 2.12.6_graphql@16.3.0
   graphql-ws: 5.6.4_graphql@16.3.0
@@ -246,7 +250,7 @@ devDependencies:
   postcss: 8.4.12
   prettier: 2.6.1
   prisma: 3.11.1
-  prisma-nestjs-graphql: 15.2.0_fae626f439cd37275cd58f3df4e8d24f
+  prisma-nestjs-graphql: 15.2.0_ef3ec1780cea621b2ecbc6fbb7434f82
   react-test-renderer: 18.0.0_react@18.0.0
   tailwindcss: 3.0.23_autoprefixer@10.4.4
   ts-jest: 27.1.4_0c360527180490882f5abe560fb509f8
@@ -2940,7 +2944,7 @@ packages:
       socket.io-client: 4.4.1
     dev: false
 
-  /@nestjs/apollo/10.0.8_fae626f439cd37275cd58f3df4e8d24f:
+  /@nestjs/apollo/10.0.8_ef3ec1780cea621b2ecbc6fbb7434f82:
     resolution: {integrity: sha512-AlJn+UJpyXju1YUWEw4u+K24fulh66MZDHXH4Lk5ak5Nb3FFXUsODepcflMbcjkaIFLezt4DC3FlrZQ+wjFIBA==}
     peerDependencies:
       '@apollo/gateway': ^0.44.1 || ^0.46.0 || ^0.48.0
@@ -2964,6 +2968,7 @@ packages:
       '@nestjs/core': 8.4.3_00edab75de3d00160109b98add317aa9
       '@nestjs/graphql': 10.0.8_cc5d701b001b5bfb81bd98c99973e3d8
       apollo-server-core: 3.6.7_graphql@16.3.0
+      apollo-server-fastify: 3.6.7_fastify@3.27.4+graphql@16.3.0
       iterall: 1.3.0
       lodash.omit: 4.5.0
       tslib: 2.3.1
@@ -3141,7 +3146,7 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/swagger/5.2.1_54c4790080b388699eaf900b734f3ee2:
+  /@nestjs/swagger/5.2.1_3355817c6a028d8eed0197cb4c1b8d4c:
     resolution: {integrity: sha512-7dNa08WCnTsW/oAk3Ujde+z64JMfNm19DhpXasFR8oJp/9pggYAbYU927HpA+GJsSFJX6adjIRZsCKUqaGWznw==}
     peerDependencies:
       '@nestjs/common': ^8.0.0
@@ -3158,6 +3163,7 @@ packages:
       '@nestjs/common': 8.4.3_5199533202e21c7185c9d97f881e2827
       '@nestjs/core': 8.4.3_00edab75de3d00160109b98add317aa9
       '@nestjs/mapped-types': 1.0.1_d8d8a930f4ff3c017ccc0319fdb79137
+      fastify-swagger: 5.1.0
       lodash: 4.17.21
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.13
@@ -5917,6 +5923,23 @@ packages:
       graphql: 16.3.0
     dev: false
 
+  /apollo-server-fastify/3.6.7_fastify@3.27.4+graphql@16.3.0:
+    resolution: {integrity: sha512-2SYy5FChtNS1CrHGkOlTqOos0AtXGYKRUn43DGoXSPN6fqYGyRALx9g1xkwpRgpJTW4O/c4+/LWhTHVhotLr6w==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      fastify: ^3.17.0
+      graphql: ^15.3.0 || ^16.0.0
+    dependencies:
+      apollo-server-core: 3.6.7_graphql@16.3.0
+      apollo-server-types: 3.5.2_graphql@16.3.0
+      fastify: 3.27.4
+      fastify-accepts: 2.2.0
+      fastify-cors: 6.0.3
+      graphql: 16.3.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /apollo-server-plugin-base/3.5.2_graphql@16.3.0:
     resolution: {integrity: sha512-SwIf1waDmNDb0kmn57QR++InwK6Iv/X2slpm/aFIoqFBe91r6uJfakJvQZuh8dLEgk68gxqFsT8zHRpxBclE+g==}
     engines: {node: '>=12.0'}
@@ -5982,7 +6005,6 @@ packages:
 
   /argparse/2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-    dev: true
 
   /aria-query/4.2.2:
     resolution: {integrity: sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA==}
@@ -7756,6 +7778,11 @@ packages:
     resolution: {integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=}
     engines: {node: '>= 0.8'}
 
+  /encoding-negotiator/2.0.1:
+    resolution: {integrity: sha512-GSK7qphNR4iPcejfAlZxKDoz3xMhnspwImK+Af5WhePS9jUpK/Oh7rUdyENWu+9rgDflOCTmAojBsgsvM8neAQ==}
+    engines: {node: '>=10.13.0'}
+    dev: false
+
   /end-of-stream/1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
     dependencies:
@@ -8494,6 +8521,14 @@ packages:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
     dev: false
 
+  /fastify-accepts/2.2.0:
+    resolution: {integrity: sha512-g8gmjMbuFvVQNTtxf1nGPJexg7tkH8pOLKn+MqeKuI2W17wd6G2ypZK6SItleKtTUXXsbaTlDgl3qbacnlsURg==}
+    engines: {node: '>=10'}
+    dependencies:
+      accepts: 1.3.8
+      fastify-plugin: 3.0.1
+    dev: false
+
   /fastify-cors/6.0.3:
     resolution: {integrity: sha512-fMbXubKKyBHHCfSBtsCi3+7VyVRdhJQmGes5gM+eGKkRErCdm0NaYO0ozd31BQBL1ycoTIjbqOZhJo4RTF/Vlg==}
     dependencies:
@@ -8513,6 +8548,30 @@ packages:
 
   /fastify-plugin/3.0.1:
     resolution: {integrity: sha512-qKcDXmuZadJqdTm6vlCqioEbyewF60b/0LOFCcYN1B6BIZGlYJumWWOYs70SFYLDAH4YqdE1cxH/RKMG7rFxgA==}
+    dev: false
+
+  /fastify-static/4.6.1:
+    resolution: {integrity: sha512-vy7N28U4AMhuOim12ZZWHulEE6OQKtzZbHgiB8Zj4llUuUQXPka0WHAQI3njm1jTCx4W6fixUHfpITxweMtAIA==}
+    dependencies:
+      content-disposition: 0.5.4
+      encoding-negotiator: 2.0.1
+      fastify-plugin: 3.0.1
+      glob: 7.2.0
+      p-limit: 3.1.0
+      readable-stream: 3.6.0
+      send: 0.17.2
+    dev: false
+
+  /fastify-swagger/5.1.0:
+    resolution: {integrity: sha512-blV4vhuGXrFXo7+yR287D0v4gSxicgOQzfMTWS9nbjA2wIaf+/sxHEmaLUphnKilj3siURb9Bx69gy1eomv8Ng==}
+    dependencies:
+      fastify-plugin: 3.0.1
+      fastify-static: 4.6.1
+      js-yaml: 4.1.0
+      json-schema-resolver: 1.3.0
+      openapi-types: 10.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /fastify/3.27.4:
@@ -10818,7 +10877,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /jsbn/0.1.1:
     resolution: {integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=}
@@ -10883,6 +10941,17 @@ packages:
 
   /json-parse-even-better-errors/2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
+
+  /json-schema-resolver/1.3.0:
+    resolution: {integrity: sha512-EX7W1r8aZ/T3j8GbbBxPXi60bnsELfT90OiA1QrbGMvwzVSbyMNOAzvMFcFb8m7gKCXZLJpGe+cJOvWgoFl29A==}
+    engines: {node: '>=10'}
+    dependencies:
+      debug: 4.3.4
+      rfdc: 1.3.0
+      uri-js: 4.4.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -11928,6 +11997,10 @@ packages:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
+  /openapi-types/10.0.0:
+    resolution: {integrity: sha512-Y8xOCT2eiKGYDzMW9R4x5cmfc3vGaaI4EL2pwhDmodWw1HlK18YcZ4uJxc7Rdp7/gGzAygzH9SXr6GKYIXbRcQ==}
+    dev: false
+
   /opener/1.5.2:
     resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==}
     hasBin: true
@@ -12804,11 +12877,11 @@ packages:
     resolution: {integrity: sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=}
     engines: {node: '>= 0.8'}
 
-  /prisma-nestjs-graphql/15.2.0_fae626f439cd37275cd58f3df4e8d24f:
+  /prisma-nestjs-graphql/15.2.0_ef3ec1780cea621b2ecbc6fbb7434f82:
     resolution: {integrity: sha512-spHm4nhOrH9HLO+haaaDOOKxPAufZGCbfmcAZAT2hOS1pepsKF9DhSwbNPIsO0bhcruw+aAGVXp9YwU71wM6+A==}
     hasBin: true
     dependencies:
-      '@nestjs/apollo': 10.0.8_fae626f439cd37275cd58f3df4e8d24f
+      '@nestjs/apollo': 10.0.8_ef3ec1780cea621b2ecbc6fbb7434f82
       '@prisma/generator-helper': 3.11.1
       await-event-emitter: 2.0.2
       filenamify: 4.3.0
