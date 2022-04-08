@@ -28,8 +28,10 @@ async function bootstrap() {
   // Handle Prisma's shutdown event
   app.get(PrismaService).enableShutdownHooks(app)
 
+  const host = process.env.HOST || '0.0.0.0'
   const port = process.env.PORT || 3333
-  await app.listen(port)
+
+  await app.listen(port, host)
 
   Logger.log(`🚀 Application is running on: http://localhost:${port}/${prefix}`)
 }

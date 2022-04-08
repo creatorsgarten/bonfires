@@ -1,5 +1,8 @@
 FROM node:gallium AS builder
 
+ENV HOST "0.0.0.0"
+ENV PORT 3333
+
 WORKDIR /opt/app
 
 RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
@@ -22,7 +25,6 @@ RUN pnpm nx build api
 # # Production layer
 # FROM node:gallium AS production
 
-# ENV PORT 3333
 # WORKDIR /opt/app
 
 # RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
@@ -35,4 +37,5 @@ RUN pnpm nx build api
 # COPY --from=builder /opt/app/dist/node_modules/ ./
 
 EXPOSE $PORT
+
 CMD [ "node", "./dist/apps/api/main.js" ]
