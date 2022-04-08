@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 
@@ -25,6 +26,10 @@ import { GraphQLConfigService } from '../graphql/graphql.service'
     AgendaModule,
     StaffsModule,
     WorkspacesModule,
+
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [DataModule, UserModule],
