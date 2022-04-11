@@ -129,6 +129,13 @@ model Role {
   // Type of the role, such as MC (Manager), OD (Director) and staff.
   type RoleType
 
+  // Which events are this role present in?
+  events Event[]
+
+  // Which days are this role present in?
+  // Some MC are only active in certain days (e.g. activities and all camps)
+  days Day[]
+
   // The MC may be in charge of multiple duties throughout the day.
   duties Duty[]
 
@@ -138,9 +145,6 @@ model Role {
   // Multiple staffs can share the same role.
   // For example, there can be multiple ODs for a day.
   staffs Staff[]
-
-  // Which days are this role present in?
-  days Day[]
 
   // A role can be assigned to a squad.
   // For example, MC Food belongs to the "Food" squad.
@@ -335,6 +339,9 @@ model Event {
 
   // Icon to associate with this workspace.
   icon String?
+
+  // List of the directors, managers and supporting positions in the event.
+  roles Role[]
 
   // An event may have multiple days, such as a conference or bootcamp.
   // A day may contain the duties, agendas and directors for that particular day.
