@@ -2,6 +2,10 @@ module.exports = {
   purge: [],
   darkMode: 'media',
   theme: {
+    fontFamily: {
+      display: ['Inter', 'IBM Plex Sans Thai'],
+      body: ['Inter', 'IBM Plex Sans Thai'],
+    },
     extend: {
       colors: {
         neonblue: {

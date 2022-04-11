@@ -13,6 +13,7 @@ import { useTimeSlot } from '../../hooks/useTimeSlot'
 
 import { Debug } from '../ui/Debug'
 import { ReplayControl } from '../replay/ReplayControl'
+import { ReassignDutyDialog } from '../dialog-reassign-duty'
 
 import { dayAtom } from '../store/day.atom'
 
@@ -28,7 +29,9 @@ export const DutyView = () => {
 
   return (
     <div tw="flex min-h-screen font-semibold text-white text-center break-all bg-[#2C3D50]">
-      <div tw="flex justify-center flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6">
+      <div tw="flex justify-center flex-col mx-auto w-full xs:max-w-lg px-4 sm:px-10 space-y-4 my-6 overflow-scroll">
+        <ReassignDutyDialog />
+
         <TimeIndicator {...timeslot} />
 
         <AgendaCard slot={slot} agendas={today?.agendas ?? []} />

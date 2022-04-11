@@ -14,7 +14,15 @@ interface Props {
 
 const Circle = tw.div`flex items-center justify-center text-center bg-gray-700 w-7 h-7 rounded-full shadow-2xl border-white border-2 border-solid bg-cover`
 
-const Avatar = ({ assignee }: { assignee: Assignee }) => {
+interface AvatarProps {
+  assignee: Assignee
+  className?: string
+  onClick?(): void
+}
+
+export const Avatar = (props: AvatarProps) => {
+  const { assignee, ...rest } = props
+
   const photo = assignee.user.photo
   const title = assignee.displayName ?? assignee.user.displayName ?? 'Staff'
 
@@ -22,13 +30,19 @@ const Avatar = ({ assignee }: { assignee: Assignee }) => {
     const background = colorHash.hex(assignee.user.id)
 
     return (
-      <Circle title={title} style={{ background }}>
+      <Circle title={title} style={{ background }} {...rest}>
         {title.substring(0, 2)}
       </Circle>
     )
   }
 
-  return <Circle title={title} style={{ backgroundImage: `url(${photo})` }} />
+  return (
+    <Circle
+      title={title}
+      style={{ backgroundImage: `url(${photo})` }}
+      {...rest}
+    />
+  )
 }
 
 export const AssigneeAvatars = ({ assignees }: Props) => {

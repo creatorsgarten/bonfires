@@ -16,14 +16,19 @@ const right = {
 }
 
 const CIRCLE = 50
-const DRAG_MAX = 150
+const DRAG_MAX = 100
+const DRAG_THRESHOLD = DRAG_MAX - 10
 
 interface Props {
-  decoration: React.ReactChild
+  onSwipeLeft?(): void
+  onSwipeRight?(): void
+
+  children: React.ReactNode
+  decoration: React.ReactNode
 }
 
-export const SwipeableCard: React.FC<Props> = (props) => {
-  const { decoration, children } = props
+export const SwipeableCard = (props: Props) => {
+  const { onSwipeLeft, onSwipeRight, decoration, children } = props
 
   const [{ x, bg, scale, justifySelf }, api] = useSpring(() => ({
     x: 0,
@@ -31,14 +36,25 @@ export const SwipeableCard: React.FC<Props> = (props) => {
     ...left,
   }))
 
-  const bind = useDrag(({ active, movement: [x] }) => {
-    api.start({
-      x: active ? clamp(x, -DRAG_MAX, DRAG_MAX) : 0,
-      scale: active ? 1.1 : 1,
-      ...(x < 0 ? left : right),
-      immediate: (name) => active && name === 'x',
-    })
-  })
+  const bind = useDrag(
+    ({ active, movement: [x], last }) => {
+      api.start({
+        x: active ? clamp(x, -DRAG_MAX, DRAG_MAX) : 0,
+        scale: active ? 1.1 : 1,
+        ...(x < 0 ? left : right),
+        immediate: (name) => active && name === 'x',
+      })
+
+      if (last) {
+        if (x < -DRAG_THRESHOLD) {
+          onSwipeLeft?.()
+        } else if (x > DRAG_THRESHOLD) {
+          onSwipeRight?.()
+        }
+      }
+    },
+    { axis: 'x' }
+  )
 
   const circleScale = x.to({
     map: Math.abs,
