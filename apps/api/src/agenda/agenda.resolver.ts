@@ -13,4 +13,11 @@ export class AgendaResolver {
   async updateAgendaBySlot(@Args('input') input: EditAgendaBySlotDto) {
     return this.agendaService.updateBySlot(input)
   }
+
+  @Mutation(() => Boolean)
+  async shiftAgenda(@Args('slot') slot: number, @Args('dayId') dayId: number) {
+    await this.agendaService.shiftAgenda(slot, dayId)
+
+    return true
+  }
 }
