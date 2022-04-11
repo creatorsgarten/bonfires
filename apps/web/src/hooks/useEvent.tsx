@@ -10,6 +10,7 @@ export function useEvent({ owned = false } = {}) {
   const { data, loading } = useEventQuery({
     skip: !eventId,
     variables: { eventId, owned },
+    pollInterval: 2000,
   })
 
   const event = data?.event
