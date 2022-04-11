@@ -64,7 +64,7 @@ export const ReassignDutyDialog = () => {
                 <div key={a.id} tw="relative" onClick={() => select(a.id)}>
                   <Avatar
                     assignee={a}
-                    tw="w-10 h-10 xs:w-14 xs:h-14 shadow-2xl border-gray-50 border-4 cursor-pointer"
+                    tw="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 shadow-2xl border-gray-50 border-4 cursor-pointer"
                   />
 
                   {selected?.[a.id] && (
