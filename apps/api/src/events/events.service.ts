@@ -7,7 +7,10 @@ export class EventsService {
   constructor(readonly db: PrismaService) {}
 
   async get(id: number) {
-    return this.db.event.findUnique({ where: { id } })
+    return this.db.event.findUnique({
+      where: { id },
+      include: { roles: { orderBy: { type: 'desc' } } },
+    })
   }
 
   async findByWorkspace(workspaceId: number) {
