@@ -4,7 +4,12 @@ import { useAtom } from 'jotai'
 import { Dialog } from '@headlessui/react'
 
 import { Avatar } from '../duty-card/AssigneeAvatar'
-import { reassignDutyDialogOpen } from '../duty-card/duty-dialog.atom'
+import {
+  reassignDutyDialogOpen,
+  selectedDutyAssigneeAtom,
+} from '../duty-card/duty-dialog.atom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useMemo } from 'react'
 
 const mock = () =>
   [...Array(5)].map((_, id) => ({
@@ -16,12 +21,21 @@ const mock = () =>
     },
   }))
 
-const Button = tw.button`flex border-none px-3 py-2 bg-purple-500 hover:bg-purple-600 text-white shadow-2xl relative cursor-pointer font-body text-center justify-center items-center`
+const Button = tw.button`flex border-none px-3 py-2 bg-gray-800 text-white shadow-2xl relative cursor-pointer font-body text-center justify-center items-center`
 
 export const ReassignDutyDialog = () => {
   const [isOpen, setOpen] = useAtom(reassignDutyDialogOpen)
 
+  const [selected, setSelected] = useAtom(selectedDutyAssigneeAtom)
+
+  const hasSelection = useMemo(() => {
+    return Object.values(selected).filter((x) => x).length > 0
+  }, [selected])
+
   const close = () => setOpen(false)
+
+  const select = (id: string) =>
+    setSelected({ ...selected, [id]: !selected[id] })
 
   if (!isOpen) return null
 
@@ -47,26 +61,55 @@ export const ReassignDutyDialog = () => {
 
             <div tw="flex flex-wrap space-x-2 items-center justify-center">
               {mock().map((a) => (
-                <Avatar
-                  key={a.id}
-                  assignee={a}
-                  tw="w-10 h-10 xs:w-14 xs:h-14 shadow-2xl border-gray-50 border-4 cursor-pointer"
-                  onClick={close}
-                />
+                <div key={a.id} tw="relative" onClick={() => select(a.id)}>
+                  <Avatar
+                    assignee={a}
+                    tw="w-10 h-10 xs:w-14 xs:h-14 shadow-2xl border-gray-50 border-4 cursor-pointer"
+                  />
+
+                  {selected?.[a.id] && (
+                    <div tw="bg-purple-500 border-purple-900 border-4 border-solid absolute w-full h-full top-0 left-0 rounded-full flex items-center justify-center opacity-90">
+                      <FontAwesomeIcon
+                        icon="check"
+                        tw="text-white xs:text-3xl"
+                      />
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
+
+            {!hasSelection && (
+              <p tw="text-xs text-gray-500">
+                คุณสามารถกดที่รูปเพิ่มเลือกสตาฟที่จะให้มารับงานได้
+                หรือสามารถกดเปิดรับงานเพื่อประกาศหาคนมารับงาน
+              </p>
+            )}
           </div>
 
           <div tw="flex w-full rounded-b-2xl">
-            <Button tw="font-bold w-full rounded-bl-2xl" onClick={close}>
-              เลือก
-            </Button>
+            {hasSelection ? (
+              <Button
+                tw="font-bold w-full rounded-bl-2xl bg-purple-500 hover:bg-purple-600"
+                onClick={close}
+              >
+                เลือกสตาฟ
+              </Button>
+            ) : (
+              <Button
+                tw="font-bold w-full rounded-bl-2xl bg-blue-500 hover:bg-blue-600"
+                onClick={close}
+              >
+                เปิดรับงาน
+              </Button>
+            )}
 
             <Button
-              tw="bg-blue-500 hover:bg-blue-600 w-full rounded-br-2xl"
+              tw="bg-gray-600 hover:bg-gray-700 w-full rounded-br-2xl"
               onClick={close}
+              {...(!hasSelection && { tw: 'bg-red-500' })}
             >
-              เปิดรับงาน
+              ปิด
             </Button>
           </div>
         </div>
