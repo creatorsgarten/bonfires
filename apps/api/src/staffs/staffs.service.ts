@@ -9,7 +9,7 @@ export class StaffsService {
   async findByEvent(eventId: number) {
     return this.db.staff.findMany({
       where: { eventId },
-      include: { roles: true },
+      include: { roles: { orderBy: { type: 'desc' } } },
     })
   }
 
@@ -18,10 +18,11 @@ export class StaffsService {
       where: { userId_eventId: { userId, eventId } },
 
       include: {
-        roles: true,
         user: true,
         duties: true,
         tasks: true,
+
+        roles: { orderBy: { type: 'desc' } },
       },
     })
   }
