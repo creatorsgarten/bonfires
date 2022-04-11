@@ -20,6 +20,7 @@ specifiers:
   '@graphql-codegen/typescript-operations': 2.3.5
   '@graphql-codegen/typescript-react-apollo': 3.2.11
   '@graphql-codegen/typescript-resolvers': 2.6.1
+  '@headlessui/react': ^1.5.0
   '@n1ru4l/graphql-live-query': ^0.9.0
   '@n1ru4l/graphql-live-query-patch-json-patch': ^0.6.1
   '@n1ru4l/in-memory-live-query-store': ^0.9.0
@@ -137,6 +138,7 @@ dependencies:
   '@fortawesome/fontawesome-svg-core': 6.1.1
   '@fortawesome/free-solid-svg-icons': 6.1.1
   '@fortawesome/react-fontawesome': 0.1.18_02c9bb727bd1fb5f0c396f6c2f700a1d
+  '@headlessui/react': 1.5.0_react-dom@18.0.0+react@18.0.0
   '@n1ru4l/graphql-live-query': 0.9.0_graphql@16.3.0
   '@n1ru4l/graphql-live-query-patch-json-patch': 0.6.1_graphql@16.3.0
   '@n1ru4l/in-memory-live-query-store': 0.9.0_graphql@16.3.0
@@ -2348,6 +2350,17 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.3.0
+    dev: false
+
+  /@headlessui/react/1.5.0_react-dom@18.0.0+react@18.0.0:
+    resolution: {integrity: sha512-aaRnYxBb3MU2FNJf3Ut9RMTUqqU3as0aI1lQhgo2n9Fa67wRu14iOGqx93xB+uMNVfNwZ5B3y/Ndm7qZGuFeMQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
     dev: false
 
   /@humanwhocodes/config-array/0.9.5:

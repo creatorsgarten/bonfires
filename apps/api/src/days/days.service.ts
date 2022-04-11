@@ -24,7 +24,7 @@ export class DaysService {
       where: { eventId },
       include: {
         roles: { orderBy: { type: 'desc' } },
-        agendas: true,
+        agendas: { orderBy: { slot: 'asc' } },
 
         duties: {
           orderBy: { slot: 'asc' },
