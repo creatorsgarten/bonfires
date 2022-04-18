@@ -13,7 +13,7 @@ jobs:
         name: Check out code
       - uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: phoomparin/eventkit-api:latest
+          image: phoomparin/eventkit-api
           registry: asia.gcr.io
           username: _json_key
           password: ${{ secrets.GCR_SERVICE_ACCOUNT }}
