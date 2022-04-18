@@ -30,18 +30,22 @@ ENV PORT 3333
 ENV PRISMA_VERSION "3.12.0"
 ENV PRISMA_MODULE "/opt/app/node_modules/.pnpm/@prisma+client@${PRISMA_VERSION}_prisma@${PRISMA_VERSION}/node_modules/.prisma/client"
 
-RUN apk add --no-cache curl \
-	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
-	&& chmod +x /bin/pnpm
+RUN apk add --update --no-cache curl python3 make g++ \
+  && curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
+  && chmod +x /bin/pnpm
 
 COPY --from=builder /opt/app/dist/apps/api ./
 
 # Install production dependencies according to the generated package.json
-RUN pnpm install --prod --ignore-scripts --no-optional
+RUN pnpm install --prod --no-optional
+
+# Add runtime dependencies that are not detected by Nx
+RUN pnpm add tslib
 
 COPY --from=builder "$PRISMA_MODULE" "$PRISMA_MODULE"
-
 RUN echo "$PRISMA_MODULE"
+
+# RUN pnpm prisma generate
 
 EXPOSE $PORT
 
