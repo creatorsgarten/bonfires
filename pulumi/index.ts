@@ -8,7 +8,7 @@ const config = new Config()
 const REDIS_URL = config.requireSecret('REDIS_URL')
 const DATABASE_URL = config.requireSecret('DATABASE_URL')
 
-const location = gcp.config.region ?? 'asia-southeast1-a'
+const location = gcp.config.region ?? 'asia-southeast1'
 
 const image =
   'asia-southeast1-docker.pkg.dev/eventkit-dev/eventkit/eventkit-api'
@@ -40,7 +40,7 @@ const apiConfig: gcp.cloudrun.ServiceArgs = {
   traffics: [{ latestRevision: true, percent: 100 }],
 }
 
-const apiService = new cloudrun.Service('eventkit-api', apiConfig, {
+const apiService = new cloudrun.Service('eventkit', apiConfig, {
   dependsOn: enableCloudRun,
 })
 
