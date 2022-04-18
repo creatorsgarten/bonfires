@@ -8,7 +8,7 @@ RUN apk add --update --no-cache curl python3 make g++ \
 
 # Install build dependencies.
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --no-optional --frozen-lockfile --shamefully-hoist
+RUN pnpm install --no-optional --frozen-lockfile
 
 # Copy the sources.
 COPY . .
