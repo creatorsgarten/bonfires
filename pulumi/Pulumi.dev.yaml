@@ -1,3 +1,0 @@
-config:
-  gcp:project: eventkit-dev
-  gcp:region: asia-southeast1-a

@@ -10,7 +10,8 @@ const DATABASE_URL = config.require('DATABASE_URL')
 
 const location = gcp.config.region ?? 'asia-southeast1-a'
 
-const image = 'asia.gcr.io/phoomparin/eventkit-api:latest'
+const image =
+  'asia-southeast1-docker.pkg.dev/eventkit-dev/eventkit/eventkit-api'
 
 const envs = [
   { name: 'DATABASE_URL', value: DATABASE_URL },
