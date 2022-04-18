@@ -1,6 +1,10 @@
-FROM phoomparin/eventkit-base:1.0.0 AS builder
+FROM node:gallium-alpine AS builder
 
 WORKDIR /opt/app
+
+RUN apk add --update --no-cache curl python3 make g++ \
+	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
+	&& chmod +x /bin/pnpm
 
 # Install build dependencies.
 COPY package.json pnpm-lock.yaml ./
@@ -18,7 +22,13 @@ RUN pnpm nx build api --no-cache
 # -------------------------------
 
 # Production layer
-FROM phoomparin/eventkit-base:1.0.0 AS production
+FROM node:gallium-alpine AS production
+
+WORKDIR /opt/app
+
+RUN apk add --update --no-cache curl python3 make g++ \
+	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
+	&& chmod +x /bin/pnpm
 
 WORKDIR /opt/app
 
