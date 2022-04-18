@@ -42,7 +42,7 @@ COPY --from=builder "$PRISMA_MODULE" "$PRISMA_MODULE"
 RUN echo "$PRISMA_MODULE"
 
 # Purge dependencies from the final image.
-RUN apk remove python3 make g++
+RUN apk del python3 make g++
 
 # Expose the API
 EXPOSE $PORT
