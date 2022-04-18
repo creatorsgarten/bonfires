@@ -16,11 +16,10 @@ export const TimeIndicator = (props: Props) => {
   const progressBar = progressToGradient(remaining?.as('seconds') ?? 0)
 
   // Have we started running the queue yet?
-  const isSlotReady = slot !== undefined
-  const isQueueRunning = isSlotReady && slot >= 0
+  const isQueueRunning = slot !== undefined && slot >= 0
 
   // Do we want to show the remaining time indicator?
-  const showRemaining = isSlotReady && slot >= -1
+  const showRemaining = slot !== undefined && slot >= -1
 
   return (
     <Card tw="xs:text-xl sm:text-2xl font-light">
