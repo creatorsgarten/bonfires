@@ -10,13 +10,16 @@ RUN apk add --update --no-cache curl python3 make g++ \
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --no-optional --frozen-lockfile --shamefully-hoist
 
+# Copy the sources.
 COPY . .
 
-# Generates the Prisma types.
+# Generate the Prisma types.
 RUN pnpm prisma generate
 
 # Build into a single bundle.
 RUN pnpm nx build api --no-cache
+
+# -------------------------------
 
 # Production layer
 FROM node:gallium-alpine AS production
@@ -41,11 +44,12 @@ RUN pnpm install --prod --no-optional
 # Add runtime dependencies that are not detected by Nx
 RUN pnpm add tslib
 
+# Copy the generated prisma modules
 COPY --from=builder "$PRISMA_MODULE" "$PRISMA_MODULE"
 RUN echo "$PRISMA_MODULE"
 
-# RUN pnpm prisma generate
-
+# Expose the API
 EXPOSE $PORT
 
+# Start the main API bundle
 CMD [ "node", "./main.js" ]
