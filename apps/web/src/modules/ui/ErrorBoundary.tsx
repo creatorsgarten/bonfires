@@ -1,6 +1,7 @@
 import 'twin.macro'
 
 import { ErrorBoundary as Boundary, FallbackProps } from 'react-error-boundary'
+import React from 'react'
 
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,
@@ -25,6 +26,6 @@ const ErrorFallback: React.FC<FallbackProps> = ({
   )
 }
 
-export const ErrorBoundary: React.FC = ({ children }) => (
+export const ErrorBoundary = ({ children }: { children: React.ReactNode }) => (
   <Boundary FallbackComponent={ErrorFallback}>{children}</Boundary>
 )
