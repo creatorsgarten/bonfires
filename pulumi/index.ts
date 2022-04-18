@@ -5,8 +5,8 @@ const { cloudrun, projects } = gcp
 
 const config = new Config()
 
-const REDIS_URL = config.require('REDIS_URL')
-const DATABASE_URL = config.require('DATABASE_URL')
+const REDIS_URL = config.requireSecret('REDIS_URL')
+const DATABASE_URL = config.requireSecret('DATABASE_URL')
 
 const location = gcp.config.region ?? 'asia-southeast1-a'
 
