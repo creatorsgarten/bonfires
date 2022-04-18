@@ -12,6 +12,8 @@ import { UserService } from './user.service'
 import { ID, User, Workspace } from '../models'
 
 import { AuthUser } from '../auth/user.decorator'
+import { Public } from '../auth/public.decorator'
+
 import { WorkspacesService } from '../workspaces/workspaces.service'
 
 import { UserCreateInput } from '../generated/user/user-create.input'
@@ -23,6 +25,7 @@ export class UserResolver {
     readonly workspaceService: WorkspacesService
   ) {}
 
+  @Public()
   @Mutation(() => User)
   async createUser(@Args('input') input: UserCreateInput) {
     return this.userService.create(input)
