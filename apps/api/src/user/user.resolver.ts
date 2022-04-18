@@ -7,6 +7,8 @@ import {
   ResolveField,
 } from '@nestjs/graphql'
 
+import { SystemRole } from '@prisma/client'
+
 import { UserService } from './user.service'
 
 import { ID, User, Workspace } from '../models'
@@ -28,7 +30,7 @@ export class UserResolver {
   @Public()
   @Mutation(() => User)
   async createUser(@Args('input') input: UserCreateInput) {
-    return this.userService.create(input)
+    return this.userService.create({ ...input, role: SystemRole.Member })
   }
 
   @Query(() => User)
