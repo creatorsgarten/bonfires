@@ -1,0 +1,7 @@
+FROM node:gallium-alpine AS builder
+
+WORKDIR /opt/app
+
+RUN apk add --update --no-cache curl python3 make g++ \
+	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
+	&& chmod +x /bin/pnpm

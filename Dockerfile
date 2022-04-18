@@ -1,10 +1,6 @@
-FROM node:gallium-alpine AS builder
+FROM phoomparin/eventkit-base:1.0.0 AS builder
 
 WORKDIR /opt/app
-
-RUN apk add --update --no-cache curl python3 make g++ \
-	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
-	&& chmod +x /bin/pnpm
 
 # Install build dependencies.
 COPY package.json pnpm-lock.yaml ./
@@ -22,7 +18,7 @@ RUN pnpm nx build api --no-cache
 # -------------------------------
 
 # Production layer
-FROM node:gallium-alpine AS production
+FROM phoomparin/eventkit-base:1.0.0 AS production
 
 WORKDIR /opt/app
 
@@ -32,10 +28,7 @@ ENV PORT 3333
 ENV PRISMA_VERSION "3.12.0"
 ENV PRISMA_MODULE "/opt/app/node_modules/.pnpm/@prisma+client@${PRISMA_VERSION}_prisma@${PRISMA_VERSION}/node_modules/.prisma/client"
 
-RUN apk add --update --no-cache curl python3 make g++ \
-	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
-	&& chmod +x /bin/pnpm
-
+# Copy the built bundle.
 COPY --from=builder /opt/app/dist/apps/api ./
 
 # Install production dependencies according to the generated package.json
