@@ -1,11 +1,10 @@
-FROM node:gallium AS builder
+FROM node:gallium-alpine AS builder
 
 WORKDIR /opt/app
 
-RUN apt update
-RUN apt install -y curl python3 build-essential
-
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+RUN apk add --update --no-cache curl python3 make g++ \
+	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
+	&& chmod +x /bin/pnpm
 
 # Install build dependencies.
 COPY package.json pnpm-lock.yaml ./
@@ -31,8 +30,8 @@ ENV PRISMA_VERSION "3.12.0"
 ENV PRISMA_MODULE "/opt/app/node_modules/.pnpm/@prisma+client@${PRISMA_VERSION}_prisma@${PRISMA_VERSION}/node_modules/.prisma/client"
 
 RUN apk add --update --no-cache curl python3 make g++ \
-  && curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
-  && chmod +x /bin/pnpm
+	&& curl -fsSL 'https://github.com/pnpm/pnpm/releases/download/v6.16.1/pnpm-linuxstatic-x64' -o /bin/pnpm \
+	&& chmod +x /bin/pnpm
 
 COPY --from=builder /opt/app/dist/apps/api ./
 
