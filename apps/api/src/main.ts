@@ -7,7 +7,6 @@ import {
 } from '@nestjs/platform-fastify'
 
 import { AppModule } from './app/app.module'
-import { setupSwagger } from './swagger/swagger.setup'
 import { PrismaService } from './core/prisma.service'
 
 async function bootstrap() {
@@ -21,9 +20,6 @@ async function bootstrap() {
   // Set the global prefix.
   const prefix = 'api'
   app.setGlobalPrefix(prefix)
-
-  // Expose swagger.
-  setupSwagger(app)
 
   // Handle Prisma's shutdown event
   app.get(PrismaService).enableShutdownHooks(app)
