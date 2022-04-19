@@ -21,9 +21,13 @@ export class UserService {
   }
 
   async create(data: Prisma.UserCreateInput): Promise<User> {
-    data.password = await hash(data.password, 10)
+    try {
+      data.password = await hash(data.password, 10)
 
-    return this.db.user.create({ data })
+      return this.db.user.create({ data })
+    } catch (err) {
+      throw new Error(`unable to create the user.`)
+    }
   }
 
   async findByWorkspace(workspaceId: number) {

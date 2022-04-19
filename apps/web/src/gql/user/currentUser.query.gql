@@ -1,0 +1,10 @@
+query currentUser {
+  me {
+    id
+    role
+    email
+    photo
+    username
+    displayName
+  }
+}

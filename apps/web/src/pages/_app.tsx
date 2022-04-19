@@ -7,6 +7,7 @@ import { AppProps } from 'next/app'
 
 import { setupIcon } from '../styles/icon'
 import { apolloClient } from '../modules/apollo'
+import { Layout } from '../modules/layout/Layout'
 import { ErrorBoundary } from '../modules/ui/ErrorBoundary'
 
 import '../styles/reset.css'
@@ -24,7 +25,9 @@ function App({ Component, pageProps }: AppProps) {
                 <title>EventKit Dashboard</title>
               </Head>
 
-              <Component {...pageProps} />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </ApolloProvider>
           </Provider>
         </Suspense>

@@ -31,7 +31,7 @@ const Login = () => {
 
   const [authError, setError] = useState<string | null>(null)
 
-  const [login, result] = useLoginWithEmailMutation()
+  const [login] = useLoginWithEmailMutation()
 
   const onSubmit = async (form: Form) => {
     try {
