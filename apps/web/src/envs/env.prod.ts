@@ -1,4 +1,6 @@
+const endpoint = 'api.eventkit.poom.dev/api/graphql'
+
 export const environment = {
-  gqlEndpoint: '/api/graphql',
-  wsEndpoint: 'https://myendpoint/api/graphql',
+  gqlEndpoint: `https://${endpoint}`,
+  wsEndpoint: `ws://${endpoint}`,
 }
