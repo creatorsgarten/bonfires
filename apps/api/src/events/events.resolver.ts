@@ -31,7 +31,7 @@ export class EventsResolver {
     return this.workspaceService.findOne(event.workspaceId)
   }
 
-  @ResolveField(() => Day)
+  @ResolveField(() => Day, { nullable: true })
   async today(
     @Parent() event: Event,
     @AuthUser() user: AuthUser,
