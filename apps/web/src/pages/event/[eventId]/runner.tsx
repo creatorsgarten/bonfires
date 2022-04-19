@@ -4,8 +4,8 @@ import 'twin.macro'
 
 import { DutyView } from 'apps/web/src/modules/duty-view'
 
-export function EventDashboardPage() {
+export function DutyRunnerRoute() {
   return <DutyView />
 }
 
-export default EventDashboardPage
+export default DutyRunnerRoute

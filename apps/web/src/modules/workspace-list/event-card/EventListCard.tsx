@@ -1,12 +1,13 @@
+import 'twin.macro'
+
 import React from 'react'
-import tw, { styled, css } from 'twin.macro'
-import { truncate } from 'lodash'
 import Link from 'next/link'
+import { truncate } from 'lodash'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core'
 
-import { Tile } from './EventListTile'
+import { Tile } from '../../ui/Tile'
 
 interface Props {
   name: string

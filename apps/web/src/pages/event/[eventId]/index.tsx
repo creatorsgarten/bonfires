@@ -1,13 +1,11 @@
+import React from 'react'
+
 import 'twin.macro'
 
-import { DutyEditor } from '../../../modules/duty-editor'
+import { EventDashboardView } from 'apps/web/src/modules/event-dashboard/EventDashboardView'
 
-const DutyEditorPage = () => {
-  return (
-    <div tw="flex items-center justify-center bg-[#111] min-h-screen">
-      <DutyEditor />
-    </div>
-  )
+export function EventDashboardPage() {
+  return <EventDashboardView />
 }
 
-export default DutyEditorPage
+export default EventDashboardPage
