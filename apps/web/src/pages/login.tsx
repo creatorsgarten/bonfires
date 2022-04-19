@@ -1,13 +1,18 @@
 import tw from 'twin.macro'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import {
+  useCurrentUserQuery,
   useLoginWithEmailMutation,
   LoginWithEmailMutationVariables,
 } from '@gql'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+
+import { routes } from '../utils/routes.constants'
 
 const Input = tw.input`flex border-none rounded-lg h-full text-lg appearance-none overflow-visible bg-transparent text-white w-full placeholder:text-gray-100 font-thin py-3 px-5 bg-[#222]`
 
@@ -32,6 +37,7 @@ const Login = () => {
   const [authError, setError] = useState<string | null>(null)
 
   const [login] = useLoginWithEmailMutation()
+  const currentUserQuery = useCurrentUserQuery()
 
   const onSubmit = async (form: Form) => {
     try {
@@ -42,6 +48,8 @@ const Login = () => {
 
       setError(null)
       localStorage.setItem('token', token)
+
+      currentUserQuery.refetch()
 
       router.push('/')
     } catch (err) {
@@ -79,6 +87,12 @@ const Login = () => {
           >
             Login
           </button>
+
+          <Link href={routes.register} passHref>
+            <a tw="text-center text-green-200 no-underline">
+              or, create an account.
+            </a>
+          </Link>
         </div>
       </form>
     </div>

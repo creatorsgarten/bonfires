@@ -1,14 +1,18 @@
 import tw from 'twin.macro'
 
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { DetailedHTMLProps, InputHTMLAttributes, useState } from 'react'
+
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import {
   useCreateUserMutation,
   useLoginWithEmailMutation,
   UserCreateInput,
 } from '@gql'
+
+import { routes } from '../utils/routes.constants'
 
 const Input = tw.input`flex border-none rounded-lg h-full text-lg appearance-none overflow-visible bg-transparent text-white w-full placeholder:text-gray-100 font-thin py-3 px-5 bg-[#222]`
 const Button = tw.button`bg-green-500 hover:bg-green-600 text-white text-xl appearance-none rounded-lg py-2 border-none cursor-pointer`
@@ -89,6 +93,12 @@ const Register = () => {
           <Field type="password" field="password" placeholder="Password" />
 
           <Button type="submit">Register</Button>
+
+          <Link href={routes.login} passHref>
+            <a tw="text-center text-green-200 no-underline">
+              or, login to existing account
+            </a>
+          </Link>
         </div>
       </form>
     </div>
