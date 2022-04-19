@@ -13,7 +13,7 @@
     "export": "nx export web",
     "test": "nx test",
     "codegen": "graphql-codegen --config codegen.yml",
-    "codegen:production": "env SCHEMA_URL=https://eventkit-ff3b0da-lfx44f5toq-as.a.run.app/api/graphql graphql-codegen --config codegen.yml"
+    "codegen:production": "env SCHEMA_URL=https://api.eventkit.poom.dev/api/graphql graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
