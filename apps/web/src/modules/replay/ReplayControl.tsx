@@ -8,8 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { replayTimeAtom } from './replay.atom'
 
-const Fab = tw.button`flex items-center justify-center w-12 h-12 appearance-none border-none rounded-full bg-pink-500 shadow-2xl cursor-pointer`
-const SmallBtn = tw.button`absolute flex items-center justify-center w-8 h-8 appearance-none border-none rounded-full bg-pink-500 shadow-xl cursor-pointer`
+const Fab = tw.button`flex items-center justify-center w-12 h-12 appearance-none border-none rounded-full bg-green-500 shadow-2xl cursor-pointer`
+const SmallBtn = tw.button`absolute flex items-center justify-center w-8 h-8 appearance-none border-none rounded-full bg-green-500 shadow-xl cursor-pointer`
 
 interface Props {
   starts?: string
@@ -18,10 +18,7 @@ interface Props {
 const duration = 10
 
 export const ReplayControl = (props: Props) => {
-  const router = useRouter()
   const [replayTime, setTime] = useAtom(replayTimeAtom)
-
-  if (router.query.replay !== 'true') return null
 
   const isPlaying = replayTime === false
   const play = () => setTime(isPlaying ? DateTime.now() : false)
