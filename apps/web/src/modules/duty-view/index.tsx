@@ -3,6 +3,8 @@ import 'twin.macro'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 
+import Link from 'next/link'
+
 import { AgendaCard } from './AgendaCard'
 import { TimeIndicator } from './TimeIndicator'
 
@@ -16,6 +18,7 @@ import { ReplayControl } from '../replay/ReplayControl'
 import { ReassignDutyDialog } from '../dialog-reassign-duty'
 
 import { dayAtom } from '../store/day.atom'
+import { routes } from '../../utils/routes.constants'
 
 export const DutyView = () => {
   const { event } = useEvent({ owned: true })
@@ -40,7 +43,15 @@ export const DutyView = () => {
 
         <DutyList duties={today?.duties} slot={slot} />
 
-        <div tw="text-xs text-gray-300">{event?.name}</div>
+        <div>
+          <span tw="text-xs text-gray-300">{event?.name}</span>
+
+          <span> | </span>
+
+          <Link href={routes.duty(event?.id ?? null)}>
+            <a tw="text-green-300 text-xs cursor-pointer">เปิด duty editor</a>
+          </Link>
+        </div>
 
         <Debug data={event} />
         <ReplayControl starts={today?.startsAt} />

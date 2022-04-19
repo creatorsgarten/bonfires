@@ -3,7 +3,11 @@ import 'twin.macro'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 
+import Link from 'next/link'
+
 import { EditableTable } from './EditableTable'
+
+import { dutyAtom } from './atoms/duty.atom'
 
 import { setupEventAtom } from '../store/day.atom'
 import { dutyColumnsAtom, toggleManagedDutyAtom } from './atoms/columns.atom'
@@ -11,7 +15,7 @@ import { dutyColumnsAtom, toggleManagedDutyAtom } from './atoms/columns.atom'
 import { ErrorBoundary } from '../ui/ErrorBoundary'
 
 import { useEvent } from '../../hooks/useEvent'
-import { dutyAtom } from './atoms/duty.atom'
+import { routes } from '../../utils/routes.constants'
 
 /** Edit agenda and duties, and plan out your event operations. */
 export const DutyEditor = () => {
@@ -50,6 +54,12 @@ export const DutyEditor = () => {
         <label tw="text-white text-xs" htmlFor="show-all">
           แสดงแค่งานของคุณ
         </label>
+
+        <span tw="text-white text-xs"> | </span>
+
+        <Link href={routes.runner(event?.id ?? null)}>
+          <a tw="text-green-300 text-xs cursor-pointer">เปิด runner view</a>
+        </Link>
       </div>
     </div>
   )
