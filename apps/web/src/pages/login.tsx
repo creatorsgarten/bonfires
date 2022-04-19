@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <div tw="flex items-center justify-center min-h-screen bg-[#111]">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} method="POST">
         <div tw="flex flex-col mx-auto max-w-lg p-8 rounded-lg space-y-5">
           {authError && (
             <div tw="bg-red-500 text-gray-50 px-4 py-3">{authError}</div>
