@@ -1,0 +1,46 @@
+[event]
+name = "Indie Hacker Meetup"
+type = "meetup"
+
+[when]
+date = 2023-10-15
+start = 18:00:00
+end = 22:00:00
+
+[livestream]
+provider = "streamyard"
+channels = ["facebook_live"]
+
+[eventpop.assets]
+source = "posters"
+
+[[eventpop.tickets]]
+name = "Early Bird"
+amount = 80
+available_at = 2023-10-05T20:00:00
+
+[assets.posters]
+provider = "figma"
+template = "garden_zero"
+formats = ["poster", "square"]
+image_prompt = "a programmer sitting in a campsite writing code"
+heading = "{event.name}"
+# default to edit_required: true, adds an extra step to edit.
+
+[promote.facebook]
+pages = ["Creatorsgarten"]
+text_prompt = "generate a social media post for the following meetup:\n{event.description}"
+# default to edit_required: true, adds an extra step to edit.
+
+[donate.promptpay]
+name = "Phoomparin Mano"
+account = "0812390813"
+
+[forms.call_for_proposal]
+provider = "airtable"
+template = "cfp"
+database = "speakers"
+
+[[agenda]]
+name = "Registration Opens"
+time = 18:30:00
