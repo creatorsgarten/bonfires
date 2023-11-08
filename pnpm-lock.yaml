@@ -24,37 +24,6 @@ importers:
         specifier: latest
         version: 1.10.16
 
-  apps/docs:
-    dependencies:
-      ui:
-        specifier: workspace:*
-        version: link:../../packages/ui
-    devDependencies:
-      '@sveltejs/adapter-auto':
-        specifier: ^2.0.0
-        version: 2.0.0(@sveltejs/kit@1.20.4)
-      '@sveltejs/kit':
-        specifier: ^1.20.4
-        version: 1.20.4(svelte@4.0.5)(vite@4.4.2)
-      eslint:
-        specifier: ^8.28.0
-        version: 8.37.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      prettier:
-        specifier: ^2.8.0
-        version: 2.8.7
-      prettier-plugin-svelte:
-        specifier: ^2.10.1
-        version: 2.10.1(prettier@2.8.7)(svelte@4.0.5)
-      svelte:
-        specifier: ^4.0.5
-        version: 4.0.5
-      vite:
-        specifier: ^4.4.2
-        version: 4.4.2(@types/node@20.8.7)
-
   apps/web:
     dependencies:
       ui:
@@ -474,6 +443,7 @@ packages:
   /@sveltejs/kit@1.20.4(svelte@4.0.5)(vite@4.4.2):
     resolution: {integrity: sha512-MmAzIuMrP7A+8fqDVbxm6ekGHRHL/+Fk8sQPAzPG4G2TxUDtHdn/WcIxeEqHzARMf0OtGSC+VPyOSFuw2Cy2Mg==}
     engines: {node: ^16.14 || >=18}
+    hasBin: true
     requiresBuild: true
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0-next.0
@@ -1195,6 +1165,7 @@ packages:
 
   /eslint-config-prettier@8.8.0(eslint@8.37.0):
     resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
+    hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
     dependencies:
@@ -2058,6 +2029,7 @@ packages:
 
   /svelte-check@3.4.3(svelte@4.0.5):
     resolution: {integrity: sha512-O07soQFY3X0VDt+bcGc6D5naz0cLtjwnmNP9JsEBPVyMemFEqUhL2OdLqvkl5H/u8Jwm50EiAU4BPRn5iin/kg==}
+    hasBin: true
     peerDependencies:
       svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0
     dependencies:
@@ -2358,6 +2330,7 @@ packages:
   /vite@4.4.2(@types/node@20.8.7):
     resolution: {integrity: sha512-zUcsJN+UvdSyHhYa277UHhiJ3iq4hUBwHavOpsNUGsTgjBeoBlK8eDt+iT09pBq0h9/knhG/SPrZiM7cGmg7NA==}
     engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': '>= 14'
       less: '*'
@@ -2404,6 +2377,7 @@ packages:
   /vitest@0.32.2:
     resolution: {integrity: sha512-hU8GNNuQfwuQmqTLfiKcqEhZY72Zxb7nnN07koCUNmntNxbKQnVbeIS6sqUgR3eXSlbOpit8+/gr1KpqoMgWCQ==}
     engines: {node: '>=v14.18.0'}
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@vitest/browser': '*'
