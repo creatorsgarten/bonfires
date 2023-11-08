@@ -1,8 +1,0 @@
-query workspaceList {
-  me {
-    id
-    workspaces {
-      ...workspace
-    }
-  }
-}
